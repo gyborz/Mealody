@@ -18,6 +18,20 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        for case let view in menuStackView.subviews {
+            view.clipsToBounds = true
+            view.layer.cornerRadius = view.frame.height / 2
+            view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+            view.layer.masksToBounds = false
+            view.layer.shadowOffset = CGSize(width: 0, height: 5)
+            view.layer.shadowRadius = 1.5
+            view.layer.shadowColor = UIColor.black.cgColor
+            view.layer.shadowOpacity = 0.3
+        }
+    }
 
 
 }

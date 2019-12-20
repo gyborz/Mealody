@@ -8,11 +8,15 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class HomeViewController: UIViewController {
+    
+    @IBOutlet weak var homeImageView: UIImageView!
+    @IBOutlet weak var menuStackView: UIStackView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
     }
 
 

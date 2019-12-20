@@ -10,7 +10,7 @@
 		58DFAFE622775184963CC022 /* Pods_Mealody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDB52566DCFD3EE90CCD20B /* Pods_Mealody.framework */; };
 		E7BF89A623AA8BBA00F6D152 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF89A523AA8BBA00F6D152 /* AppDelegate.swift */; };
 		E7BF89A823AA8BBA00F6D152 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF89A723AA8BBA00F6D152 /* SceneDelegate.swift */; };
-		E7BF89AA23AA8BBA00F6D152 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF89A923AA8BBA00F6D152 /* ViewController.swift */; };
+		E7BF89AA23AA8BBA00F6D152 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */; };
 		E7BF89AD23AA8BBA00F6D152 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */; };
 		E7BF89B223AA8BC000F6D152 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7BF89B123AA8BC000F6D152 /* Assets.xcassets */; };
 		E7BF89B523AA8BC000F6D152 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7BF89B323AA8BC000F6D152 /* LaunchScreen.storyboard */; };
@@ -23,7 +23,7 @@
 		E7BF89A223AA8BB900F6D152 /* Mealody.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mealody.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7BF89A523AA8BBA00F6D152 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E7BF89A723AA8BBA00F6D152 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E7BF89A923AA8BBA00F6D152 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E7BF89AC23AA8BBA00F6D152 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E7BF89B123AA8BC000F6D152 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E7BF89B423AA8BC000F6D152 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 		E7BF89A423AA8BB900F6D152 /* Mealody */ = {
 			isa = PBXGroup;
 			children = (
-				E7BF89A923AA8BBA00F6D152 /* ViewController.swift */,
+				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
@@ -214,7 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7BF89AA23AA8BBA00F6D152 /* ViewController.swift in Sources */,
+				E7BF89AA23AA8BBA00F6D152 /* HomeViewController.swift in Sources */,
 				E7BF89A623AA8BBA00F6D152 /* AppDelegate.swift in Sources */,
 				E7BF89A823AA8BBA00F6D152 /* SceneDelegate.swift in Sources */,
 			);

@@ -13,7 +13,17 @@ class RandomViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
 
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+extension RandomViewController: UIGestureRecognizerDelegate {
 }

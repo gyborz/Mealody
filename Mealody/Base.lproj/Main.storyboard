@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home" translatesAutoresizingMaskIntoConstraints="NO" id="FNQ-o1-bgp">
-                                <rect key="frame" x="94" y="0.0" width="281" height="324"/>
+                                <rect key="frame" x="94" y="0.0" width="281.00000000000006" height="324"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FNQ-o1-bgp" secondAttribute="height" multiplier="281:324" id="dFc-P3-AP4"/>
                                 </constraints>
@@ -160,7 +160,25 @@
                     <view key="view" contentMode="scaleToFill" id="zHp-RN-RAp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qYs-L3-eHu">
+                                <rect key="frame" x="50" y="268.66666666666669" width="275" height="275.00000000000006"/>
+                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="qYs-L3-eHu" secondAttribute="height" multiplier="1:1" id="Fch-Fo-5FI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="qYs-L3-eHu" firstAttribute="centerY" secondItem="zHp-RN-RAp" secondAttribute="centerY" id="97l-dk-B8F"/>
+                            <constraint firstItem="qYs-L3-eHu" firstAttribute="width" secondItem="zHp-RN-RAp" secondAttribute="width" multiplier="0.733333" id="QGW-yH-enZ"/>
+                            <constraint firstItem="qYs-L3-eHu" firstAttribute="centerX" secondItem="zHp-RN-RAp" secondAttribute="centerX" id="XFr-TK-yEN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Aat-MD-HHJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Random" id="8X0-Ts-Yth">
@@ -171,6 +189,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="randomButton" destination="qYs-L3-eHu" id="XZi-rs-3WK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Jm-ew-afb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -182,7 +203,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2dc-iR-tvi" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="phN-XJ-gje">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

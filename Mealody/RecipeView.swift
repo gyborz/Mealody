@@ -18,7 +18,11 @@ class RecipeView: UIView {
     
     
     func setUpView() {
-        mealLabel.text = "Kentucky Fried Chicken with casarole and stuff"
+        saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
+        saveButton.layer.cornerRadius = saveButton.frame.height / 2
+        saveButton.backgroundColor = .systemOrange
+        
+        mealLabel.text = "Meal Label"
         ingredientsTextView.isScrollEnabled = false
         ingredientsTextView.isUserInteractionEnabled = false
         ingredientsTextView.text = """

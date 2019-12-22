@@ -47,6 +47,13 @@ class RandomViewController: UIViewController {
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func randomButtonPressed(_ sender: UIButton) {
+        let recipeVC = storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+        recipeVC.modalPresentationStyle = .automatic
+        present(recipeVC, animated: true)
+    }
+    
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

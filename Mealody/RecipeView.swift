@@ -12,13 +12,49 @@ class RecipeView: UIView {
     
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var mealLabel: UILabel!
-    @IBOutlet weak var recipeTextView: UITextView!
+    @IBOutlet weak var ingredientsTextView: UITextView!
+    @IBOutlet weak var instructionsTextView: UITextView!
+    @IBOutlet weak var saveButton: UIButton!
     
     
     func setUpView() {
-        recipeTextView.isScrollEnabled = false
-        recipeTextView.isUserInteractionEnabled = false
-        recipeTextView.text = """
+        mealLabel.text = "Kentucky Fried Chicken with casarole and stuff"
+        ingredientsTextView.isScrollEnabled = false
+        ingredientsTextView.isUserInteractionEnabled = false
+        ingredientsTextView.text = """
+        asjdklféasdjfaklsdéfjaldséf
+        asdfjkasdlféajsdkflaésdjfklasédjflasédjfklasdf
+        asdgjfkalsdféajsdkflaésjdfklasdégjfklésdjgkl
+        asdfjkalsdéfjkalsdf
+        asdfjkalsédfj fjkalsdfjaskdl fjaksdlfja kfjsdklaf jsakdlf jasdlk fjalsdéf
+        sdfkaldsfjaksldfj asldkf jlasédf
+        asd
+        fa
+        sd
+        fa
+        sfdasjklfédsajfkladsfjkldsaéfjadkslfjaksdlféjsadgklsadéfjsad
+        f sda
+        f
+        dsa
+        f
+        sadfjaskdlfgéjasdklgaésjdfkladséjfklasdéjfkléasdf sdaf sdf asdf asdf as
+        dfsadfk lsdafj sad jfaklj   k   jkj fjsdkalféjak sldfa
+        sdfjkalsdéfajk sdlfé j
+        dfajsdkflaésdjfklasdéfjkalsdéjgklsfdéagj sad f
+        dsafjklasdéfjaksdlféjaksdlféjasdklféjasdkl gjsdakléfds
+        asdfjkladsjfkalsdéjireoqéghnklfdéajklsdaf
+        sdafjaksdlféjaseiwqéjksdlégsafd
+        fdsajfklasdéfjwieqoréjdsklféjasdf saf
+        sd
+        afjaksdlféjskdaléjewkrlqéjwqléefsda
+        fasdjkflaésdjfk lasjdkl éweqrq
+        sadjfkladséjfioewéqjkdsléajfkléadsaf
+        dsajkflésadf
+        asdfjkaldséfjkla
+        """
+        instructionsTextView.isScrollEnabled = false
+        instructionsTextView.isUserInteractionEnabled = false
+        instructionsTextView.text = """
         asjdklféasdjfaklsdéfjaldséf
         asdfjkasdlféajsdkflaésdjfklasédjflasédjfklasdf
         asdgjfkalsdféajsdkflaésjdfklasdégjfklésdjgkl

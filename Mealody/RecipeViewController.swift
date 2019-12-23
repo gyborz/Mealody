@@ -17,5 +17,13 @@ class RecipeViewController: UIViewController {
         
         recipeView.setUpView()
     }
-
+    
+    @IBAction func saveButtonPressed(_ sender: UIButton) {
+        recipeView.changeSaveButton()
+    }
+    
+    @IBAction func exitButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }

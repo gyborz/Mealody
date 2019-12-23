@@ -252,7 +252,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Thh-jh-EFb">
-                                                <rect key="frame" x="310" y="42" width="40" height="40"/>
+                                                <rect key="frame" x="315" y="42" width="40" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="pnU-ej-iPG"/>
                                                     <constraint firstAttribute="height" constant="40" id="xGo-g2-Eg7"/>
@@ -284,12 +284,12 @@
                                             <constraint firstItem="kLG-ty-7Kt" firstAttribute="top" secondItem="iLb-Lp-rJj" secondAttribute="bottom" constant="5" id="MyS-Wl-igq"/>
                                             <constraint firstAttribute="trailing" secondItem="CyL-dk-BV8" secondAttribute="trailing" constant="10" id="SDy-6o-R3H"/>
                                             <constraint firstItem="kLG-ty-7Kt" firstAttribute="leading" secondItem="QM9-D2-9Wf" secondAttribute="leading" constant="10" id="UI6-oC-ca6"/>
+                                            <constraint firstItem="Thh-jh-EFb" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="I39-GS-eHQ" secondAttribute="trailing" constant="8" symbolic="YES" id="Zpc-n4-ZLY"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="kLG-ty-7Kt" secondAttribute="trailing" constant="20" symbolic="YES" id="aEI-bK-aeb"/>
-                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Thh-jh-EFb" secondAttribute="trailing" constant="20" symbolic="YES" id="eEq-2Q-OEn"/>
+                                            <constraint firstAttribute="trailing" secondItem="Thh-jh-EFb" secondAttribute="trailing" constant="20" id="eEq-2Q-OEn"/>
                                             <constraint firstItem="iLb-Lp-rJj" firstAttribute="top" secondItem="I39-GS-eHQ" secondAttribute="bottom" constant="5" id="mWx-EB-Pof"/>
                                             <constraint firstAttribute="trailing" secondItem="OaS-TC-h6v" secondAttribute="trailing" constant="10" id="pKn-4J-qN7"/>
                                             <constraint firstAttribute="bottom" secondItem="OaS-TC-h6v" secondAttribute="bottom" id="qwT-y0-CGM"/>
-                                            <constraint firstItem="Thh-jh-EFb" firstAttribute="leading" secondItem="I39-GS-eHQ" secondAttribute="trailing" constant="174" id="vQM-0I-h4u"/>
                                             <constraint firstItem="OaS-TC-h6v" firstAttribute="top" secondItem="kLG-ty-7Kt" secondAttribute="bottom" constant="5" id="wVr-kZ-cSj"/>
                                             <constraint firstItem="Thh-jh-EFb" firstAttribute="top" secondItem="CyL-dk-BV8" secondAttribute="bottom" constant="2" id="x3f-V1-njY"/>
                                         </constraints>

@@ -18,6 +18,10 @@ class RecipeView: UIView {
     
     
     func setUpView() {
+        self.clipsToBounds = true
+        self.layer.cornerRadius = 18
+        self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        
         saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
         saveButton.layer.cornerRadius = saveButton.frame.height / 2
         saveButton.backgroundColor = .systemOrange
@@ -26,7 +30,7 @@ class RecipeView: UIView {
         ingredientsTextView.isScrollEnabled = false
         ingredientsTextView.isUserInteractionEnabled = false
         ingredientsTextView.text = """
-        asjdklféasdjfaklsdéfjaldséf
+        asjdklféasdjfaklsdéfjaldséfasdfasdfasdfasdfasdf
         asdfjkasdlféajsdkflaésdjfklasédjflasédjfklasdf
         asdgjfkalsdféajsdkflaésjdfklasdégjfklésdjgkl
         asdfjkalsdéfjkalsdf

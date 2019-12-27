@@ -56,18 +56,20 @@ class RandomViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let meal):
-                    let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-                    recipeVC.modalPresentationStyle = .automatic
-                    recipeVC.meal = meal
-                    self.present(recipeVC, animated: true)
+                    guard let url = URL(string: meal.strMealThumb!) else { return }
+                    ImageService.getImage(withURL: url) { image in
+                        let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+                        recipeVC.modalPresentationStyle = .automatic
+                        recipeVC.meal = meal
+                        recipeVC.image = image
+                        self.present(recipeVC, animated: true)
+                    }
                 case .failure(let error):
                     print(error)
                 }
             }
         }
-        
     }
-    
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true

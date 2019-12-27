@@ -16,6 +16,7 @@
 		E718F22E23B6404D008FB262 /* MealData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E718F22C23B6404D008FB262 /* MealData+CoreDataProperties.swift */; };
 		E740BA5A23AFC37500787918 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BA5923AFC37500787918 /* RecipeViewController.swift */; };
 		E740BA5C23AFC48E00787918 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BA5B23AFC48E00787918 /* RecipeView.swift */; };
+		E76A68C823B693F0008A9919 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A68C723B693F0008A9919 /* ImageService.swift */; };
 		E7B9E38C23AE3463006557EF /* RandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B9E38B23AE3463006557EF /* RandomViewController.swift */; };
 		E7BF89A623AA8BBA00F6D152 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF89A523AA8BBA00F6D152 /* AppDelegate.swift */; };
 		E7BF89A823AA8BBA00F6D152 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF89A723AA8BBA00F6D152 /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 		E718F22C23B6404D008FB262 /* MealData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MealData+CoreDataProperties.swift"; path = "Mealody/Model/MealData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		E740BA5923AFC37500787918 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		E740BA5B23AFC48E00787918 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
+		E76A68C723B693F0008A9919 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E7B9E38B23AE3463006557EF /* RandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewController.swift; sourceTree = "<group>"; };
 		E7BF89A223AA8BB900F6D152 /* Mealody.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mealody.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7BF89A523AA8BBA00F6D152 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
 				E718F23023B6411A008FB262 /* RestManager */,
+				E76A68C723B693F0008A9919 /* ImageService.swift */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				E718F21F23B63273008FB262 /* Meal.swift in Sources */,
 				E718F22123B63612008FB262 /* MealResponse.swift in Sources */,
 				E7B9E38C23AE3463006557EF /* RandomViewController.swift in Sources */,
+				E76A68C823B693F0008A9919 /* ImageService.swift in Sources */,
 				E718F22E23B6404D008FB262 /* MealData+CoreDataProperties.swift in Sources */,
 				E7BF89A623AA8BBA00F6D152 /* AppDelegate.swift in Sources */,
 				E7BF89A823AA8BBA00F6D152 /* SceneDelegate.swift in Sources */,

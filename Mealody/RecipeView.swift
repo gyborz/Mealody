@@ -18,7 +18,7 @@ class RecipeView: UIView {
     @IBOutlet weak var blurView: UIView!
     
     
-    func setUpView(with meal: Meal) {
+    func setUpView(with meal: Meal, and image: UIImage) {
         self.clipsToBounds = true
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -47,7 +47,7 @@ class RecipeView: UIView {
         instructionsTextView.isScrollEnabled = false
         instructionsTextView.isUserInteractionEnabled = false
         
-        
+        mealImageView.image = image
         mealLabel.text = meal.strMeal
         
         let ingredients = getIngredients(from: meal)

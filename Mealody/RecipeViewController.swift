@@ -11,13 +11,14 @@ import UIKit
 class RecipeViewController: UIViewController {
     
     var meal: Meal!
+    var image: UIImage!
     
     @IBOutlet var recipeView: RecipeView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recipeView.setUpView(with: meal)
+        recipeView.setUpView(with: meal, and: image)
     }
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {

@@ -10,6 +10,8 @@ import UIKit
 
 class RandomViewController: UIViewController {
     
+    private let restManager = RestManager()
+    
     @IBOutlet weak var randomButton: UIButton!
 
     override func viewDidLoad() {
@@ -49,9 +51,21 @@ class RandomViewController: UIViewController {
     }
     
     @IBAction func randomButtonPressed(_ sender: UIButton) {
-        let recipeVC = storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-        recipeVC.modalPresentationStyle = .automatic
-        present(recipeVC, animated: true)
+        restManager.getRandomMeal { [weak self] result in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let meal):
+                    let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+                    recipeVC.modalPresentationStyle = .automatic
+                    recipeVC.meal = meal
+                    self.present(recipeVC, animated: true)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+        
     }
     
 

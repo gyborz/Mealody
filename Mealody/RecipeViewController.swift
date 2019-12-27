@@ -10,12 +10,14 @@ import UIKit
 
 class RecipeViewController: UIViewController {
     
+    var meal: Meal!
+    
     @IBOutlet var recipeView: RecipeView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recipeView.setUpView()
+        recipeView.setUpView(with: meal)
     }
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {

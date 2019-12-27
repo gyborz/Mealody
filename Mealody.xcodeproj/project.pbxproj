@@ -10,6 +10,7 @@
 		58DFAFE622775184963CC022 /* Pods_Mealody.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDB52566DCFD3EE90CCD20B /* Pods_Mealody.framework */; };
 		E718F21F23B63273008FB262 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E718F21E23B63273008FB262 /* Meal.swift */; };
 		E718F22123B63612008FB262 /* MealResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E718F22023B63612008FB262 /* MealResponse.swift */; };
+		E718F22323B63695008FB262 /* RestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E718F22223B63695008FB262 /* RestManager.swift */; };
 		E740BA5A23AFC37500787918 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BA5923AFC37500787918 /* RecipeViewController.swift */; };
 		E740BA5C23AFC48E00787918 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BA5B23AFC48E00787918 /* RecipeView.swift */; };
 		E7B9E38C23AE3463006557EF /* RandomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B9E38B23AE3463006557EF /* RandomViewController.swift */; };
@@ -27,6 +28,7 @@
 		14794934AC0315C5970AB2AB /* Pods-Mealody.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mealody.release.xcconfig"; path = "Target Support Files/Pods-Mealody/Pods-Mealody.release.xcconfig"; sourceTree = "<group>"; };
 		E718F21E23B63273008FB262 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		E718F22023B63612008FB262 /* MealResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealResponse.swift; sourceTree = "<group>"; };
+		E718F22223B63695008FB262 /* RestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestManager.swift; sourceTree = "<group>"; };
 		E740BA5923AFC37500787918 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		E740BA5B23AFC48E00787918 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		E7B9E38B23AE3463006557EF /* RandomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				E76E316923AD2AE700187E9B /* Supporting Files */,
 				E718F21E23B63273008FB262 /* Meal.swift */,
 				E718F22023B63612008FB262 /* MealResponse.swift */,
+				E718F22223B63695008FB262 /* RestManager.swift */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E718F22323B63695008FB262 /* RestManager.swift in Sources */,
 				E740BA5C23AFC48E00787918 /* RecipeView.swift in Sources */,
 				E7BF89AA23AA8BBA00F6D152 /* HomeViewController.swift in Sources */,
 				E718F21F23B63273008FB262 /* Meal.swift in Sources */,

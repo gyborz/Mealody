@@ -73,7 +73,7 @@ class RecipeView: UIView {
     private func getIngredients(from meal: Meal) -> [String] {
         var ingredients = [String]()
         let mealMirror = Mirror(reflecting: meal)
-        for (index, attribute) in mealMirror.children.enumerated() {
+        for (_, attribute) in mealMirror.children.enumerated() {
             if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "" {
                 ingredients.append(value)
             }
@@ -84,7 +84,7 @@ class RecipeView: UIView {
     private func getMeasures(from meal: Meal) -> [String] {
         var measures = [String]()
         let mealMirror = Mirror(reflecting: meal)
-        for (index, attribute) in mealMirror.children.enumerated() {
+        for (_, attribute) in mealMirror.children.enumerated() {
             if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "" {
                 measures.append(value)
             }

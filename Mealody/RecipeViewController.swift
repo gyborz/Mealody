@@ -12,6 +12,7 @@ class RecipeViewController: UIViewController {
     
     var meal: Meal!
     var image: UIImage!
+    private let persistenceManager = PersistenceManager.shared
     
     @IBOutlet var recipeView: RecipeView!
     
@@ -23,6 +24,12 @@ class RecipeViewController: UIViewController {
     
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         recipeView.changeSaveButton()
+        
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+            persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
+        } else {
+            // TODO: - error handling
+        }
     }
     
     @IBAction func exitButtonPressed(_ sender: Any) {

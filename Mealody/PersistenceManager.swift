@@ -68,7 +68,44 @@ final class PersistenceManager {
         do {
             try context.save()
         } catch (let error) {
+            // TODO: - error
             print("\(error)\nCouldn't save data")
+        }
+    }
+    
+    func load<T: NSManagedObject>(_ objectType: T.Type) -> [T] {
+        let entityName = String(describing: objectType)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        
+        do {
+            let fetchedObjects = try context.fetch(fetchRequest) as? [T]
+            return fetchedObjects ?? [T]()
+        } catch (let error) {
+            // TODO: - error
+            print("\(error)\nCouldn't fetch data")
+            return [T]()
+        }
+    }
+    
+    func delete(_ object: NSManagedObject) {
+        context.delete(object)
+    }
+    
+    func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, meal: Meal) -> T? {
+        guard let idMeal = meal.idMeal else { return nil }
+        
+        let entityName = String(describing: objectType)
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        let predicate = NSPredicate(format: "idMeal = %@", idMeal)
+        fetchRequest.predicate = predicate
+        
+        do {
+            let fetchedMeal = try context.fetch(fetchRequest)
+            return fetchedMeal.first as? T
+        } catch (let error) {
+            // TODO: - error
+            print("\(error)\nCouldn't fetch data")
+            return nil
         }
     }
     

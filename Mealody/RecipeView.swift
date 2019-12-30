@@ -64,8 +64,18 @@ class RecipeView: UIView {
     
     private func returnIngredientsString(from ingredientArray: [String], from measureArray: [String]) -> String {
         var ingredientsString = String()
-        for i in 0..<ingredientArray.count {
-            ingredientsString += "\(ingredientArray[i]) - \(measureArray[i])\n"
+        var i = 0
+        var j = 0
+        while i < ingredientArray.count || j < measureArray.count {
+            if i < ingredientArray.count && j < measureArray.count {
+                ingredientsString += "\(ingredientArray[i]) - \(measureArray[j])\n"
+            } else if i < ingredientArray.count && j >= measureArray.count {
+                ingredientsString += "\(ingredientArray[i])\n"
+            } else {
+                ingredientsString += "\(measureArray[j])\n"
+            }
+            i += 1
+            j += 1
         }
         return ingredientsString
     }
@@ -74,7 +84,7 @@ class RecipeView: UIView {
         var ingredients = [String]()
         let mealMirror = Mirror(reflecting: meal)
         for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "" {
+            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "", value.containsLetters() {
                 ingredients.append(value)
             }
         }
@@ -85,7 +95,7 @@ class RecipeView: UIView {
         var measures = [String]()
         let mealMirror = Mirror(reflecting: meal)
         for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "" {
+            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "", value.containsLetters() {
                 measures.append(value)
             }
         }

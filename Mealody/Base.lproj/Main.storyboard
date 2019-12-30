@@ -168,19 +168,29 @@
                                     <constraint firstAttribute="width" secondItem="qYs-L3-eHu" secondAttribute="height" multiplier="1:1" id="Fch-Fo-5FI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
-                                <state key="normal" title="Button">
+                                <state key="normal">
                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="randomButtonPressed:" destination="nK6-ue-TJx" eventType="touchUpInside" id="TC3-ds-e5a"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJ8-nH-FC2" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="142.66666666666666" y="376" width="90" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="WJ8-nH-FC2" secondAttribute="height" multiplier="3:2" id="iPf-Z6-OP2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="WJ8-nH-FC2" firstAttribute="centerX" secondItem="zHp-RN-RAp" secondAttribute="centerX" id="4Em-dX-SAM"/>
                             <constraint firstItem="qYs-L3-eHu" firstAttribute="centerY" secondItem="zHp-RN-RAp" secondAttribute="centerY" id="97l-dk-B8F"/>
+                            <constraint firstItem="WJ8-nH-FC2" firstAttribute="width" secondItem="zHp-RN-RAp" secondAttribute="width" multiplier="0.24" id="HIJ-ST-XrL"/>
                             <constraint firstItem="qYs-L3-eHu" firstAttribute="width" secondItem="zHp-RN-RAp" secondAttribute="width" multiplier="0.733333" id="QGW-yH-enZ"/>
                             <constraint firstItem="qYs-L3-eHu" firstAttribute="centerX" secondItem="zHp-RN-RAp" secondAttribute="centerX" id="XFr-TK-yEN"/>
+                            <constraint firstItem="WJ8-nH-FC2" firstAttribute="centerY" secondItem="zHp-RN-RAp" secondAttribute="centerY" id="zBv-IC-rCg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Aat-MD-HHJ"/>
                     </view>
@@ -193,6 +203,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="WJ8-nH-FC2" id="wRi-na-E3r"/>
                         <outlet property="randomButton" destination="qYs-L3-eHu" id="XZi-rs-3WK"/>
                     </connections>
                 </viewController>

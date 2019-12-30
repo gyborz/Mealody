@@ -7,17 +7,22 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class RandomViewController: UIViewController {
     
     private let restManager = RestManager()
     
     @IBOutlet weak var randomButton: UIButton!
-
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        activityIndicator.type = .lineScale
+        activityIndicator.color = .white
         
         setUpButton()
     }
@@ -32,8 +37,9 @@ class RandomViewController: UIViewController {
         randomButton.layer.shadowOpacity = 0.5
     }
     
-    private func setUpButton() {
+    func setUpButton() {
         randomButton.titleLabel?.lineBreakMode = .byWordWrapping
+        randomButton.titleLabel?.textColor = .label
         let buttonText = "Give me a\nrandom\nrecipe"
         let coloredText = "random"
         
@@ -51,6 +57,10 @@ class RandomViewController: UIViewController {
     }
     
     @IBAction func randomButtonPressed(_ sender: UIButton) {
+        randomButton.isEnabled = false
+        randomButton.setAttributedTitle(NSMutableAttributedString(string: ""), for: .normal)
+        activityIndicator.startAnimating()
+        
         restManager.getRandomMeal { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
@@ -58,11 +68,16 @@ class RandomViewController: UIViewController {
                 case .success(let meal):
                     guard let url = URL(string: meal.strMealThumb!) else { return }
                     ImageService.getImage(withURL: url) { image in
+                        self.activityIndicator.stopAnimating()
+                        
                         let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
                         recipeVC.modalPresentationStyle = .automatic
                         recipeVC.meal = meal
                         recipeVC.image = image
                         self.present(recipeVC, animated: true)
+                        
+                        self.setUpButton()
+                        self.randomButton.isEnabled = true
                     }
                 case .failure(let error):
                     print(error)

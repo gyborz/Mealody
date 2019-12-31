@@ -18,7 +18,7 @@ class RecipeView: UIView {
     @IBOutlet weak var blurView: UIView!
     
     
-    func setUpView() {
+    func setUpView(with meal: Meal, and image: UIImage) {
         self.clipsToBounds = true
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -40,78 +40,66 @@ class RecipeView: UIView {
         saveButton.layer.shadowColor = UIColor.black.cgColor
         saveButton.layer.shadowOpacity = 0.2
         
-        mealLabel.text = "Meal Label"
+        
         ingredientsTextView.isScrollEnabled = false
         ingredientsTextView.isUserInteractionEnabled = false
-        ingredientsTextView.text = """
-        asjdklféasdjfaklsdéfjaldséfasdfasdfasdfasdfasdf
-        asdfjkasdlféajsdkflaésdjfklasédjflasédjfklasdf
-        asdgjfkalsdféajsdkflaésjdfklasdégjfklésdjgkl
-        asdfjkalsdéfjkalsdf
-        asdfjkalsédfj fjkalsdfjaskdl fjaksdlfja kfjsdklaf jsakdlf jasdlk fjalsdéf
-        sdfkaldsfjaksldfj asldkf jlasédf
-        asd
-        fa
-        sd
-        fa
-        sfdasjklfédsajfkladsfjkldsaéfjadkslfjaksdlféjsadgklsadéfjsad
-        f sda
-        f
-        dsa
-        f
-        sadfjaskdlfgéjasdklgaésjdfkladséjfklasdéjfkléasdf sdaf sdf asdf asdf as
-        dfsadfk lsdafj sad jfaklj   k   jkj fjsdkalféjak sldfa
-        sdfjkalsdéfajk sdlfé j
-        dfajsdkflaésdjfklasdéfjkalsdéjgklsfdéagj sad f
-        dsafjklasdéfjaksdlféjaksdlféjasdklféjasdkl gjsdakléfds
-        asdfjkladsjfkalsdéjireoqéghnklfdéajklsdaf
-        sdafjaksdlféjaseiwqéjksdlégsafd
-        fdsajfklasdéfjwieqoréjdsklféjasdf saf
-        sd
-        afjaksdlféjskdaléjewkrlqéjwqléefsda
-        fasdjkflaésdjfk lasjdkl éweqrq
-        sadjfkladséjfioewéqjkdsléajfkléadsaf
-        dsajkflésadf
-        asdfjkaldséfjkla
-        """
+        
         instructionsTextView.isScrollEnabled = false
         instructionsTextView.isUserInteractionEnabled = false
-        instructionsTextView.text = """
-        asjdklféasdjfaklsdéfjaldséf
-        asdfjkasdlféajsdkflaésdjfklasédjflasédjfklasdf
-        asdgjfkalsdféajsdkflaésjdfklasdégjfklésdjgkl
-        asdfjkalsdéfjkalsdf
-        asdfjkalsédfj fjkalsdfjaskdl fjaksdlfja kfjsdklaf jsakdlf jasdlk fjalsdéf
-        sdfkaldsfjaksldfj asldkf jlasédf
-        asd
-        fa
-        sd
-        fa
-        sfdasjklfédsajfkladsfjkldsaéfjadkslfjaksdlféjsadgklsadéfjsad
-        f sda
-        f
-        dsa
-        f
-        sadfjaskdlfgéjasdklgaésjdfkladséjfklasdéjfkléasdf sdaf sdf asdf asdf as
-        dfsadfk lsdafj sad jfaklj   k   jkj fjsdkalféjak sldfa
-        sdfjkalsdéfajk sdlfé j
-        dfajsdkflaésdjfklasdéfjkalsdéjgklsfdéagj sad f
-        dsafjklasdéfjaksdlféjaksdlféjasdklféjasdkl gjsdakléfds
-        asdfjkladsjfkalsdéjireoqéghnklfdéajklsdaf
-        sdafjaksdlféjaseiwqéjksdlégsafd
-        fdsajfklasdéfjwieqoréjdsklféjasdf saf
-        sd
-        afjaksdlféjskdaléjewkrlqéjwqléefsda
-        fasdjkflaésdjfk lasjdkl éweqrq
-        sadjfkladséjfioewéqjkdsléajfkléadsaf
-        dsajkflésadf
-        asdfjkaldséfjkla
-        """
+        
+        mealImageView.image = image
+        mealLabel.text = meal.strMeal
+        
+        let ingredients = getIngredients(from: meal)
+        let measures = getMeasures(from: meal)
+        ingredientsTextView.text = returnIngredientsString(from: ingredients, from: measures)
+        
+        instructionsTextView.text = meal.strInstructions
     }
     
     func changeSaveButton() {
         saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
         saveButton.backgroundColor = .systemGreen
     }
-
+    
+    private func returnIngredientsString(from ingredientArray: [String], from measureArray: [String]) -> String {
+        var ingredientsString = String()
+        var i = 0
+        var j = 0
+        while i < ingredientArray.count || j < measureArray.count {
+            if i < ingredientArray.count && j < measureArray.count {
+                ingredientsString += "\(ingredientArray[i]) - \(measureArray[j])\n"
+            } else if i < ingredientArray.count && j >= measureArray.count {
+                ingredientsString += "\(ingredientArray[i])\n"
+            } else {
+                ingredientsString += "\(measureArray[j])\n"
+            }
+            i += 1
+            j += 1
+        }
+        return ingredientsString
+    }
+    
+    private func getIngredients(from meal: Meal) -> [String] {
+        var ingredients = [String]()
+        let mealMirror = Mirror(reflecting: meal)
+        for (_, attribute) in mealMirror.children.enumerated() {
+            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "", value.containsLetters() {
+                ingredients.append(value)
+            }
+        }
+        return ingredients
+    }
+    
+    private func getMeasures(from meal: Meal) -> [String] {
+        var measures = [String]()
+        let mealMirror = Mirror(reflecting: meal)
+        for (_, attribute) in mealMirror.children.enumerated() {
+            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "", value.containsLetters() {
+                measures.append(value)
+            }
+        }
+        return measures
+    }
+    
 }

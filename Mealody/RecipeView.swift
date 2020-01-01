@@ -19,6 +19,30 @@ class RecipeView: UIView {
     
     
     func setUpView(with meal: Meal, and image: UIImage) {
+        setUpUI()
+        
+        mealImageView.image = image
+        mealLabel.text = meal.strMeal
+        
+        let ingredients = getIngredients(from: meal)
+        let measures = getMeasures(from: meal)
+        ingredientsTextView.text = returnIngredientsString(from: ingredients, from: measures)
+        
+        instructionsTextView.text = meal.strInstructions
+    }
+    
+    func setUpView(with hashableMeal: HashableMeal) {
+        setUpUI()
+        
+        saveButton.isHidden = true
+        
+        mealImageView.image = UIImage(data: hashableMeal.mealImage!)
+        mealLabel.text = hashableMeal.strMeal!
+        ingredientsTextView.text = returnIngredientsString(from: hashableMeal.strIngredients!, from: hashableMeal.strMeasures!)
+        instructionsTextView.text = hashableMeal.strInstructions!
+    }
+    
+    private func setUpUI() {
         self.clipsToBounds = true
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -46,15 +70,6 @@ class RecipeView: UIView {
         
         instructionsTextView.isScrollEnabled = false
         instructionsTextView.isUserInteractionEnabled = false
-        
-        mealImageView.image = image
-        mealLabel.text = meal.strMeal
-        
-        let ingredients = getIngredients(from: meal)
-        let measures = getMeasures(from: meal)
-        ingredientsTextView.text = returnIngredientsString(from: ingredients, from: measures)
-        
-        instructionsTextView.text = meal.strInstructions
     }
     
     func changeSaveButton() {

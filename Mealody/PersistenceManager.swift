@@ -113,7 +113,7 @@ final class PersistenceManager {
         var ingredients = [String]()
         let mealMirror = Mirror(reflecting: meal)
         for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "" {
+            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "", value.containsLetters() {
                 ingredients.append(value)
             }
         }
@@ -124,7 +124,7 @@ final class PersistenceManager {
         var measures = [String]()
         let mealMirror = Mirror(reflecting: meal)
         for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "" {
+            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "", value.containsLetters() {
                 measures.append(value)
             }
         }

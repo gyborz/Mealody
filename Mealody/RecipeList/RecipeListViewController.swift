@@ -61,6 +61,15 @@ class RecipeListViewController: UITableViewController {
         return true
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+        let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+        recipeVC.modalPresentationStyle = .automatic
+        recipeVC.hashableMeal = hashableMeal
+        recipeVC.calledWithHashableMeal = true
+        self.present(recipeVC, animated: true)
+    }
+    
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }

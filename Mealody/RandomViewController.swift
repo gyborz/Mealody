@@ -74,6 +74,7 @@ class RandomViewController: UIViewController {
                         recipeVC.modalPresentationStyle = .automatic
                         recipeVC.meal = meal
                         recipeVC.image = image
+                        recipeVC.calledWithHashableMeal = false
                         self.present(recipeVC, animated: true)
                         
                         self.setUpButton()

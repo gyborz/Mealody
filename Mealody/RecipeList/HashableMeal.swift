@@ -18,12 +18,12 @@ struct HashableMeal: Hashable {
     let strMeasures: [String]?
     
     init(mealData: MealData) {
-        self.idMeal = meal.idMeal
-        self.mealImage = meal.mealImage
-        self.strIngredients = meal.strIngredients
-        self.strInstructions = meal.strInstructions
-        self.strMeal = meal.strMeal
-        self.strMeasures = meal.strMeasures
+        self.idMeal = mealData.idMeal
+        self.mealImage = mealData.mealImage
+        self.strIngredients = mealData.strIngredients
+        self.strInstructions = mealData.strInstructions
+        self.strMeal = mealData.strMeal
+        self.strMeasures = mealData.strMeasures
     }
     
 }

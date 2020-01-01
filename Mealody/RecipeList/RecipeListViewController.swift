@@ -24,6 +24,11 @@ class RecipeListViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isTranslucent = false
+        
+        tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
+        tableView.rowHeight = 390
+        tableView.separatorStyle = .none
+        
         configureDataSource()
     }
     
@@ -45,8 +50,9 @@ class RecipeListViewController: UITableViewController {
     
     private func configureDataSource() {
         dataSource = HashableMealDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TestCell", for: indexPath)
-            cell.textLabel?.text = hashableMeal.strMeal
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
+            cell.mealImageView.image = UIImage(data: hashableMeal.mealImage!)
+            cell.recipeTitleLabel.text = hashableMeal.strMeal
             return cell
         })
     }

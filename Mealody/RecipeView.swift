@@ -47,7 +47,7 @@ class RecipeView: UIView {
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterialDark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = blurView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

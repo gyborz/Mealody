@@ -32,7 +32,7 @@ class RecipeTableViewCell: UITableViewCell {
         layer.shadowOffset = .init(width: 0, height: 3)
         layer.shadowRadius = 5
         
-        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.systemUltraThinMaterial)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = blurView.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]

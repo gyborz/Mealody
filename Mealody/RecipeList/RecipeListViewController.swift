@@ -24,6 +24,7 @@ class RecipeListViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         tableView.rowHeight = 390
@@ -67,7 +68,9 @@ class RecipeListViewController: UITableViewController {
         recipeVC.modalPresentationStyle = .automatic
         recipeVC.hashableMeal = hashableMeal
         recipeVC.calledWithHashableMeal = true
-        self.present(recipeVC, animated: true)
+        self.present(recipeVC, animated: true) { [weak self] in
+            self?.tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
     
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {

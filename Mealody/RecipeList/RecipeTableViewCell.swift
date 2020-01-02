@@ -19,8 +19,10 @@ class RecipeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.selectionStyle = .none
+        self.selectionStyle = .default
         self.backgroundColor = .clear
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.backgroundColor = .clear
         
         recipeView.layer.cornerRadius = 15
         recipeView.clipsToBounds = true

@@ -10,10 +10,13 @@ import UIKit
 
 class RecipeTableViewCell: UITableViewCell {
     
+    var onDelete: ((UITableViewCell) -> Void)?
+    
     @IBOutlet weak var recipeView: UIView!
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var blurView: UIView!
     @IBOutlet weak var recipeTitleLabel: UILabel!
+    @IBOutlet weak var deleteButton: UIButton!
     
 
     override func awakeFromNib() {
@@ -26,6 +29,8 @@ class RecipeTableViewCell: UITableViewCell {
         
         recipeView.layer.cornerRadius = 15
         recipeView.clipsToBounds = true
+        
+        deleteButton.layer.cornerRadius = deleteButton.frame.height / 2
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
@@ -48,6 +53,10 @@ class RecipeTableViewCell: UITableViewCell {
         } else {
             mealImageView.alpha = 1
         }
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+        onDelete?(self)
     }
     
 }

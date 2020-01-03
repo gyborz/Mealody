@@ -30,6 +30,11 @@ class RecipeListViewController: UITableViewController {
         tableView.rowHeight = 390
         tableView.separatorStyle = .none
         
+        var savedMeals = persistenceManager.load(MealData.self)
+        savedMeals.reverse()
+        for mealData in savedMeals {
+            meals.append(HashableMeal(mealData: mealData))
+        }
         configureDataSource()
     }
     
@@ -40,13 +45,9 @@ class RecipeListViewController: UITableViewController {
     
     private func updateSnapshot() {
         var snapshot = HashableMealSnapshot()
-        let savedMeals = persistenceManager.load(MealData.self)
-        for mealData in savedMeals {
-            meals.append(HashableMeal(mealData: mealData))
-        }
         snapshot.appendSections([.main])
         snapshot.appendItems(meals)
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func configureDataSource() {
@@ -54,6 +55,15 @@ class RecipeListViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
             cell.mealImageView.image = UIImage(data: hashableMeal.mealImage!)
             cell.recipeTitleLabel.text = hashableMeal.strMeal
+            cell.onDelete = { [weak self] cell in
+                guard let self = self else { return }
+                guard let hashableMeal = self.dataSource.itemIdentifier(for: tableView.indexPath(for: cell)!) else { return }
+                guard let fetchedMeal = self.persistenceManager.fetchMeal(MealData.self, idMeal: hashableMeal.idMeal!) else { return }
+                self.persistenceManager.delete(fetchedMeal)
+                self.meals.removeAll() { $0 == hashableMeal }
+                self.updateSnapshot()
+                self.persistenceManager.saveContext()
+            }
             return cell
         })
     }

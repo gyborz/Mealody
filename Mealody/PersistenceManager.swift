@@ -91,9 +91,7 @@ final class PersistenceManager {
         context.delete(object)
     }
     
-    func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, meal: Meal) -> T? {
-        guard let idMeal = meal.idMeal else { return nil }
-        
+    func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, idMeal: String) -> T? {
         let entityName = String(describing: objectType)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let predicate = NSPredicate(format: "idMeal = %@", idMeal)

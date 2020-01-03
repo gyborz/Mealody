@@ -53,17 +53,33 @@
                             <constraint firstItem="2gA-F9-R7S" firstAttribute="leading" secondItem="hFs-8P-p5y" secondAttribute="leading" id="xi1-t6-BHa"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="liF-T2-ged">
+                        <rect key="frame" x="288" y="8" width="25" height="25"/>
+                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="Tmi-Ku-Gy4"/>
+                            <constraint firstAttribute="height" constant="25" id="asg-9M-vol"/>
+                        </constraints>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="minus" catalog="system"/>
+                        <connections>
+                            <action selector="deleteButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="o1N-lq-j4G"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="liF-T2-ged" secondAttribute="trailing" constant="17" id="D0i-TT-gYa"/>
                     <constraint firstAttribute="trailing" secondItem="hFs-8P-p5y" secondAttribute="trailing" constant="25" id="Ei7-EI-SJ4"/>
                     <constraint firstItem="hFs-8P-p5y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="Juv-8T-EjM"/>
                     <constraint firstAttribute="bottom" secondItem="hFs-8P-p5y" secondAttribute="bottom" constant="20" id="R2K-LW-X7t"/>
+                    <constraint firstItem="liF-T2-ged" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="Zur-40-bK2"/>
                     <constraint firstItem="hFs-8P-p5y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="qZX-uk-oT1"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="blurView" destination="2gA-F9-R7S" id="E6C-UI-cag"/>
+                <outlet property="deleteButton" destination="liF-T2-ged" id="oi1-bf-JkK"/>
                 <outlet property="mealImageView" destination="UeJ-Y6-Xod" id="0yK-HL-gs3"/>
                 <outlet property="recipeTitleLabel" destination="g5C-MR-NaD" id="ui7-8a-CsZ"/>
                 <outlet property="recipeView" destination="hFs-8P-p5y" id="2mc-60-OdP"/>
@@ -71,4 +87,7 @@
             <point key="canvasLocation" x="144.92753623188406" y="245.75892857142856"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="minus" catalog="system" width="64" height="12"/>
+    </resources>
 </document>

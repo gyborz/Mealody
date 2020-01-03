@@ -91,9 +91,7 @@ final class PersistenceManager {
         context.delete(object)
     }
     
-    func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, meal: Meal) -> T? {
-        guard let idMeal = meal.idMeal else { return nil }
-        
+    func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, idMeal: String) -> T? {
         let entityName = String(describing: objectType)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let predicate = NSPredicate(format: "idMeal = %@", idMeal)
@@ -113,7 +111,7 @@ final class PersistenceManager {
         var ingredients = [String]()
         let mealMirror = Mirror(reflecting: meal)
         for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "" {
+            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "", value.containsLetters() {
                 ingredients.append(value)
             }
         }
@@ -124,7 +122,7 @@ final class PersistenceManager {
         var measures = [String]()
         let mealMirror = Mirror(reflecting: meal)
         for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "" {
+            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "", value.containsLetters() {
                 measures.append(value)
             }
         }

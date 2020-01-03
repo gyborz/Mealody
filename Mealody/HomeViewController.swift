@@ -23,6 +23,10 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = true
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isTranslucent = true
+    }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         for case let view in menuStackView.subviews {

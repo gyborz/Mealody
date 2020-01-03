@@ -176,7 +176,16 @@
                                 <action selector="backButtonPressed:" destination="HVq-dY-eVk" id="aqs-H5-gsD"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="qlx-6z-Ffq">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="trashButtonTapped:" destination="HVq-dY-eVk" id="c9H-ME-SrL"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="trashButton" destination="qlx-6z-Ffq" id="gti-tF-IHd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GaP-Eu-iaN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

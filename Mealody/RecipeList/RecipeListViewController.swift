@@ -18,8 +18,11 @@ class RecipeListViewController: UITableViewController {
     private typealias HashableMealSnapshot = NSDiffableDataSourceSnapshot<Section, HashableMeal>
     private var dataSource: HashableMealDataSource!
     private let persistenceManager = PersistenceManager.shared
+    let isSavedRecipesList: Bool = true
+    private var isDeleting = false
     
-
+    @IBOutlet weak var trashButton: UIBarButtonItem!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,12 +33,16 @@ class RecipeListViewController: UITableViewController {
         tableView.rowHeight = 390
         tableView.separatorStyle = .none
         
-        var savedMeals = persistenceManager.load(MealData.self)
-        savedMeals.reverse()
-        for mealData in savedMeals {
-            meals.append(HashableMeal(mealData: mealData))
+        if isSavedRecipesList {
+            var savedMeals = persistenceManager.load(MealData.self)
+            savedMeals.reverse()
+            for mealData in savedMeals {
+                meals.append(HashableMeal(mealData: mealData))
+            }
+            configureDataSource()
+        } else {
+            self.navigationItem.rightBarButtonItem = nil
         }
-        configureDataSource()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -55,6 +62,15 @@ class RecipeListViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
             cell.mealImageView.image = UIImage(data: hashableMeal.mealImage!)
             cell.recipeTitleLabel.text = hashableMeal.strMeal
+            
+            if self.isDeleting {
+                UIView.animate(withDuration: 0.3) {
+                    cell.deleteButton.alpha = 1
+                }
+            } else {
+                cell.deleteButton.alpha = 0
+            }
+            
             cell.onDelete = { [weak self] cell in
                 guard let self = self else { return }
                 guard let hashableMeal = self.dataSource.itemIdentifier(for: tableView.indexPath(for: cell)!) else { return }
@@ -81,6 +97,11 @@ class RecipeListViewController: UITableViewController {
         self.present(recipeVC, animated: true) { [weak self] in
             self?.tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+    
+    @IBAction func trashButtonTapped(_ sender: UIBarButtonItem) {
+        isDeleting.toggle()
+        tableView.reloadData()
     }
     
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {

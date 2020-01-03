@@ -31,6 +31,10 @@ class RecipeTableViewCell: UITableViewCell {
         recipeView.clipsToBounds = true
         
         deleteButton.layer.cornerRadius = deleteButton.frame.height / 2
+        deleteButton.layer.shadowColor = UIColor.black.cgColor
+        deleteButton.layer.shadowOpacity = 0.3
+        deleteButton.layer.shadowOffset = .init(width: 0, height: 3)
+        deleteButton.layer.shadowRadius = 1.5
         
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5

@@ -18,6 +18,7 @@
 		E740BA5C23AFC48E00787918 /* RecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BA5B23AFC48E00787918 /* RecipeView.swift */; };
 		E76A68C823B693F0008A9919 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A68C723B693F0008A9919 /* ImageService.swift */; };
 		E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7968FFB23BA76C90033C111 /* Extensions.swift */; };
+		E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0023123C21AC800D7D055 /* BrowseViewController.swift */; };
 		E7B64D5C23B9F817007C8047 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */; };
 		E7B64D5F23BA0C19007C8047 /* MealData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B64D5D23BA0C19007C8047 /* MealData+CoreDataClass.swift */; };
 		E7B64D6023BA0C19007C8047 /* MealData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B64D5E23BA0C19007C8047 /* MealData+CoreDataProperties.swift */; };
@@ -46,6 +47,7 @@
 		E740BA5B23AFC48E00787918 /* RecipeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeView.swift; sourceTree = "<group>"; };
 		E76A68C723B693F0008A9919 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E7968FFB23BA76C90033C111 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E7A0023123C21AC800D7D055 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		E7B64D5D23BA0C19007C8047 /* MealData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		E7B64D5E23BA0C19007C8047 /* MealData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -133,6 +135,15 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E7A0023023C21A7000D7D055 /* RecipeVC */ = {
+			isa = PBXGroup;
+			children = (
+				E740BA5923AFC37500787918 /* RecipeViewController.swift */,
+				E740BA5B23AFC48E00787918 /* RecipeView.swift */,
+			);
+			path = RecipeVC;
+			sourceTree = "<group>";
+		};
 		E7BF899923AA8BB900F6D152 = {
 			isa = PBXGroup;
 			children = (
@@ -157,8 +168,7 @@
 				E718F22F23B64087008FB262 /* Model */,
 				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
 				E7B9E38B23AE3463006557EF /* RandomViewController.swift */,
-				E740BA5923AFC37500787918 /* RecipeViewController.swift */,
-				E740BA5B23AFC48E00787918 /* RecipeView.swift */,
+				E7A0023023C21A7000D7D055 /* RecipeVC */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
@@ -167,6 +177,7 @@
 				E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */,
 				E7968FFB23BA76C90033C111 /* Extensions.swift */,
 				E71B71A323BD1A2900A7799B /* RecipeList */,
+				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";
@@ -299,6 +310,7 @@
 				E7B64D6023BA0C19007C8047 /* MealData+CoreDataProperties.swift in Sources */,
 				E7FAA24B23BBB12D00E88205 /* HashableMeal.swift in Sources */,
 				E7B9E38C23AE3463006557EF /* RandomViewController.swift in Sources */,
+				E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */,
 				E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */,
 				E76A68C823B693F0008A9919 /* ImageService.swift in Sources */,
 				E7FAA24923BBAFC600E88205 /* RecipeListViewController.swift in Sources */,

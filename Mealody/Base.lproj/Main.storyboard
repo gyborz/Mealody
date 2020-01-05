@@ -81,6 +81,9 @@
                                                 <state key="normal" title="BROWSE">
                                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="FD2-gg-3mU" kind="show" id="kpr-PF-eLY"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -156,6 +159,29 @@
             </objects>
             <point key="canvasLocation" x="685.60000000000002" y="173.64532019704436"/>
         </scene>
+        <!--Browse-->
+        <scene sceneID="KtQ-A3-fGh">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="FD2-gg-3mU" customClass="BrowseViewController" customModule="Mealody" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VPX-um-IPr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Kxi-kq-9tR"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Browse" id="Xgo-HU-hT0">
+                        <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="1Xw-us-Q4h">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="backButtonTapped:" destination="FD2-gg-3mU" id="FrW-xT-Mia"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MKC-Rt-8pT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1572" y="174"/>
+        </scene>
         <!--Saved recipes-->
         <scene sceneID="dAi-sd-pxd">
             <objects>
@@ -189,7 +215,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GaP-Eu-iaN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1572" y="796"/>
+            <point key="canvasLocation" x="1572" y="1086"/>
         </scene>
         <!--Random-->
         <scene sceneID="uML-m3-gCT">
@@ -247,7 +273,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Jm-ew-afb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1572" y="-9.6059113300492616"/>
+            <point key="canvasLocation" x="1572" y="-532"/>
         </scene>
         <!--Recipe View Controller-->
         <scene sceneID="bDj-Pd-wR1">
@@ -407,7 +433,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m7j-XV-1t5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2488.8000000000002" y="-10.344827586206897"/>
+            <point key="canvasLocation" x="2450" y="-532"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FUm-gG-bU8">

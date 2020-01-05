@@ -168,7 +168,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="BgX-52-SCg">
-                                <rect key="frame" x="45" y="132" width="330" height="620"/>
+                                <rect key="frame" x="45" y="123" width="330" height="620"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OuP-FK-GSm">
                                         <rect key="frame" x="0.0" y="0.0" width="330" height="180"/>
@@ -233,7 +233,6 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="OuP-FK-GSm" firstAttribute="top" secondItem="BgX-52-SCg" secondAttribute="top" id="5o7-W5-EMh"/>
-                                    <constraint firstAttribute="width" secondItem="BgX-52-SCg" secondAttribute="height" multiplier="33:62" id="EtM-i7-vOM"/>
                                     <constraint firstItem="Xww-JY-cNL" firstAttribute="leading" secondItem="BgX-52-SCg" secondAttribute="leading" id="SKi-r5-HIV"/>
                                     <constraint firstAttribute="trailing" secondItem="Xww-JY-cNL" secondAttribute="trailing" id="VAJ-np-EIu"/>
                                     <constraint firstAttribute="bottom" secondItem="Xww-JY-cNL" secondAttribute="bottom" id="eO4-V8-gvY"/>
@@ -246,9 +245,10 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="BgX-52-SCg" firstAttribute="height" secondItem="VPX-um-IPr" secondAttribute="height" multiplier="0.763547" id="Miw-hC-KGF"/>
+                            <constraint firstItem="BgX-52-SCg" firstAttribute="height" secondItem="VPX-um-IPr" secondAttribute="height" multiplier="0.763547" id="Kmf-rX-z3A"/>
+                            <constraint firstItem="BgX-52-SCg" firstAttribute="leading" secondItem="Kxi-kq-9tR" secondAttribute="leading" constant="45" id="dfg-4t-nlr"/>
                             <constraint firstItem="BgX-52-SCg" firstAttribute="trailing" secondItem="Kxi-kq-9tR" secondAttribute="trailing" id="o1m-xM-ToK"/>
-                            <constraint firstItem="BgX-52-SCg" firstAttribute="top" secondItem="Kxi-kq-9tR" secondAttribute="top" constant="44" id="p9D-oD-bRe"/>
+                            <constraint firstItem="BgX-52-SCg" firstAttribute="top" secondItem="Kxi-kq-9tR" secondAttribute="top" constant="35" id="p9D-oD-bRe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kxi-kq-9tR"/>
                     </view>

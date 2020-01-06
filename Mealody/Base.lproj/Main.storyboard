@@ -298,7 +298,14 @@
                             <outlet property="delegate" destination="V7u-g2-rBQ" id="7BS-Gh-jTg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="GZM-yh-QGn"/>
+                    <navigationItem key="navigationItem" id="GZM-yh-QGn">
+                        <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="yMx-o2-3uu">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="backButtonTapped:" destination="V7u-g2-rBQ" id="5Gx-5E-MyO"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1mf-rI-wJ3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

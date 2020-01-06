@@ -61,6 +61,8 @@ class BrowseViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showCategories" {
             let listVC = segue.destination as! ListViewController
+            listVC.navigationItem.title = "Categories"
+            listVC.isCategoryList = true
         }
     }
     

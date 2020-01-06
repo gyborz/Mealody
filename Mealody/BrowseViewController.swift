@@ -18,7 +18,6 @@ class BrowseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,9 +50,6 @@ class BrowseViewController: UIViewController {
         }
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
     
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
@@ -69,5 +65,3 @@ class BrowseViewController: UIViewController {
     
 }
 
-extension BrowseViewController: UIGestureRecognizerDelegate {
-}

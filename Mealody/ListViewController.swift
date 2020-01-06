@@ -16,7 +16,6 @@ class ListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,9 +24,6 @@ class ListViewController: UITableViewController {
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
     
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
@@ -54,5 +50,3 @@ class ListViewController: UITableViewController {
 
 }
 
-extension ListViewController: UIGestureRecognizerDelegate {
-}

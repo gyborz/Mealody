@@ -27,7 +27,6 @@ class RecipeListViewController: UITableViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         tableView.rowHeight = 390
@@ -84,10 +83,6 @@ class RecipeListViewController: UITableViewController {
         })
     }
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
         let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
@@ -110,5 +105,3 @@ class RecipeListViewController: UITableViewController {
 
 }
 
-extension RecipeListViewController: UIGestureRecognizerDelegate {
-}

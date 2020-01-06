@@ -18,8 +18,6 @@ class RandomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         activityIndicator.type = .lineScale
         activityIndicator.color = .white
@@ -86,11 +84,5 @@ class RandomViewController: UIViewController {
             }
         }
     }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-}
-
-extension RandomViewController: UIGestureRecognizerDelegate {
+    
 }

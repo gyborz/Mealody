@@ -21,6 +21,7 @@
 		E76A68C823B693F0008A9919 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A68C723B693F0008A9919 /* ImageService.swift */; };
 		E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7968FFB23BA76C90033C111 /* Extensions.swift */; };
 		E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0023123C21AC800D7D055 /* BrowseViewController.swift */; };
+		E7A3879D23C3C55400228349 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3879C23C3C55400228349 /* NavigationViewController.swift */; };
 		E7B64D5C23B9F817007C8047 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */; };
 		E7B64D5F23BA0C19007C8047 /* MealData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B64D5D23BA0C19007C8047 /* MealData+CoreDataClass.swift */; };
 		E7B64D6023BA0C19007C8047 /* MealData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B64D5E23BA0C19007C8047 /* MealData+CoreDataProperties.swift */; };
@@ -52,6 +53,7 @@
 		E76A68C723B693F0008A9919 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E7968FFB23BA76C90033C111 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E7A0023123C21AC800D7D055 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		E7A3879C23C3C55400228349 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		E7B64D5D23BA0C19007C8047 /* MealData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		E7B64D5E23BA0C19007C8047 /* MealData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MealData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -192,6 +194,7 @@
 				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
 				E735789523C3926B00CCA2E5 /* ListViewController.swift */,
 				E735789D23C3AB8600CCA2E5 /* ListItems.swift */,
+				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				E7B64D6023BA0C19007C8047 /* MealData+CoreDataProperties.swift in Sources */,
 				E7FAA24B23BBB12D00E88205 /* HashableMeal.swift in Sources */,
 				E7B9E38C23AE3463006557EF /* RandomViewController.swift in Sources */,
+				E7A3879D23C3C55400228349 /* NavigationViewController.swift in Sources */,
 				E735789E23C3AB8600CCA2E5 /* ListItems.swift in Sources */,
 				E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */,
 				E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */,

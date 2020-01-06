@@ -175,7 +175,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="330" height="180"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="20"/>
-                                                <state key="normal" title="Categories">
+                                                <state key="normal" title="Categories" backgroundImage="categories">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -198,7 +198,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="330" height="180"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="45" maxY="20"/>
-                                                <state key="normal" title="Countries">
+                                                <state key="normal" title="Countries" backgroundImage="countries">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
@@ -221,7 +221,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="330" height="180"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="20"/>
-                                                <state key="normal" title="Ingredients">
+                                                <state key="normal" title="Ingredients" backgroundImage="ingredients">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                             </button>
@@ -586,7 +586,10 @@
     <resources>
         <image name="arrow.left" catalog="system" width="64" height="48"/>
         <image name="arrow.right" catalog="system" width="64" height="48"/>
+        <image name="categories" width="640" height="426.5"/>
+        <image name="countries" width="579" height="344"/>
         <image name="home" width="221.5" height="252.5"/>
+        <image name="ingredients" width="640" height="426.5"/>
         <image name="meal" width="350" height="350"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>

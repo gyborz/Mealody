@@ -19,11 +19,12 @@ class BrowseViewController: UIViewController {
         super.viewDidLoad()
 
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
-        self.navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        categoriesButton.setBackgroundImage(UIImage(named: "categories"), for: .normal)
-        countriesButton.setBackgroundImage(UIImage(named: "countries"), for: .normal)
-        ingredientsButton.setBackgroundImage(UIImage(named: "ingredients"), for: .normal)
+        self.navigationController?.navigationBar.isTranslucent = true
     }
     
     override func viewWillLayoutSubviews() {

@@ -40,4 +40,27 @@ class RestManager {
         }.resume()
     }
     
+    func getCategories(completion: @escaping (Result<[Category],RestManagerError>) -> Void) {
+        guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/list.php?c=list") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
+                do {
+                    let categoryResponse = try JSONDecoder().decode(CategoryResponse.self, from: data)
+                    
+                    let categories = categoryResponse.meals
+                    
+                    completion(.success(categories))
+                } catch {
+                    completion(.failure(.unknownError))
+                }
+            }
+            
+            if error != nil {
+                completion(.failure(.requestError))
+            }
+        }.resume()
+    }
+    
 }

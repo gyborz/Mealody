@@ -58,6 +58,12 @@ class BrowseViewController: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showCategories" {
+            let listVC = segue.destination as! ListViewController
+        }
+    }
+    
 }
 
 extension BrowseViewController: UIGestureRecognizerDelegate {

@@ -17,7 +17,7 @@ class ListViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListItemCell")
-        tableView.rowHeight = 90
+        tableView.rowHeight = 100
         tableView.separatorStyle = .none
     }
     
@@ -46,8 +46,16 @@ class ListViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListItemCell", for: indexPath) as! ListTableViewCell
 
-        cell.listItemLabel.text = listItems.categories[indexPath.row]
-        cell.listItemImageView.image = UIImage(named: listItems.categories[indexPath.row].lowercased())
+        if isCategoryList {
+            cell.listItemLabel.text = listItems.categories[indexPath.row]
+            let imageName = listItems.categories[indexPath.row].lowercased()
+            cell.listItemImageView.image = UIImage(named: imageName)
+        } else {
+            cell.listItemLabel.text = listItems.countries[indexPath.row]
+            let imageName = listItems.countries[indexPath.row].lowercased()
+            cell.listItemImageView.image = UIImage(named: imageName)
+            //cell.listItemImageView.contentMode = .scaleToFill
+        }
 
         return cell
     }

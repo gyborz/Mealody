@@ -61,6 +61,11 @@ class BrowseViewController: UIViewController {
             listVC.navigationItem.title = "Categories"
             listVC.isCategoryList = true
         }
+        if segue.identifier == "showCountries" {
+            let listVC = segue.destination as! ListViewController
+            listVC.navigationItem.title = "Countries"
+            listVC.isCategoryList = false
+        }
     }
     
 }

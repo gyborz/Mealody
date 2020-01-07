@@ -15,7 +15,10 @@ class ListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListItemCell")
+        tableView.rowHeight = 90
+        tableView.separatorStyle = .none
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,9 +44,10 @@ class ListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListItemCell", for: indexPath) as! ListTableViewCell
 
-        cell.textLabel?.text = listItems.categories[indexPath.row]
+        cell.listItemLabel.text = listItems.categories[indexPath.row]
+        cell.listItemImageView.image = UIImage(named: listItems.categories[indexPath.row].lowercased())
 
         return cell
     }

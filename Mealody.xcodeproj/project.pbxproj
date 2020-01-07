@@ -14,6 +14,8 @@
 		E718F22623B63802008FB262 /* MealData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E718F22423B63802008FB262 /* MealData.xcdatamodeld */; };
 		E71B71A023BD040200A7799B /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71B719E23BD040200A7799B /* RecipeTableViewCell.swift */; };
 		E71B71A123BD040200A7799B /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E71B719F23BD040200A7799B /* RecipeTableViewCell.xib */; };
+		E729554923C4E7A200263B53 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E729554723C4E7A200263B53 /* ListTableViewCell.swift */; };
+		E729554A23C4E7A200263B53 /* ListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E729554823C4E7A200263B53 /* ListTableViewCell.xib */; };
 		E735789623C3926B00CCA2E5 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E735789523C3926B00CCA2E5 /* ListViewController.swift */; };
 		E735789E23C3AB8600CCA2E5 /* ListItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = E735789D23C3AB8600CCA2E5 /* ListItems.swift */; };
 		E740BA5A23AFC37500787918 /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E740BA5923AFC37500787918 /* RecipeViewController.swift */; };
@@ -46,6 +48,8 @@
 		E718F22523B63802008FB262 /* MealData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MealData.xcdatamodel; sourceTree = "<group>"; };
 		E71B719E23BD040200A7799B /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
 		E71B719F23BD040200A7799B /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
+		E729554723C4E7A200263B53 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		E729554823C4E7A200263B53 /* ListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListTableViewCell.xib; sourceTree = "<group>"; };
 		E735789523C3926B00CCA2E5 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		E735789D23C3AB8600CCA2E5 /* ListItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItems.swift; sourceTree = "<group>"; };
 		E740BA5923AFC37500787918 /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 				E735789523C3926B00CCA2E5 /* ListViewController.swift */,
 				E735789D23C3AB8600CCA2E5 /* ListItems.swift */,
 				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
+				E729554723C4E7A200263B53 /* ListTableViewCell.swift */,
+				E729554823C4E7A200263B53 /* ListTableViewCell.xib */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";
@@ -263,6 +269,7 @@
 				E7BF89B223AA8BC000F6D152 /* Assets.xcassets in Resources */,
 				E7BF89AD23AA8BBA00F6D152 /* Main.storyboard in Resources */,
 				E71B71A123BD040200A7799B /* RecipeTableViewCell.xib in Resources */,
+				E729554A23C4E7A200263B53 /* ListTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +324,7 @@
 			files = (
 				E718F22323B63695008FB262 /* RestManager.swift in Sources */,
 				E7B64D5C23B9F817007C8047 /* PersistenceManager.swift in Sources */,
+				E729554923C4E7A200263B53 /* ListTableViewCell.swift in Sources */,
 				E740BA5C23AFC48E00787918 /* RecipeView.swift in Sources */,
 				E71B71A023BD040200A7799B /* RecipeTableViewCell.swift in Sources */,
 				E718F22623B63802008FB262 /* MealData.xcdatamodeld in Sources */,

@@ -133,6 +133,17 @@
 			path = RecipeList;
 			sourceTree = "<group>";
 		};
+		E729554B23C5012100263B53 /* ListVC */ = {
+			isa = PBXGroup;
+			children = (
+				E735789523C3926B00CCA2E5 /* ListViewController.swift */,
+				E735789D23C3AB8600CCA2E5 /* ListItems.swift */,
+				E729554723C4E7A200263B53 /* ListTableViewCell.swift */,
+				E729554823C4E7A200263B53 /* ListTableViewCell.xib */,
+			);
+			path = ListVC;
+			sourceTree = "<group>";
+		};
 		E735789723C3935900CCA2E5 /* MealResponse */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,6 +198,9 @@
 				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
 				E7B9E38B23AE3463006557EF /* RandomViewController.swift */,
 				E7A0023023C21A7000D7D055 /* RecipeVC */,
+				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
+				E71B71A323BD1A2900A7799B /* RecipeList */,
+				E729554B23C5012100263B53 /* ListVC */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
@@ -194,13 +208,7 @@
 				E76A68C723B693F0008A9919 /* ImageService.swift */,
 				E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */,
 				E7968FFB23BA76C90033C111 /* Extensions.swift */,
-				E71B71A323BD1A2900A7799B /* RecipeList */,
-				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
-				E735789523C3926B00CCA2E5 /* ListViewController.swift */,
-				E735789D23C3AB8600CCA2E5 /* ListItems.swift */,
 				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
-				E729554723C4E7A200263B53 /* ListTableViewCell.swift */,
-				E729554823C4E7A200263B53 /* ListTableViewCell.xib */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";

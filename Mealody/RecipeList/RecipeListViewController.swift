@@ -99,7 +99,7 @@ class RecipeListViewController: UITableViewController {
         recipeVC.hashableMeal = hashableMeal
         recipeVC.calledWithHashableMeal = true
         self.present(recipeVC, animated: true) { [weak self] in
-            self?.tableView.deselectRow(at: indexPath, animated: true)
+            self?.tableView.deselectRow(at: indexPath, animated: false)
         }
     }
     

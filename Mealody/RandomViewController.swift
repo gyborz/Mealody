@@ -65,7 +65,7 @@ class RandomViewController: UIViewController {
                 switch result {
                 case .success(let meal):
                     guard let url = URL(string: meal.strMealThumb!) else { return }
-                    ImageService.getImage(withURL: url) { image in
+                    ImageService.getImage(withURL: url) { image, _ in
                         self.activityIndicator.stopAnimating()
                         
                         let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController

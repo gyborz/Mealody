@@ -61,6 +61,7 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: false)
         if isCategoryList {
             let category = listItems.categories[indexPath.row]
             restManager.getMeals(fromCategory: category) { [weak self] result in

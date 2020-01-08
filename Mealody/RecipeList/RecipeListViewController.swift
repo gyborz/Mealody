@@ -13,13 +13,14 @@ class RecipeListViewController: UITableViewController {
     private enum Section {
         case main
     }
-    private var meals = [HashableMeal]()
+    private var hashableMeals = [HashableMeal]()
     private typealias HashableMealDataSource = UITableViewDiffableDataSource<Section, HashableMeal>
     private typealias HashableMealSnapshot = NSDiffableDataSourceSnapshot<Section, HashableMeal>
     private var dataSource: HashableMealDataSource!
     private let persistenceManager = PersistenceManager.shared
-    let isSavedRecipesList: Bool = true
     private var isDeleting = false
+    var isSavedRecipesList: Bool = true
+    var meals = [Meal]()
     
     @IBOutlet weak var trashButton: UIBarButtonItem!
     
@@ -36,11 +37,15 @@ class RecipeListViewController: UITableViewController {
             var savedMeals = persistenceManager.load(MealData.self)
             savedMeals.reverse()
             for mealData in savedMeals {
-                meals.append(HashableMeal(mealData: mealData))
+                hashableMeals.append(HashableMeal(mealData: mealData))
             }
             configureDataSource()
         } else {
+            for meal in meals {
+                hashableMeals.append(HashableMeal(meal: meal))
+            }
             self.navigationItem.rightBarButtonItem = nil
+            configureDataSource()
         }
     }
     
@@ -52,15 +57,28 @@ class RecipeListViewController: UITableViewController {
     private func updateSnapshot() {
         var snapshot = HashableMealSnapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(meals)
+        snapshot.appendItems(hashableMeals)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     private func configureDataSource() {
         dataSource = HashableMealDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
-            cell.mealImageView.image = UIImage(data: hashableMeal.mealImage!)
-            cell.recipeTitleLabel.text = hashableMeal.strMeal
+            
+            if self.isSavedRecipesList {
+                cell.setUpSavedRecipeCell(withMeal: hashableMeal)
+                cell.onDelete = { [weak self] cell in
+                    guard let self = self else { return }
+                    guard let hashableMeal = self.dataSource.itemIdentifier(for: tableView.indexPath(for: cell)!) else { return }
+                    guard let fetchedMeal = self.persistenceManager.fetchMeal(MealData.self, idMeal: hashableMeal.idMeal!) else { return }
+                    self.persistenceManager.delete(fetchedMeal)
+                    self.hashableMeals.removeAll() { $0 == hashableMeal }
+                    self.updateSnapshot()
+                    self.persistenceManager.saveContext()
+                }
+            } else {
+                cell.setUpRecipeCell(withMeal: hashableMeal)
+            }
             
             if self.isDeleting {
                 UIView.animate(withDuration: 0.3) {
@@ -70,15 +88,6 @@ class RecipeListViewController: UITableViewController {
                 cell.deleteButton.alpha = 0
             }
             
-            cell.onDelete = { [weak self] cell in
-                guard let self = self else { return }
-                guard let hashableMeal = self.dataSource.itemIdentifier(for: tableView.indexPath(for: cell)!) else { return }
-                guard let fetchedMeal = self.persistenceManager.fetchMeal(MealData.self, idMeal: hashableMeal.idMeal!) else { return }
-                self.persistenceManager.delete(fetchedMeal)
-                self.meals.removeAll() { $0 == hashableMeal }
-                self.updateSnapshot()
-                self.persistenceManager.saveContext()
-            }
             return cell
         })
     }

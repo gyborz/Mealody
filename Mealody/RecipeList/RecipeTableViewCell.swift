@@ -59,6 +59,21 @@ class RecipeTableViewCell: UITableViewCell {
         }
     }
     
+    func setUpSavedRecipeCell(withMeal meal: HashableMeal) {
+        recipeTitleLabel.text = meal.strMeal!
+        let image = UIImage(data: meal.mealImage!)
+        mealImageView.image = image
+    }
+    
+    func setUpRecipeCell(withMeal meal: HashableMeal) {
+        self.mealImageView.image = nil  // we set the image nil first so it won't 'blink' when it tries to download the correct image (while scrolling in the app)
+        guard let url = URL(string: meal.strMealThumb!) else { return }
+        ImageService.getImage(withURL: url) { (image) in
+            self.mealImageView.image = image
+        }
+        recipeTitleLabel.text = meal.strMeal!
+    }
+    
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         onDelete?(self)
     }

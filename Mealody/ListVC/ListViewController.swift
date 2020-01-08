@@ -12,6 +12,7 @@ class ListViewController: UITableViewController {
     
     private var listItems = ListItems()
     var isCategoryList = true
+    private var restManager = RestManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +55,31 @@ class ListViewController: UITableViewController {
             cell.listItemLabel.text = listItems.countries[indexPath.row]
             let imageName = listItems.countries[indexPath.row].lowercased()
             cell.listItemImageView.image = UIImage(named: imageName)
-            //cell.listItemImageView.contentMode = .scaleToFill
         }
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isCategoryList {
+            let category = listItems.categories[indexPath.row]
+            restManager.getMeals(fromCategory: category) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let meals):
+                        let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
+                        recipeListVC.isSavedRecipesList = false
+                        recipeListVC.meals = meals
+                        recipeListVC.navigationItem.title = category
+                        self.navigationController?.pushViewController(recipeListVC, animated: true)
+                    case .failure(let error):
+                        // TODO: - error handling
+                        print(error)
+                    }
+                }
+            }
+        }
     }
 
 }

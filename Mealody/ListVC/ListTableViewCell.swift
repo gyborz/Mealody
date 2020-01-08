@@ -17,10 +17,10 @@ class ListTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        self.selectionStyle = .default
-//        self.backgroundColor = .clear
-//        self.selectedBackgroundView = UIView()
-//        self.selectedBackgroundView?.backgroundColor = .clear
+        self.selectionStyle = .default
+        self.backgroundColor = .clear
+        self.selectedBackgroundView = UIView()
+        self.selectedBackgroundView?.backgroundColor = .clear
         
         listItemView.clipsToBounds = true
         listItemView.layer.cornerRadius = listItemView.frame.height / 2
@@ -37,7 +37,12 @@ class ListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
+        if isSelected {
+            listItemView.alpha = 0.8
+        } else {
+            listItemView.alpha = 1
+        }
     }
     
 }

@@ -61,25 +61,14 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.tableView.deselectRow(at: indexPath, animated: false)
         if isCategoryList {
             let category = listItems.categories[indexPath.row]
-            restManager.getMeals(fromCategory: category) { [weak self] result in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let meals):
-                        let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
-                        recipeListVC.isSavedRecipesList = false
-                        recipeListVC.meals = meals
-                        recipeListVC.navigationItem.title = category
-                        self.navigationController?.pushViewController(recipeListVC, animated: true)
-                    case .failure(let error):
-                        // TODO: - error handling
-                        print(error)
-                    }
-                }
-            }
+            let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
+            recipeListVC.isSavedRecipesList = false
+            recipeListVC.isCategoryList = true
+            recipeListVC.category = category
+            recipeListVC.navigationItem.title = category
+            self.navigationController?.pushViewController(recipeListVC, animated: true)
         }
     }
 

@@ -19,8 +19,11 @@ class RecipeListViewController: UITableViewController {
     private var dataSource: HashableMealDataSource!
     private let persistenceManager = PersistenceManager.shared
     private var isDeleting = false
+    private let restManager = RestManager()
     var isSavedRecipesList: Bool = true
-    var meals = [Meal]()
+    var isCategoryList = true
+    var category = String()
+    var country = String()
     
     @IBOutlet weak var trashButton: UIBarButtonItem!
     
@@ -41,9 +44,7 @@ class RecipeListViewController: UITableViewController {
             }
             configureDataSource()
         } else {
-            for meal in meals {
-                hashableMeals.append(HashableMeal(meal: meal))
-            }
+            getData()
             self.navigationItem.rightBarButtonItem = nil
             configureDataSource()
         }
@@ -52,6 +53,26 @@ class RecipeListViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateSnapshot()
+    }
+    
+    private func getData() {
+        if isCategoryList {
+            restManager.getMeals(fromCategory: category) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let meals):
+                        for meal in meals {
+                            self.hashableMeals.append(HashableMeal(meal: meal))
+                        }
+                        self.updateSnapshot()
+                    case .failure(let error):
+                        // TODO: - error handling
+                        print(error)
+                    }
+                }
+            }
+        }
     }
     
     private func updateSnapshot() {

@@ -73,6 +73,7 @@ class RandomViewController: UIViewController {
                         recipeVC.meal = meal
                         recipeVC.image = image
                         recipeVC.calledWithHashableMeal = false
+                        recipeVC.isHashableMealFromPersistence = false
                         self.present(recipeVC, animated: true)
                         
                         self.setUpButton()

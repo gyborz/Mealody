@@ -136,31 +136,22 @@ class RecipeListViewController: UITableViewController {
             recipeVC.modalPresentationStyle = .automatic
             recipeVC.hashableMeal = hashableMeal
             recipeVC.calledWithHashableMeal = true
+            recipeVC.isHashableMealFromPersistence = true
             self.present(recipeVC, animated: true) { [weak self] in
                 self?.tableView.deselectRow(at: indexPath, animated: false)
             }
         } else {
             guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-            restManager.getMeal(byId: hashableMeal.idMeal!) { [weak self] result in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let meal):
-                        guard let url = URL(string: meal.strMealThumb!) else { return }
-                        ImageService.getImage(withURL: url) { image, _ in
-                            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-                            recipeVC.modalPresentationStyle = .automatic
-                            recipeVC.meal = meal
-                            recipeVC.image = image
-                            recipeVC.calledWithHashableMeal = false
-                            self.present(recipeVC, animated: true) { [weak self] in
-                                self?.tableView.deselectRow(at: indexPath, animated: false)
-                            }
-                        }
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
+            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+            recipeVC.modalPresentationStyle = .automatic
+            recipeVC.hashableMeal = hashableMeal
+            recipeVC.calledWithHashableMeal = true
+            recipeVC.isHashableMealFromPersistence = false
+            if let image = ImageService.cache.object(forKey: NSString(string: hashableMeal.strMealThumb!)) {    // image would be ready while presenting the ViewController
+                recipeVC.image = image
+            }
+            self.present(recipeVC, animated: true) { [weak self] in
+                self?.tableView.deselectRow(at: indexPath, animated: false)
             }
         }
     }

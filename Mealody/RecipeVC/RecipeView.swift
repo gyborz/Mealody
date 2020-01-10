@@ -17,11 +17,14 @@ class RecipeView: UIView {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var blurView: UIView!
     
-    
-    func setUpView(with meal: Meal, and image: UIImage) {
+    // setting up the view with meal and image are in two separate functions because we can set the image before
+    // we go and request the full meal with all the informations - this way when we present the RecipeVC we can already set the imageview
+    // if we would set it in the restManager's getMeal(byId:completion:) function in RecipeVC's viewDidLoad, then the imageView would
+    // get the image in the middle of presentation, which looks a bit ugly
+    // since we already got the image in the RecipeListVC, we can cache it before presenting the RecipeVC
+    func setUpView(withMeal meal: Meal) {
         setUpUI()
         
-        mealImageView.image = image
         mealLabel.text = meal.strMeal
         
         let ingredients = getIngredients(from: meal)
@@ -31,7 +34,11 @@ class RecipeView: UIView {
         instructionsTextView.text = meal.strInstructions
     }
     
-    func setUpView(with hashableMeal: HashableMeal) {
+    func setUpView(withImage image: UIImage) {
+        mealImageView.image = image
+    }
+    
+    func setUpView(withHashableMeal hashableMeal: HashableMeal) {
         setUpUI()
         
         saveButton.isHidden = true

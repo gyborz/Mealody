@@ -72,6 +72,22 @@ class RecipeListViewController: UITableViewController {
                     }
                 }
             }
+        } else {
+            restManager.getMeals(fromCountry: country) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let meals):
+                        for meal in meals {
+                            self.hashableMeals.append(HashableMeal(meal: meal))
+                        }
+                        self.updateSnapshot()
+                    case .failure(let error):
+                        // TODO: - error handling
+                        print(error)
+                    }
+                }
+            }
         }
     }
     

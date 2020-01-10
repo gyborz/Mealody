@@ -69,6 +69,14 @@ class ListViewController: UITableViewController {
             recipeListVC.category = category
             recipeListVC.navigationItem.title = category
             self.navigationController?.pushViewController(recipeListVC, animated: true)
+        } else {
+            let country = listItems.countries[indexPath.row]
+            let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
+            recipeListVC.isSavedRecipesList = false
+            recipeListVC.isCategoryList = false
+            recipeListVC.country = country
+            recipeListVC.navigationItem.title = country
+            self.navigationController?.pushViewController(recipeListVC, animated: true)
         }
     }
 

@@ -130,13 +130,38 @@ class RecipeListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-        let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-        recipeVC.modalPresentationStyle = .automatic
-        recipeVC.hashableMeal = hashableMeal
-        recipeVC.calledWithHashableMeal = true
-        self.present(recipeVC, animated: true) { [weak self] in
-            self?.tableView.deselectRow(at: indexPath, animated: false)
+        if isSavedRecipesList {
+            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+            recipeVC.modalPresentationStyle = .automatic
+            recipeVC.hashableMeal = hashableMeal
+            recipeVC.calledWithHashableMeal = true
+            self.present(recipeVC, animated: true) { [weak self] in
+                self?.tableView.deselectRow(at: indexPath, animated: false)
+            }
+        } else {
+            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+            restManager.getMeal(byId: hashableMeal.idMeal!) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let meal):
+                        guard let url = URL(string: meal.strMealThumb!) else { return }
+                        ImageService.getImage(withURL: url) { image, _ in
+                            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+                            recipeVC.modalPresentationStyle = .automatic
+                            recipeVC.meal = meal
+                            recipeVC.image = image
+                            recipeVC.calledWithHashableMeal = false
+                            self.present(recipeVC, animated: true) { [weak self] in
+                                self?.tableView.deselectRow(at: indexPath, animated: false)
+                            }
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
         }
     }
     

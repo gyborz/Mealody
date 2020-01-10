@@ -86,4 +86,27 @@ class RestManager {
         }.resume()
     }
     
+    func getMeal(byId id: String, completion: @escaping (Result<Meal,RestManagerError>) -> Void) {
+        guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/lookup.php?i=\(id)") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
+                do {
+                    let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
+                    
+                    guard let meal = mealResponse.meals?.first else { return }
+                    
+                    completion(.success(meal))
+                } catch {
+                    completion(.failure(.unknownError))
+                }
+            }
+            
+            if error != nil {
+                completion(.failure(.requestError))
+            }
+        }.resume()
+    }
+    
 }

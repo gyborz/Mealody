@@ -57,6 +57,7 @@ class RecipeViewController: UIViewController {
                 print("Meal already exists")
             } else {
                 persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
+                recipeView.toggleSavedLabel()
             }
         } else {
             // TODO: - error handling

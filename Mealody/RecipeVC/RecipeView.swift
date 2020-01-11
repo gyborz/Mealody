@@ -10,6 +10,9 @@ import UIKit
 
 class RecipeView: UIView {
     
+    var savedLabel: SavedLabel!
+    var savedLabelTopAnchor: NSLayoutConstraint! // we have to keep track of this anchor so we can animate the button up and down
+    
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var mealLabel: UILabel!
     @IBOutlet weak var ingredientsTextView: UITextView!
@@ -77,6 +80,15 @@ class RecipeView: UIView {
         
         instructionsTextView.isScrollEnabled = false
         instructionsTextView.isUserInteractionEnabled = false
+        
+        savedLabel = SavedLabel()
+        self.addSubview(savedLabel)
+        savedLabel.translatesAutoresizingMaskIntoConstraints = false
+        savedLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        savedLabelTopAnchor = savedLabel.topAnchor.constraint(equalTo: self.bottomAnchor)
+        savedLabelTopAnchor.isActive = true
+        savedLabel.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        savedLabel.widthAnchor.constraint(equalToConstant: savedLabel.label.bounds.width + 30).isActive = true
     }
     
     func changeSaveButton() {
@@ -122,6 +134,18 @@ class RecipeView: UIView {
             }
         }
         return measures
+    }
+    
+    func toggleSavedLabel() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            self.savedLabelTopAnchor.constant = -65.0
+            self.layoutIfNeeded()
+        }) { completed in
+            UIView.animate(withDuration: 0.5, delay: 1.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.savedLabelTopAnchor.constant = +65.0
+                self.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
 }

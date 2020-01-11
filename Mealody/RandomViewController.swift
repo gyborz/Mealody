@@ -18,8 +18,6 @@ class RandomViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         activityIndicator.type = .lineScale
         activityIndicator.color = .white
@@ -67,7 +65,7 @@ class RandomViewController: UIViewController {
                 switch result {
                 case .success(let meal):
                     guard let url = URL(string: meal.strMealThumb!) else { return }
-                    ImageService.getImage(withURL: url) { image in
+                    ImageService.getImage(withURL: url) { image, _ in
                         self.activityIndicator.stopAnimating()
                         
                         let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
@@ -75,6 +73,7 @@ class RandomViewController: UIViewController {
                         recipeVC.meal = meal
                         recipeVC.image = image
                         recipeVC.calledWithHashableMeal = false
+                        recipeVC.isHashableMealFromPersistence = false
                         self.present(recipeVC, animated: true)
                         
                         self.setUpButton()
@@ -86,11 +85,5 @@ class RandomViewController: UIViewController {
             }
         }
     }
-
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-}
-
-extension RandomViewController: UIGestureRecognizerDelegate {
+    
 }

@@ -59,6 +59,29 @@ class RecipeTableViewCell: UITableViewCell {
         }
     }
     
+    func setUpSavedRecipeCell(withMeal meal: HashableMeal) {
+        recipeTitleLabel.text = meal.strMeal!
+        let image = UIImage(data: meal.mealImage!)
+        mealImageView.image = image
+    }
+    
+    func setUpRecipeCell(withMeal meal: HashableMeal) {
+        self.mealImageView.image = nil  // we set the image nil first so it won't 'blink' when it tries to download the correct image (while scrolling in the app)
+        
+        // we check if the url of the image we fetched and the url of the meal we have is equal
+        // this is needed so we avoid the possibility that an another image gets fetched faster (because of smaller size for example)
+        // than the original one, which truly belongs to the recipe
+        guard let url = URL(string: meal.strMealThumb!) else { return }
+        ImageService.getImage(withURL: url) { (image, urlCheck) in
+            if url.absoluteString == urlCheck.absoluteString {
+                self.mealImageView.image = image
+            } else {
+                print("not the right image")
+            }
+        }
+        recipeTitleLabel.text = meal.strMeal!
+    }
+    
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         onDelete?(self)
     }

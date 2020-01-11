@@ -10,6 +10,9 @@ import UIKit
 
 class RecipeView: UIView {
     
+    var savedLabel: SavedLabel!
+    var savedLabelTopAnchor: NSLayoutConstraint! // we have to keep track of this anchor so we can animate the button up and down
+    
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var mealLabel: UILabel!
     @IBOutlet weak var ingredientsTextView: UITextView!
@@ -17,11 +20,14 @@ class RecipeView: UIView {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var blurView: UIView!
     
-    
-    func setUpView(with meal: Meal, and image: UIImage) {
+    // setting up the view with meal and image are in two separate functions because we can set the image before
+    // we go and request the full meal with all the informations - this way when we present the RecipeVC we can already set the imageview
+    // if we would set it in the restManager's getMeal(byId:completion:) function in RecipeVC's viewDidLoad, then the imageView would
+    // get the image in the middle of presentation, which looks a bit ugly
+    // since we already got the image in the RecipeListVC, we can cache it before presenting the RecipeVC
+    func setUpView(withMeal meal: Meal) {
         setUpUI()
         
-        mealImageView.image = image
         mealLabel.text = meal.strMeal
         
         let ingredients = getIngredients(from: meal)
@@ -31,7 +37,11 @@ class RecipeView: UIView {
         instructionsTextView.text = meal.strInstructions
     }
     
-    func setUpView(with hashableMeal: HashableMeal) {
+    func setUpView(withImage image: UIImage) {
+        mealImageView.image = image
+    }
+    
+    func setUpView(withHashableMeal hashableMeal: HashableMeal) {
         setUpUI()
         
         saveButton.isHidden = true
@@ -70,6 +80,15 @@ class RecipeView: UIView {
         
         instructionsTextView.isScrollEnabled = false
         instructionsTextView.isUserInteractionEnabled = false
+        
+        savedLabel = SavedLabel()
+        self.addSubview(savedLabel)
+        savedLabel.translatesAutoresizingMaskIntoConstraints = false
+        savedLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        savedLabelTopAnchor = savedLabel.topAnchor.constraint(equalTo: self.bottomAnchor)
+        savedLabelTopAnchor.isActive = true
+        savedLabel.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        savedLabel.widthAnchor.constraint(equalToConstant: savedLabel.label.bounds.width + 30).isActive = true
     }
     
     func changeSaveButton() {
@@ -115,6 +134,18 @@ class RecipeView: UIView {
             }
         }
         return measures
+    }
+    
+    func toggleSavedLabel() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+            self.savedLabelTopAnchor.constant = -65.0
+            self.layoutIfNeeded()
+        }) { completed in
+            UIView.animate(withDuration: 0.5, delay: 1.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.savedLabelTopAnchor.constant = +65.0
+                self.layoutIfNeeded()
+            }, completion: nil)
+        }
     }
     
 }

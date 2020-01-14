@@ -22,6 +22,11 @@ class IngredientsViewController: UIViewController {
     private typealias IngredientsDataSource = UITableViewDiffableDataSource<Section, Ingredient>
     private typealias IngredientsSnapshot = NSDiffableDataSourceSnapshot<Section, Ingredient>
     private var dataSource: IngredientsDataSource!
+    
+    // searchController properties:
+    let searchController = UISearchController(searchResultsController: nil)
+    private var filteredIngredients = [Ingredient]()
+    private var selectedIngredients = [Ingredient]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +35,12 @@ class IngredientsViewController: UIViewController {
         ingredientsTableView.allowsMultipleSelection = true
         ingredientsTableView.rowHeight = 50
         ingredientsTableView.register(UINib(nibName: "IngredientTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientCell")
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Ingredients"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
         
         getData()
         configureDataSource()
@@ -60,17 +71,10 @@ class IngredientsViewController: UIViewController {
     private func configureDataSource() {
         dataSource = IngredientsDataSource(tableView: ingredientsTableView, cellProvider: { (tableView, indexPath, ingredient) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientTableViewCell
-//            cell.textLabel?.text = ingredient.strIngredient
-//            let backgroundView = UIView()
-//            backgroundView.backgroundColor = .systemOrange
-//            cell.selectedBackgroundView = backgroundView
-//            if self.selectedIngredients.contains(ingredient) {
-//                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
-//                cell.isSelected = true
-//            }
-//            cell.accessoryType = cell.isSelected ? .checkmark : .none
-            
             cell.ingredientLabel.text = ingredient.strIngredient
+            if self.selectedIngredients.contains(ingredient) {
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+            }
             return cell
         })
     }
@@ -90,4 +94,33 @@ class IngredientsViewController: UIViewController {
 }
 
 extension IngredientsViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let ingredient = dataSource.itemIdentifier(for: indexPath) else { return }
+        selectedIngredients.append(ingredient)
+        //updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let ingredient = dataSource.itemIdentifier(for: indexPath) else { return }
+        selectedIngredients.removeAll() { $0 == ingredient }
+        //updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
+    }
+    
+}
+
+extension IngredientsViewController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            filteredIngredients = ingredients.filter { (ingredient: Ingredient) -> Bool in
+                return ingredient.strIngredient.lowercased().contains(searchText.lowercased())
+            }
+        } else {
+            filteredIngredients = ingredients
+        }
+        updateSnapshot(from: filteredIngredients)
+    }
+    
 }

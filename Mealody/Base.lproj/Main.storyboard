@@ -346,7 +346,32 @@
                     <view key="view" contentMode="scaleToFill" id="VvL-vq-257">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tBW-aa-YsU">
+                                <rect key="frame" x="0.0" y="88" width="375" height="659"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="6fp-OD-2ea">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6fp-OD-2ea" id="lgm-7B-e2z">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="zWH-uu-J0e" id="c8t-II-zLC"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="tBW-aa-YsU" firstAttribute="trailing" secondItem="vLk-wt-75a" secondAttribute="trailing" id="2CE-pU-X9N"/>
+                            <constraint firstItem="tBW-aa-YsU" firstAttribute="leading" secondItem="vLk-wt-75a" secondAttribute="leading" id="9yy-h3-QrX"/>
+                            <constraint firstAttribute="bottom" secondItem="tBW-aa-YsU" secondAttribute="bottom" constant="65" id="Qf1-kg-fwT"/>
+                            <constraint firstItem="tBW-aa-YsU" firstAttribute="top" secondItem="vLk-wt-75a" secondAttribute="top" id="Riv-yE-3RJ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vLk-wt-75a"/>
                     </view>
                     <navigationItem key="navigationItem" title="Ingredients" id="6H6-lA-inG">
@@ -357,10 +382,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="ingredientsTableView" destination="tBW-aa-YsU" id="iQG-rg-38P"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XdE-nr-X6e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2449" y="910"/>
+            <point key="canvasLocation" x="2448.8000000000002" y="909.60591133004925"/>
         </scene>
         <!--Random-->
         <scene sceneID="uML-m3-gCT">

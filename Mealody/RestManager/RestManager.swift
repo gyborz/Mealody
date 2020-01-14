@@ -109,4 +109,27 @@ class RestManager {
         }.resume()
     }
     
+    func getIngredients(completion: @escaping (Result<[Ingredient],RestManagerError>) -> Void) {
+        guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/list.php?i=list") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
+                do {
+                    let ingredientResponse = try JSONDecoder().decode(IngredientResponse.self, from: data)
+                    
+                    let ingredients = ingredientResponse.meals
+                    
+                    completion(.success(ingredients))
+                } catch {
+                    completion(.failure(.unknownError))
+                }
+            }
+            
+            if error != nil {
+                completion(.failure(.requestError))
+            }
+        }.resume()
+    }
+    
 }

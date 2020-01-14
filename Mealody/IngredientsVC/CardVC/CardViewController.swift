@@ -69,7 +69,7 @@ extension CardViewController: UICollectionViewDelegate, UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (dataSource.itemIdentifier(for: indexPath)?.strIngredient.size(withAttributes: nil).width)!
-        return CGSize(width: width + 100, height: 30)
+        return CGSize(width: width + 110, height: 30)
     }
     
 }

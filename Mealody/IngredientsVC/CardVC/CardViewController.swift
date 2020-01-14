@@ -34,6 +34,7 @@ class CardViewController: UIViewController {
         titleLabel.layer.shadowOffset = .init(width: 0, height: 2)
         titleLabel.layer.shadowRadius = 2.5
         
+        ingredientsCollectionView.backgroundColor = .systemOrange
         ingredientsCollectionView.delegate = self
         ingredientsCollectionView.register(UINib(nibName: "IngredientCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IngredientCell")
         
@@ -64,6 +65,18 @@ extension CardViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (dataSource.itemIdentifier(for: indexPath)?.strIngredient.size(withAttributes: nil).width)!
         return CGSize(width: width + 100, height: 30)
+    }
+    
+}
+
+extension CardViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer is UIPanGestureRecognizer {
+            return false
+        } else {
+            return true
+        }
     }
     
 }

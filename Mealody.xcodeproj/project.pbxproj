@@ -23,6 +23,8 @@
 		E74A8D6123CDE5F800717D4A /* IngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A8D6023CDE5F800717D4A /* IngredientsViewController.swift */; };
 		E74A8D6323CDED1100717D4A /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A8D6223CDED1100717D4A /* Ingredient.swift */; };
 		E74A8D6523CDED6F00717D4A /* IngredientResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A8D6423CDED6F00717D4A /* IngredientResponse.swift */; };
+		E74A8D6923CDF51300717D4A /* IngredientTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A8D6723CDF51300717D4A /* IngredientTableViewCell.swift */; };
+		E74A8D6A23CDF51300717D4A /* IngredientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E74A8D6823CDF51300717D4A /* IngredientTableViewCell.xib */; };
 		E76A68C823B693F0008A9919 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A68C723B693F0008A9919 /* ImageService.swift */; };
 		E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7968FFB23BA76C90033C111 /* Extensions.swift */; };
 		E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0023123C21AC800D7D055 /* BrowseViewController.swift */; };
@@ -61,6 +63,8 @@
 		E74A8D6023CDE5F800717D4A /* IngredientsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsViewController.swift; sourceTree = "<group>"; };
 		E74A8D6223CDED1100717D4A /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
 		E74A8D6423CDED6F00717D4A /* IngredientResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientResponse.swift; sourceTree = "<group>"; };
+		E74A8D6723CDF51300717D4A /* IngredientTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientTableViewCell.swift; sourceTree = "<group>"; };
+		E74A8D6823CDF51300717D4A /* IngredientTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientTableViewCell.xib; sourceTree = "<group>"; };
 		E76A68C723B693F0008A9919 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E7968FFB23BA76C90033C111 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E7A0023123C21AC800D7D055 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,16 @@
 			path = IngredientResponse;
 			sourceTree = "<group>";
 		};
+		E74A8D6B23CDF52600717D4A /* IngredientsVC */ = {
+			isa = PBXGroup;
+			children = (
+				E74A8D6023CDE5F800717D4A /* IngredientsViewController.swift */,
+				E74A8D6723CDF51300717D4A /* IngredientTableViewCell.swift */,
+				E74A8D6823CDF51300717D4A /* IngredientTableViewCell.xib */,
+			);
+			path = IngredientsVC;
+			sourceTree = "<group>";
+		};
 		E76E316923AD2AE700187E9B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,7 +242,7 @@
 				E7968FFB23BA76C90033C111 /* Extensions.swift */,
 				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
 				E7A71F2023C9D3F00047B598 /* SavedLabel.swift */,
-				E74A8D6023CDE5F800717D4A /* IngredientsViewController.swift */,
+				E74A8D6B23CDF52600717D4A /* IngredientsVC */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";
@@ -293,6 +307,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E74A8D6A23CDF51300717D4A /* IngredientTableViewCell.xib in Resources */,
 				E7BF89B523AA8BC000F6D152 /* LaunchScreen.storyboard in Resources */,
 				E7BF89B223AA8BC000F6D152 /* Assets.xcassets in Resources */,
 				E7BF89AD23AA8BBA00F6D152 /* Main.storyboard in Resources */,
@@ -366,6 +381,7 @@
 				E7B9E38C23AE3463006557EF /* RandomViewController.swift in Sources */,
 				E74A8D6323CDED1100717D4A /* Ingredient.swift in Sources */,
 				E7A3879D23C3C55400228349 /* NavigationViewController.swift in Sources */,
+				E74A8D6923CDF51300717D4A /* IngredientTableViewCell.swift in Sources */,
 				E735789E23C3AB8600CCA2E5 /* ListItems.swift in Sources */,
 				E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */,
 				E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */,

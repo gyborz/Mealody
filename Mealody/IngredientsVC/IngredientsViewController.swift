@@ -19,14 +19,17 @@ class IngredientsViewController: UIViewController {
     private enum Section {
         case main
     }
-    private typealias IngredientDataSource = UITableViewDiffableDataSource<Section, Ingredient>
-    private typealias IngredientSnapshot = NSDiffableDataSourceSnapshot<Section, Ingredient>
-    private var dataSource: IngredientDataSource!
+    private typealias IngredientsDataSource = UITableViewDiffableDataSource<Section, Ingredient>
+    private typealias IngredientsSnapshot = NSDiffableDataSourceSnapshot<Section, Ingredient>
+    private var dataSource: IngredientsDataSource!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        ingredientsTableView.separatorStyle = .none
         ingredientsTableView.allowsMultipleSelection = true
+        ingredientsTableView.rowHeight = 50
+        ingredientsTableView.register(UINib(nibName: "IngredientTableViewCell", bundle: nil), forCellReuseIdentifier: "IngredientCell")
         
         getData()
         configureDataSource()
@@ -55,23 +58,25 @@ class IngredientsViewController: UIViewController {
     }
     
     private func configureDataSource() {
-        dataSource = IngredientDataSource(tableView: ingredientsTableView, cellProvider: { (tableView, indexPath, ingredient) -> UITableViewCell? in
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-            cell.textLabel?.text = ingredient.strIngredient
-            let backgroundView = UIView()
-            backgroundView.backgroundColor = .systemOrange
-            cell.selectedBackgroundView = backgroundView
+        dataSource = IngredientsDataSource(tableView: ingredientsTableView, cellProvider: { (tableView, indexPath, ingredient) -> UITableViewCell? in
+            let cell = tableView.dequeueReusableCell(withIdentifier: "IngredientCell", for: indexPath) as! IngredientTableViewCell
+//            cell.textLabel?.text = ingredient.strIngredient
+//            let backgroundView = UIView()
+//            backgroundView.backgroundColor = .systemOrange
+//            cell.selectedBackgroundView = backgroundView
 //            if self.selectedIngredients.contains(ingredient) {
 //                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
 //                cell.isSelected = true
 //            }
-            cell.accessoryType = cell.isSelected ? .checkmark : .none
+//            cell.accessoryType = cell.isSelected ? .checkmark : .none
+            
+            cell.ingredientLabel.text = ingredient.strIngredient
             return cell
         })
     }
     
     private func updateSnapshot(from ingredients: [Ingredient]) {
-        var snapshot = IngredientSnapshot()
+        var snapshot = IngredientsSnapshot()
         
         snapshot.appendSections([.main])
         snapshot.appendItems(ingredients)
@@ -84,5 +89,5 @@ class IngredientsViewController: UIViewController {
 
 }
 
-//extension IngredientsViewController: UITableViewDelegate {
-//}
+extension IngredientsViewController: UITableViewDelegate {
+}

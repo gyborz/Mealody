@@ -27,6 +27,8 @@
 		E74A8D6A23CDF51300717D4A /* IngredientTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E74A8D6823CDF51300717D4A /* IngredientTableViewCell.xib */; };
 		E74A8D6F23CE0FBF00717D4A /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A8D6D23CE0FBF00717D4A /* CardViewController.swift */; };
 		E74A8D7023CE0FBF00717D4A /* CardViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E74A8D6E23CE0FBF00717D4A /* CardViewController.xib */; };
+		E74A8D7323CE17F700717D4A /* IngredientCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A8D7123CE17F700717D4A /* IngredientCollectionViewCell.swift */; };
+		E74A8D7423CE17F700717D4A /* IngredientCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E74A8D7223CE17F700717D4A /* IngredientCollectionViewCell.xib */; };
 		E76A68C823B693F0008A9919 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A68C723B693F0008A9919 /* ImageService.swift */; };
 		E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7968FFB23BA76C90033C111 /* Extensions.swift */; };
 		E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0023123C21AC800D7D055 /* BrowseViewController.swift */; };
@@ -69,6 +71,8 @@
 		E74A8D6823CDF51300717D4A /* IngredientTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientTableViewCell.xib; sourceTree = "<group>"; };
 		E74A8D6D23CE0FBF00717D4A /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		E74A8D6E23CE0FBF00717D4A /* CardViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardViewController.xib; sourceTree = "<group>"; };
+		E74A8D7123CE17F700717D4A /* IngredientCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientCollectionViewCell.swift; sourceTree = "<group>"; };
+		E74A8D7223CE17F700717D4A /* IngredientCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientCollectionViewCell.xib; sourceTree = "<group>"; };
 		E76A68C723B693F0008A9919 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E7968FFB23BA76C90033C111 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E7A0023123C21AC800D7D055 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 			children = (
 				E74A8D6D23CE0FBF00717D4A /* CardViewController.swift */,
 				E74A8D6E23CE0FBF00717D4A /* CardViewController.xib */,
+				E74A8D7123CE17F700717D4A /* IngredientCollectionViewCell.swift */,
+				E74A8D7223CE17F700717D4A /* IngredientCollectionViewCell.xib */,
 			);
 			path = CardVC;
 			sourceTree = "<group>";
@@ -323,6 +329,7 @@
 			files = (
 				E74A8D6A23CDF51300717D4A /* IngredientTableViewCell.xib in Resources */,
 				E7BF89B523AA8BC000F6D152 /* LaunchScreen.storyboard in Resources */,
+				E74A8D7423CE17F700717D4A /* IngredientCollectionViewCell.xib in Resources */,
 				E7BF89B223AA8BC000F6D152 /* Assets.xcassets in Resources */,
 				E7BF89AD23AA8BBA00F6D152 /* Main.storyboard in Resources */,
 				E74A8D7023CE0FBF00717D4A /* CardViewController.xib in Resources */,
@@ -395,6 +402,7 @@
 				E7FAA24B23BBB12D00E88205 /* HashableMeal.swift in Sources */,
 				E74A8D6F23CE0FBF00717D4A /* CardViewController.swift in Sources */,
 				E7B9E38C23AE3463006557EF /* RandomViewController.swift in Sources */,
+				E74A8D7323CE17F700717D4A /* IngredientCollectionViewCell.swift in Sources */,
 				E74A8D6323CDED1100717D4A /* Ingredient.swift in Sources */,
 				E7A3879D23C3C55400228349 /* NavigationViewController.swift in Sources */,
 				E74A8D6923CDF51300717D4A /* IngredientTableViewCell.swift in Sources */,

@@ -9,16 +9,61 @@
 import UIKit
 
 class CardViewController: UIViewController {
+    private var ingredients = [Ingredient]()
+    
+    // collectionView properties
+    private enum Section {
+        case main
+    }
+    private typealias IngredientsDataSource = UICollectionViewDiffableDataSource<Section, Ingredient>
+    private typealias IngredientsSnapshot = NSDiffableDataSourceSnapshot<Section, Ingredient>
+    private var dataSource: IngredientsDataSource!
     
     @IBOutlet weak var handleArea: UIView!
     @IBOutlet weak var handle: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    
+    @IBOutlet weak var ingredientsCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        handle.layer.cornerRadius = 3.5
         
+        titleLabel.layer.shadowColor = UIColor.black.cgColor
+        titleLabel.layer.shadowOpacity = 0.5
+        titleLabel.layer.shadowOffset = .init(width: 0, height: 2)
+        titleLabel.layer.shadowRadius = 2.5
+        
+        ingredientsCollectionView.delegate = self
+        ingredientsCollectionView.register(UINib(nibName: "IngredientCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IngredientCell")
+        
+        configureDataSource()
+    }
+    
+    private func configureDataSource() {
+        dataSource = IngredientsDataSource(collectionView: ingredientsCollectionView, cellProvider: { (collectionView, indexPath, ingredient) -> UICollectionViewCell? in
+            let cell = self.ingredientsCollectionView.dequeueReusableCell(withReuseIdentifier: "IngredientCell", for: indexPath) as! IngredientCollectionViewCell
+            cell.ingredientLabel.text = ingredient.strIngredient
+            //cell.deletionDelegate = self
+            return cell
+        })
     }
 
+    private func updateSnapshot(from ingredients: [Ingredient]) {
+        var snapshot = IngredientsSnapshot()
+
+        snapshot.appendSections([.main])
+        snapshot.appendItems(ingredients)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+
+}
+
+extension CardViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (dataSource.itemIdentifier(for: indexPath)?.strIngredient.size(withAttributes: nil).width)!
+        return CGSize(width: width + 100, height: 30)
+    }
+    
 }

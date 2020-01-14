@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="handle" destination="BqA-BK-oug" id="t9i-Gk-aHu"/>
                 <outlet property="handleArea" destination="BAR-Df-eYD" id="cwN-6j-g3d"/>
+                <outlet property="ingredientsCollectionView" destination="HK7-uS-NB0" id="hsW-rQ-AQN"/>
                 <outlet property="titleLabel" destination="hj4-TT-tDD" id="lXf-iW-NxS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -48,9 +49,23 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="HK7-uS-NB0">
+                            <rect key="frame" x="15" y="50" width="345" height="326"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1z8-nM-RJr">
+                                <size key="itemSize" width="50" height="50"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="HK7-uS-NB0" firstAttribute="height" secondItem="3JV-u8-avj" secondAttribute="height" multiplier="0.767059" id="1RW-EP-l9o"/>
+                        <constraint firstItem="HK7-uS-NB0" firstAttribute="leading" secondItem="3JV-u8-avj" secondAttribute="leading" constant="15" id="Ivg-Gw-lWS"/>
+                        <constraint firstItem="HK7-uS-NB0" firstAttribute="top" secondItem="hj4-TT-tDD" secondAttribute="bottom" constant="15" id="QT0-Rc-Qbg"/>
+                        <constraint firstAttribute="trailing" secondItem="HK7-uS-NB0" secondAttribute="trailing" constant="15" id="Ujd-Sn-ScZ"/>
                         <constraint firstItem="hj4-TT-tDD" firstAttribute="centerX" secondItem="3JV-u8-avj" secondAttribute="centerX" id="XAg-of-r4a"/>
                         <constraint firstItem="hj4-TT-tDD" firstAttribute="top" secondItem="3JV-u8-avj" secondAttribute="top" constant="5" id="mWs-U3-6M8"/>
                     </constraints>

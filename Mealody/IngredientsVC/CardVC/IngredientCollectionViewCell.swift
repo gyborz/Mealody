@@ -10,6 +10,8 @@ import UIKit
 
 class IngredientCollectionViewCell: UICollectionViewCell {
     
+    var deletionDelegate: CellDeletionDelegate!
+    
     @IBOutlet weak var ingredientCellView: UIView!
     @IBOutlet weak var ingredientLabel: UILabel!
 
@@ -17,6 +19,10 @@ class IngredientCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
         ingredientCellView.layer.cornerRadius = ingredientCellView.frame.height / 2
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+        deletionDelegate.deleteCell(self)
     }
 
 }

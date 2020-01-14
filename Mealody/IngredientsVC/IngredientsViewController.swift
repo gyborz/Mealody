@@ -12,6 +12,7 @@ class IngredientsViewController: UIViewController {
     
     private let restManager = RestManager()
     private var ingredients = [Ingredient]()
+    var updateDelegate: UpdateChosenIngredientsDelegate!
     
     // tableView properties:
     private enum Section {
@@ -125,7 +126,7 @@ class IngredientsViewController: UIViewController {
         cardViewController.handleArea.addGestureRecognizer(tapGestureRecognizer)
         cardViewController.view.addGestureRecognizer(panGestureRecognizer)
         
-        //cardViewController.deselectionDelegate = self
+        cardViewController.deselectionDelegate = self
     }
     
     @objc func handleCardTap(recognzier: UITapGestureRecognizer) {
@@ -269,13 +270,13 @@ extension IngredientsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let ingredient = dataSource.itemIdentifier(for: indexPath) else { return }
         selectedIngredients.append(ingredient)
-        //updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
+        updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard let ingredient = dataSource.itemIdentifier(for: indexPath) else { return }
         selectedIngredients.removeAll() { $0 == ingredient }
-        //updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
+        updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
     }
     
 }
@@ -292,6 +293,15 @@ extension IngredientsViewController: UISearchResultsUpdating {
             filteredIngredients = ingredients
         }
         updateSnapshot(from: filteredIngredients)
+    }
+    
+}
+
+extension IngredientsViewController: DeselectionDelegate {
+    
+    func deselectIngredient(ingredient: String) {
+        selectedIngredients.removeAll() { $0.strIngredient == ingredient }
+        ingredientsTableView.reloadData()
     }
     
 }

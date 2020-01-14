@@ -9,7 +9,9 @@
 import UIKit
 
 class CardViewController: UIViewController {
+    
     private var ingredients = [Ingredient]()
+    var deselectionDelegate: DeselectionDelegate!
     
     // collectionView properties
     private enum Section {
@@ -38,6 +40,9 @@ class CardViewController: UIViewController {
         ingredientsCollectionView.delegate = self
         ingredientsCollectionView.register(UINib(nibName: "IngredientCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IngredientCell")
         
+        let parentVC = parent as! IngredientsViewController
+        parentVC.updateDelegate = self
+        
         configureDataSource()
     }
     
@@ -45,7 +50,7 @@ class CardViewController: UIViewController {
         dataSource = IngredientsDataSource(collectionView: ingredientsCollectionView, cellProvider: { (collectionView, indexPath, ingredient) -> UICollectionViewCell? in
             let cell = self.ingredientsCollectionView.dequeueReusableCell(withReuseIdentifier: "IngredientCell", for: indexPath) as! IngredientCollectionViewCell
             cell.ingredientLabel.text = ingredient.strIngredient
-            //cell.deletionDelegate = self
+            cell.deletionDelegate = self
             return cell
         })
     }
@@ -65,6 +70,25 @@ extension CardViewController: UICollectionViewDelegate, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (dataSource.itemIdentifier(for: indexPath)?.strIngredient.size(withAttributes: nil).width)!
         return CGSize(width: width + 100, height: 30)
+    }
+    
+}
+
+extension CardViewController: UpdateChosenIngredientsDelegate {
+    
+    func updateIngredients(chosenIngredients: [Ingredient]) {
+        ingredients = chosenIngredients
+        updateSnapshot(from: ingredients)
+    }
+    
+}
+
+extension CardViewController: CellDeletionDelegate {
+    
+    func deleteCell(_ cell: IngredientCollectionViewCell) {
+        ingredients.removeAll() { $0.strIngredient == cell.ingredientLabel.text }
+        updateSnapshot(from: ingredients)
+        deselectionDelegate.deselectIngredient(ingredient: cell.ingredientLabel.text!)
     }
     
 }

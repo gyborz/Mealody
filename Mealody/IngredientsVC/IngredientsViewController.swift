@@ -24,11 +24,11 @@ class IngredientsViewController: UIViewController {
     private var dataSource: IngredientsDataSource!
     
     // searchController properties:
-    let searchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     private var filteredIngredients = [Ingredient]()
     private var selectedIngredients = [Ingredient]()
     
-    // CardViewController properties
+    // cardViewController properties:
     private enum CardState {
         case expanded
         case collapsed
@@ -48,6 +48,11 @@ class IngredientsViewController: UIViewController {
     private let minimumScreenRatioToHide: CGFloat = 0.3
     private let animationDuration = 0.7
     
+    // recipesButton properties:
+    var recipesButton: RecipesButton!
+    var recipesButtonTopAnchor: NSLayoutConstraint! // we have to keep track of this anchor so we can animate the button up and down
+    
+    // Outlets:
     @IBOutlet weak var ingredientsTableView: UITableView!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     
@@ -68,6 +73,8 @@ class IngredientsViewController: UIViewController {
         activityIndicator.type = .lineScale
         activityIndicator.color = .systemOrange
         
+        setupRecipesButton()
+        
         getData()
         configureDataSource()
         setupCard()
@@ -77,6 +84,19 @@ class IngredientsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isTranslucent = true
+    }
+    
+    private func setupRecipesButton() {
+        recipesButton = RecipesButton()
+        view.addSubview(recipesButton)
+        recipesButton.translatesAutoresizingMaskIntoConstraints = false
+        recipesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        recipesButtonTopAnchor = recipesButton.topAnchor.constraint(equalTo: view.bottomAnchor)
+        recipesButtonTopAnchor.isActive = true
+        recipesButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        recipesButton.widthAnchor.constraint(equalToConstant: recipesButton.button.bounds.width + 10).isActive = true
+        
+        recipesButton.button.addTarget(self, action: #selector(showRecipes), for: .touchUpInside)
     }
 
     private func getData() {
@@ -266,6 +286,26 @@ class IngredientsViewController: UIViewController {
         }
     }
     
+    private func toggleRecipesButton(hidden: Bool) {
+        if hidden {
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.recipesButtonTopAnchor.constant = -110.0
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            recipesButton.isVisible.toggle()
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.recipesButtonTopAnchor.constant = 110
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+            recipesButton.isVisible.toggle()
+        }
+    }
+    
+    @objc private func showRecipes() {
+        print("recipes button tapped")
+    }
+    
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -278,12 +318,18 @@ extension IngredientsViewController: UITableViewDelegate {
         guard let ingredient = dataSource.itemIdentifier(for: indexPath) else { return }
         selectedIngredients.append(ingredient)
         updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
+        if !recipesButton.isVisible {
+            toggleRecipesButton(hidden: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         guard let ingredient = dataSource.itemIdentifier(for: indexPath) else { return }
         selectedIngredients.removeAll() { $0 == ingredient }
         updateDelegate.updateIngredients(chosenIngredients: selectedIngredients)
+        if selectedIngredients.isEmpty {
+            toggleRecipesButton(hidden: false)
+        }
     }
     
 }
@@ -308,6 +354,9 @@ extension IngredientsViewController: DeselectionDelegate {
     
     func deselectIngredient(ingredient: String) {
         selectedIngredients.removeAll() { $0.strIngredient == ingredient }
+        if selectedIngredients.isEmpty {
+            toggleRecipesButton(hidden: false)
+        }
         ingredientsTableView.reloadData()
     }
     

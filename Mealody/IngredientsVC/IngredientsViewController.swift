@@ -93,7 +93,7 @@ class IngredientsViewController: UIViewController {
         recipesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         recipesButtonTopAnchor = recipesButton.topAnchor.constraint(equalTo: view.bottomAnchor)
         recipesButtonTopAnchor.isActive = true
-        recipesButton.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
+        recipesButton.heightAnchor.constraint(equalToConstant: 35.0).isActive = true
         recipesButton.widthAnchor.constraint(equalToConstant: recipesButton.button.bounds.width + 10).isActive = true
         
         recipesButton.button.addTarget(self, action: #selector(showRecipes), for: .touchUpInside)
@@ -289,13 +289,13 @@ class IngredientsViewController: UIViewController {
     private func toggleRecipesButton(hidden: Bool) {
         if hidden {
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.recipesButtonTopAnchor.constant = -110.0
+                self.recipesButtonTopAnchor.constant = -115.0
                 self.view.layoutIfNeeded()
             }, completion: nil)
             recipesButton.isVisible.toggle()
         } else {
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.recipesButtonTopAnchor.constant = 110
+                self.recipesButtonTopAnchor.constant = 115
                 self.view.layoutIfNeeded()
             }, completion: nil)
             recipesButton.isVisible.toggle()
@@ -303,7 +303,17 @@ class IngredientsViewController: UIViewController {
     }
     
     @objc private func showRecipes() {
-        print("recipes button tapped")
+        if selectedIngredients.count <= 4 {
+            let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
+            recipeListVC.isSavedRecipesList = false
+            recipeListVC.isCategoryList = false
+            recipeListVC.isSearchedList = true
+            recipeListVC.ingredients = selectedIngredients
+            recipeListVC.navigationItem.title = "Recipes"
+            self.navigationController?.pushViewController(recipeListVC, animated: true)
+        } else {
+            // TODO: - error message saying no more than 4 ingredients
+        }
     }
     
     @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {

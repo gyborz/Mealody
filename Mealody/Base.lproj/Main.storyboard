@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home" translatesAutoresizingMaskIntoConstraints="NO" id="FNQ-o1-bgp">
-                                <rect key="frame" x="94" y="0.0" width="281" height="324"/>
+                                <rect key="frame" x="94" y="0.0" width="281.00000000000006" height="324"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FNQ-o1-bgp" secondAttribute="height" multiplier="281:324" id="dFc-P3-AP4"/>
                                 </constraints>
@@ -172,7 +172,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="330" height="180"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gt7-7h-Kim">
-                                                <rect key="frame" x="0.0" y="0.0" width="330" height="180"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="330" height="180.00000000000011"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="20"/>
                                                 <state key="normal" title="Categories" backgroundImage="categories">
@@ -218,7 +218,7 @@
                                         <rect key="frame" x="0.0" y="440" width="330" height="180"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D1O-J5-nsL">
-                                                <rect key="frame" x="0.0" y="0.0" width="330" height="180"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="330" height="180.00000000000011"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
                                                 <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="20"/>
                                                 <state key="normal" title="Ingredients" backgroundImage="ingredients">
@@ -347,19 +347,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9iY-EU-N7n" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="142.66666666666666" y="376" width="90" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="UIS-9a-Li8"/>
+                                    <constraint firstAttribute="height" constant="60" id="XQw-Vl-27O"/>
+                                </constraints>
+                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tBW-aa-YsU">
                                 <rect key="frame" x="0.0" y="88" width="375" height="659"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="6fp-OD-2ea">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6fp-OD-2ea" id="lgm-7B-e2z">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="delegate" destination="zWH-uu-J0e" id="c8t-II-zLC"/>
                                 </connections>
@@ -369,8 +367,11 @@
                         <constraints>
                             <constraint firstItem="tBW-aa-YsU" firstAttribute="trailing" secondItem="vLk-wt-75a" secondAttribute="trailing" id="2CE-pU-X9N"/>
                             <constraint firstItem="tBW-aa-YsU" firstAttribute="leading" secondItem="vLk-wt-75a" secondAttribute="leading" id="9yy-h3-QrX"/>
+                            <constraint firstItem="9iY-EU-N7n" firstAttribute="centerY" secondItem="VvL-vq-257" secondAttribute="centerY" id="GEj-d8-MwD"/>
+                            <constraint firstItem="9iY-EU-N7n" firstAttribute="centerX" secondItem="VvL-vq-257" secondAttribute="centerX" id="P4v-Da-ccX"/>
                             <constraint firstAttribute="bottom" secondItem="tBW-aa-YsU" secondAttribute="bottom" constant="65" id="Qf1-kg-fwT"/>
                             <constraint firstItem="tBW-aa-YsU" firstAttribute="top" secondItem="vLk-wt-75a" secondAttribute="top" id="Riv-yE-3RJ"/>
+                            <constraint firstItem="9iY-EU-N7n" firstAttribute="width" secondItem="VvL-vq-257" secondAttribute="width" multiplier="0.24" id="eJz-vV-BfH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vLk-wt-75a"/>
                     </view>
@@ -383,6 +384,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="9iY-EU-N7n" id="S9s-9Q-M53"/>
                         <outlet property="ingredientsTableView" destination="tBW-aa-YsU" id="iQG-rg-38P"/>
                     </connections>
                 </viewController>

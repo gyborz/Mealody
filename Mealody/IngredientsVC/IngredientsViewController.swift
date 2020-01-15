@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class IngredientsViewController: UIViewController {
     
@@ -48,7 +49,8 @@ class IngredientsViewController: UIViewController {
     private let animationDuration = 0.7
     
     @IBOutlet weak var ingredientsTableView: UITableView!
-
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,6 +65,9 @@ class IngredientsViewController: UIViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
+        activityIndicator.type = .lineScale
+        activityIndicator.color = .systemOrange
+        
         getData()
         configureDataSource()
         setupCard()
@@ -75,11 +80,13 @@ class IngredientsViewController: UIViewController {
     }
 
     private func getData() {
+        activityIndicator.startAnimating()
         restManager.getIngredients { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
                 case .success(let ingredients):
+                    self.activityIndicator.stopAnimating()
                     self.ingredients = ingredients
                     self.updateSnapshot(from: ingredients)
                 case .failure(let error):

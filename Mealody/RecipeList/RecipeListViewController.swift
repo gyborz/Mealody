@@ -39,12 +39,16 @@ class RecipeListViewController: UITableViewController {
         tableView.separatorStyle = .none
         
         if isSavedRecipesList {
-            var savedMeals = persistenceManager.load(MealData.self)
-            savedMeals.reverse()
-            for mealData in savedMeals {
-                hashableMeals.append(HashableMeal(mealData: mealData))
+            do {
+                var savedMeals = try persistenceManager.load(MealData.self)
+                savedMeals.reverse()
+                for mealData in savedMeals {
+                    hashableMeals.append(HashableMeal(mealData: mealData))
+                }
+                configureDataSource()
+            } catch {
+                // TODO: - error handling
             }
-            configureDataSource()
         } else {
             getData()
             self.navigationItem.rightBarButtonItem = nil
@@ -127,11 +131,16 @@ class RecipeListViewController: UITableViewController {
                 cell.onDelete = { [weak self] cell in
                     guard let self = self else { return }
                     guard let hashableMeal = self.dataSource.itemIdentifier(for: tableView.indexPath(for: cell)!) else { return }
-                    guard let fetchedMeal = self.persistenceManager.fetchMeal(MealData.self, idMeal: hashableMeal.idMeal!) else { return }
-                    self.persistenceManager.delete(fetchedMeal)
-                    self.hashableMeals.removeAll() { $0 == hashableMeal }
-                    self.updateSnapshot()
-                    self.persistenceManager.saveContext()
+                    
+                    do {
+                        guard let fetchedMeal = try self.persistenceManager.fetchMeal(MealData.self, idMeal: hashableMeal.idMeal!) else { return }
+                        self.persistenceManager.delete(fetchedMeal)
+                        self.hashableMeals.removeAll() { $0 == hashableMeal }
+                        self.updateSnapshot()
+                        try self.persistenceManager.saveContext()
+                    } catch {
+                        // TODO: - error handling
+                    }
                 }
             } else {
                 cell.setUpRecipeCell(withMeal: hashableMeal)

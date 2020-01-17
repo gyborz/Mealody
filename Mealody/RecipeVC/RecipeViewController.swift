@@ -52,12 +52,18 @@ class RecipeViewController: UIViewController {
         
         if let imageData = image.jpegData(compressionQuality: 1.0) {
             guard let idMeal = meal.idMeal else { return }
-            if let fetchedMeal = persistenceManager.fetchMeal(MealData.self, idMeal: idMeal) {
-                print(fetchedMeal.idMeal!)
-                print("Meal already exists")
-            } else {
-                persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
-                recipeView.toggleSavedLabel()
+            do {
+                if let fetchedMeal = try persistenceManager.fetchMeal(MealData.self, idMeal: idMeal) {
+                    // TODO: - disable save button, turn it green
+                    print(fetchedMeal.idMeal!)
+                    print("Meal already exists")
+                } else {
+                    try persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
+                    recipeView.toggleSavedLabel()
+                }
+            } catch {
+                //TODO: - error
+                persistenceManager.context.rollback()
             }
         } else {
             // TODO: - error handling

@@ -22,17 +22,7 @@ final class PersistenceManager {
         let container = NSPersistentContainer(name: "MealData")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /* TODO: -
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
+                NSLog("Failed to load persistence store:", error.localizedDescription, error.userInfo)
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
@@ -41,19 +31,14 @@ final class PersistenceManager {
 
     // MARK: - Core Data Saving support
 
-    func saveContext () {
+    func saveContext() throws {
         let context = persistentContainer.viewContext
         if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            }
+            try context.save()
         }
     }
     
-    func save<T: NSManagedObject>(_ objectType: T.Type, meal: Meal, imageData: Data) {
+    func save<T: NSManagedObject>(_ objectType: T.Type, meal: Meal, imageData: Data) throws {
         let ingredients = getIngredients(from: meal)
         let measures = getMeasures(from: meal)
         
@@ -65,46 +50,29 @@ final class PersistenceManager {
         newMeal.setValue(meal.strMeal, forKey: "strMeal")
         newMeal.setValue(measures, forKey: "strMeasures")
         
-        do {
-            try context.save()
-        } catch (let error) {
-            // TODO: - error
-            print("\(error)\nCouldn't save data")
-        }
+        try context.save()
     }
     
-    func load<T: NSManagedObject>(_ objectType: T.Type) -> [T] {
+    func load<T: NSManagedObject>(_ objectType: T.Type) throws -> [T] {
         let entityName = String(describing: objectType)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         
-        do {
-            let fetchedObjects = try context.fetch(fetchRequest) as? [T]
-            return fetchedObjects ?? [T]()
-        } catch (let error) {
-            // TODO: - error
-            print("\(error)\nCouldn't fetch data")
-            return [T]()
-        }
+        let fetchedObjects = try context.fetch(fetchRequest) as? [T]
+        return fetchedObjects ?? [T]()
     }
     
     func delete(_ object: NSManagedObject) {
         context.delete(object)
     }
     
-    func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, idMeal: String) -> T? {
+    func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, idMeal: String) throws -> T? {
         let entityName = String(describing: objectType)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let predicate = NSPredicate(format: "idMeal = %@", idMeal)
         fetchRequest.predicate = predicate
         
-        do {
-            let fetchedMeal = try context.fetch(fetchRequest)
-            return fetchedMeal.first as? T
-        } catch (let error) {
-            // TODO: - error
-            print("\(error)\nCouldn't fetch data")
-            return nil
-        }
+        let fetchedMeal = try context.fetch(fetchRequest)
+        return fetchedMeal.first as? T
     }
     
     private func getIngredients(from meal: Meal) -> [String] {

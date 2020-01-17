@@ -42,18 +42,13 @@ class RecipesButton: UIView {
         ])
         attributedTitle.append(NSAttributedString(attachment: imageAttachment))
         
-//        let selectedAttributedTitle = NSMutableAttributedString(string: "Recipes  ", attributes: [NSAttributedString.Key.foregroundColor:UIColor.blue,
-//        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18.0, weight: .medium)])
-//        selectedAttributedTitle.append(NSAttributedString(attachment: imageAttachment))
-        
         button.setAttributedTitle(attributedTitle, for: .normal)
-        //button.setAttributedTitle(selectedAttributedTitle, for: .selected)
         button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         button.backgroundColor = .white
         
         button.sizeToFit()
         
-        button.layer.cornerRadius = 16.0
+        button.layer.cornerRadius = 17.5
         
         addShadow()
     }

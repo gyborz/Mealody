@@ -74,7 +74,8 @@ class RecipeListViewController: UITableViewController {
                     }
                 }
             }
-        } else {
+        }
+        if !isCategoryList {
             restManager.getMeals(fromCountry: country) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {

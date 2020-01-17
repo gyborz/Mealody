@@ -11,7 +11,7 @@ import UIKit
 class RecipeView: UIView {
     
     var savedLabel: SavedLabel!
-    var savedLabelTopAnchor: NSLayoutConstraint! // we have to keep track of this anchor so we can animate the label up and down
+    var savedLabelTopAnchor: NSLayoutConstraint! // we have to keep track of this anchor so we can animate the button up and down
     
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var mealLabel: UILabel!
@@ -142,7 +142,7 @@ class RecipeView: UIView {
             self.layoutIfNeeded()
         }) { completed in
             UIView.animate(withDuration: 0.5, delay: 1.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.savedLabelTopAnchor.constant = 65.0
+                self.savedLabelTopAnchor.constant = +65.0
                 self.layoutIfNeeded()
             }, completion: nil)
         }

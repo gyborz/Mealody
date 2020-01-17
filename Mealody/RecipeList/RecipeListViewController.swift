@@ -22,8 +22,10 @@ class RecipeListViewController: UITableViewController {
     private let restManager = RestManager()
     var isSavedRecipesList: Bool = true
     var isCategoryList = true
+    var isSearchedList = true
     var category = String()
     var country = String()
+    var ingredients = [Ingredient]()
     
     @IBOutlet weak var trashButton: UIBarButtonItem!
     
@@ -72,8 +74,26 @@ class RecipeListViewController: UITableViewController {
                     }
                 }
             }
-        } else {
+        }
+        if !isCategoryList {
             restManager.getMeals(fromCountry: country) { [weak self] result in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let meals):
+                        for meal in meals {
+                            self.hashableMeals.append(HashableMeal(meal: meal))
+                        }
+                        self.updateSnapshot()
+                    case .failure(let error):
+                        // TODO: - error handling
+                        print(error)
+                    }
+                }
+            }
+        }
+        if isSearchedList {
+            restManager.getMeals(withIngredients: ingredients) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     switch result {

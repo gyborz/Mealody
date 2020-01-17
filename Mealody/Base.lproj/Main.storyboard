@@ -224,6 +224,9 @@
                                                 <state key="normal" title="Ingredients" backgroundImage="ingredients">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="zWH-uu-J0e" kind="show" identifier="showIngredients" id="B9O-0h-qnp"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -335,6 +338,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GaP-Eu-iaN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1217" y="1086"/>
+        </scene>
+        <!--Ingredients-->
+        <scene sceneID="Wzd-4E-lnk">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="zWH-uu-J0e" customClass="IngredientsViewController" customModule="Mealody" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VvL-vq-257">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9iY-EU-N7n" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="142.66666666666666" y="376" width="90" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="9iY-EU-N7n" secondAttribute="height" multiplier="3:2" id="x0B-W7-u82"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tBW-aa-YsU">
+                                <rect key="frame" x="0.0" y="88" width="375" height="659"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="delegate" destination="zWH-uu-J0e" id="c8t-II-zLC"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="tBW-aa-YsU" firstAttribute="trailing" secondItem="vLk-wt-75a" secondAttribute="trailing" id="2CE-pU-X9N"/>
+                            <constraint firstItem="tBW-aa-YsU" firstAttribute="leading" secondItem="vLk-wt-75a" secondAttribute="leading" id="9yy-h3-QrX"/>
+                            <constraint firstItem="9iY-EU-N7n" firstAttribute="centerY" secondItem="VvL-vq-257" secondAttribute="centerY" id="GEj-d8-MwD"/>
+                            <constraint firstItem="9iY-EU-N7n" firstAttribute="centerX" secondItem="VvL-vq-257" secondAttribute="centerX" id="P4v-Da-ccX"/>
+                            <constraint firstAttribute="bottom" secondItem="tBW-aa-YsU" secondAttribute="bottom" constant="65" id="Qf1-kg-fwT"/>
+                            <constraint firstItem="tBW-aa-YsU" firstAttribute="top" secondItem="vLk-wt-75a" secondAttribute="top" id="Riv-yE-3RJ"/>
+                            <constraint firstItem="9iY-EU-N7n" firstAttribute="width" secondItem="VvL-vq-257" secondAttribute="width" multiplier="0.24" id="eJz-vV-BfH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vLk-wt-75a"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Ingredients" id="6H6-lA-inG">
+                        <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="YJF-mw-dgU">
+                            <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <connections>
+                                <action selector="backButtonTapped:" destination="zWH-uu-J0e" id="jbd-5Y-kzE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="activityIndicator" destination="9iY-EU-N7n" id="S9s-9Q-M53"/>
+                        <outlet property="ingredientsTableView" destination="tBW-aa-YsU" id="iQG-rg-38P"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XdE-nr-X6e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2448.8000000000002" y="909.60591133004925"/>
         </scene>
         <!--Random-->
         <scene sceneID="uML-m3-gCT">
@@ -584,6 +639,6 @@
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="FGV-kQ-8J8"/>
+        <segue reference="3Hx-D1-Bae"/>
     </inferredMetricsTieBreakers>
 </document>

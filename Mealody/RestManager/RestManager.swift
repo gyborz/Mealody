@@ -109,4 +109,64 @@ class RestManager {
         }.resume()
     }
     
+    func getIngredients(completion: @escaping (Result<[Ingredient],RestManagerError>) -> Void) {
+        guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/list.php?i=list") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
+                do {
+                    let ingredientResponse = try JSONDecoder().decode(IngredientResponse.self, from: data)
+                    
+                    let ingredients = ingredientResponse.meals
+                    
+                    completion(.success(ingredients))
+                } catch {
+                    completion(.failure(.unknownError))
+                }
+            }
+            
+            if error != nil {
+                completion(.failure(.requestError))
+            }
+        }.resume()
+    }
+    
+    func getMeals(withIngredients ingredients: [Ingredient], completion: @escaping (Result<[Meal],RestManagerError>) -> Void) {
+        let ingredientValues = prepareIngredientValues(from: ingredients)
+        guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/filter.php?i=\(ingredientValues)") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            
+            if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
+                do {
+                    let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
+                    
+                    guard let meals = mealResponse.meals else { return }
+                    
+                    completion(.success(meals))
+                } catch {
+                    completion(.failure(.unknownError))
+                }
+            }
+            
+            if error != nil {
+                completion(.failure(.requestError))
+            }
+        }.resume()
+    }
+    
+    private func prepareIngredientValues(from ingredients: [Ingredient]) -> String {
+        var values = String()
+        for (idx, item) in ingredients.enumerated() {
+            let trimmedString = item.strIngredient.replacingOccurrences(of: " ", with: "_").lowercased()
+            if idx == ingredients.startIndex {
+                values.append(trimmedString)
+            } else {
+                values.append(",\(trimmedString)")
+            }
+        }
+        return values
+    }
+    
 }

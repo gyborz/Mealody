@@ -31,6 +31,7 @@
 		E74A8D7423CE17F700717D4A /* IngredientCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E74A8D7223CE17F700717D4A /* IngredientCollectionViewCell.xib */; };
 		E76A68C823B693F0008A9919 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76A68C723B693F0008A9919 /* ImageService.swift */; };
 		E796362D23D2F42500DE8CCE /* RestManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E796362C23D2F42500DE8CCE /* RestManagerError.swift */; };
+		E796363123D3518800DE8CCE /* PopupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E796363023D3518800DE8CCE /* PopupService.swift */; };
 		E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7968FFB23BA76C90033C111 /* Extensions.swift */; };
 		E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A0023123C21AC800D7D055 /* BrowseViewController.swift */; };
 		E7A3879D23C3C55400228349 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A3879C23C3C55400228349 /* NavigationViewController.swift */; };
@@ -80,6 +81,7 @@
 		E74A8D7223CE17F700717D4A /* IngredientCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IngredientCollectionViewCell.xib; sourceTree = "<group>"; };
 		E76A68C723B693F0008A9919 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		E796362C23D2F42500DE8CCE /* RestManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestManagerError.swift; sourceTree = "<group>"; };
+		E796363023D3518800DE8CCE /* PopupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupService.swift; sourceTree = "<group>"; };
 		E7968FFB23BA76C90033C111 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E7A0023123C21AC800D7D055 /* BrowseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		E7A3879C23C3C55400228349 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				E76E316923AD2AE700187E9B /* Supporting Files */,
 				E718F23023B6411A008FB262 /* RestManager */,
 				E76A68C723B693F0008A9919 /* ImageService.swift */,
+				E796363023D3518800DE8CCE /* PopupService.swift */,
 				E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */,
 				E7968FFB23BA76C90033C111 /* Extensions.swift */,
 				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
@@ -436,6 +439,7 @@
 				E7A0023223C21AC800D7D055 /* BrowseViewController.swift in Sources */,
 				E7968FFC23BA76C90033C111 /* Extensions.swift in Sources */,
 				E796362D23D2F42500DE8CCE /* RestManagerError.swift in Sources */,
+				E796363123D3518800DE8CCE /* PopupService.swift in Sources */,
 				E76A68C823B693F0008A9919 /* ImageService.swift in Sources */,
 				E7FAA24923BBAFC600E88205 /* RecipeListViewController.swift in Sources */,
 				E7BF89A623AA8BBA00F6D152 /* AppDelegate.swift in Sources */,

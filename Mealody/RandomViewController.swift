@@ -65,13 +65,19 @@ class RandomViewController: UIViewController {
                 switch result {
                 case .success(let meal):
                     guard let url = URL(string: meal.strMealThumb!) else { return }
-                    ImageService.getImage(withURL: url) { image, _ in
+                    ImageService.getImage(withURL: url) { image, _, error in
                         self.activityIndicator.stopAnimating()
                         
                         let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
                         recipeVC.modalPresentationStyle = .automatic
                         recipeVC.meal = meal
-                        recipeVC.image = image
+                        
+                        if error != nil {
+                            recipeVC.image = UIImage(named: "error")
+                        } else {
+                            recipeVC.image = image
+                        }
+                        
                         recipeVC.calledWithHashableMeal = false
                         recipeVC.isHashableMealFromPersistence = false
                         self.present(recipeVC, animated: true) {                            

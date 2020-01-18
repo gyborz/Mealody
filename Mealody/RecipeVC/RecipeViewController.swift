@@ -27,10 +27,15 @@ class RecipeViewController: UIViewController {
             recipeView.setUpView(withHashableMeal: hashableMeal)
         } else if calledWithHashableMeal && !isHashableMealFromPersistence {
             guard let url = URL(string: hashableMeal.strMealThumb!) else { return }
-            ImageService.getImage(withURL: url) { [weak self] (image, url) in
+            ImageService.getImage(withURL: url) { [weak self] (image, _, error) in
                 guard let self = self else { return }
-                self.image = image
-                self.recipeView.setUpView(withImage: image!)
+                if error != nil || image == nil {
+                    self.image = UIImage(named: "error")
+                    self.recipeView.setUpView(withImage: self.image!)
+                } else if image != nil {
+                    self.image = image
+                    self.recipeView.setUpView(withImage: self.image!)
+                }
             }
             guard let id = hashableMeal.idMeal else { return }
             restManager.getMeal(byId: id) { [weak self] result in

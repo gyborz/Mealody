@@ -8,34 +8,45 @@
 
 import Foundation
 
-enum RestManagerError: Error {
-    case unknownError
-    case requestError
-}
-
-class RestManager {
+final class RestManager {
+    
+    static let shared = RestManager()
+    private init() {}
     
     private let apiKey = "9973533"
+    
+    private let session: URLSession = {
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 15.0
+        sessionConfig.timeoutIntervalForResource = 30.0
+        return URLSession(configuration: sessionConfig)
+    }()
     
     func getRandomMeal(completion: @escaping (Result<Meal,RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/random.php") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
             if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
                 do {
                     let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
                     
-                    guard let meal = mealResponse.meals?.first else { return }
-                    
-                    completion(.success(meal))
+                    if let meal = mealResponse.meals?.first {
+                        completion(.success(meal))
+                    } else {
+                        completion(.failure(.emptyStateError))
+                    }
                 } catch {
-                    completion(.failure(.unknownError))
+                    completion(.failure(.parseError))
                 }
             }
             
             if error != nil {
-                completion(.failure(.requestError))
+                if error!.isConnectivityError {
+                    completion(.failure(.networkError))
+                } else {
+                    completion(.failure(.requestError))
+                }
             }
         }.resume()
     }
@@ -43,22 +54,28 @@ class RestManager {
     func getMeals(fromCategory category: String, completion: @escaping (Result<[Meal],RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/filter.php?c=\(category)") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
             if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
                 do {
                     let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
                     
-                    guard let meals = mealResponse.meals else { return }
-                    
-                    completion(.success(meals))
+                    if let meals = mealResponse.meals {
+                        completion(.success(meals))
+                    } else {
+                        completion(.failure(.emptyStateError))
+                    }
                 } catch {
-                    completion(.failure(.unknownError))
+                    completion(.failure(.parseError))
                 }
             }
             
             if error != nil {
-                completion(.failure(.requestError))
+                if error!.isConnectivityError {
+                    completion(.failure(.networkError))
+                } else {
+                    completion(.failure(.requestError))
+                }
             }
         }.resume()
     }
@@ -66,22 +83,28 @@ class RestManager {
     func getMeals(fromCountry country: String, completion: @escaping (Result<[Meal],RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/filter.php?a=\(country)") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
             if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
                 do {
                     let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
                     
-                    guard let meals = mealResponse.meals else { return }
-                    
-                    completion(.success(meals))
+                    if let meals = mealResponse.meals {
+                        completion(.success(meals))
+                    } else {
+                        completion(.failure(.emptyStateError))
+                    }
                 } catch {
-                    completion(.failure(.unknownError))
+                    completion(.failure(.parseError))
                 }
             }
             
             if error != nil {
-                completion(.failure(.requestError))
+                if error!.isConnectivityError {
+                    completion(.failure(.networkError))
+                } else {
+                    completion(.failure(.requestError))
+                }
             }
         }.resume()
     }
@@ -89,22 +112,28 @@ class RestManager {
     func getMeal(byId id: String, completion: @escaping (Result<Meal,RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/lookup.php?i=\(id)") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
             if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
                 do {
                     let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
                     
-                    guard let meal = mealResponse.meals?.first else { return }
-                    
-                    completion(.success(meal))
+                    if let meal = mealResponse.meals?.first {
+                        completion(.success(meal))
+                    } else {
+                        completion(.failure(.emptyStateError))
+                    }
                 } catch {
-                    completion(.failure(.unknownError))
+                    completion(.failure(.parseError))
                 }
             }
             
             if error != nil {
-                completion(.failure(.requestError))
+                if error!.isConnectivityError {
+                    completion(.failure(.networkError))
+                } else {
+                    completion(.failure(.requestError))
+                }
             }
         }.resume()
     }
@@ -112,7 +141,7 @@ class RestManager {
     func getIngredients(completion: @escaping (Result<[Ingredient],RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/list.php?i=list") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
             if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
                 do {
@@ -122,12 +151,16 @@ class RestManager {
                     
                     completion(.success(ingredients))
                 } catch {
-                    completion(.failure(.unknownError))
+                    completion(.failure(.parseError))
                 }
             }
             
             if error != nil {
-                completion(.failure(.requestError))
+                if error!.isConnectivityError {
+                    completion(.failure(.networkError))
+                } else {
+                    completion(.failure(.requestError))
+                }
             }
         }.resume()
     }
@@ -136,22 +169,28 @@ class RestManager {
         let ingredientValues = prepareIngredientValues(from: ingredients)
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/filter.php?i=\(ingredientValues)") else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        session.dataTask(with: url) { (data, response, error) in
             
             if let data = data, let response = response as? HTTPURLResponse, (200 ..< 300) ~= response.statusCode {
                 do {
                     let mealResponse = try JSONDecoder().decode(MealResponse.self, from: data)
                     
-                    guard let meals = mealResponse.meals else { return }
-                    
-                    completion(.success(meals))
+                    if let meals = mealResponse.meals {
+                        completion(.success(meals))
+                    } else {
+                        completion(.failure(.emptyStateError))
+                    }
                 } catch {
-                    completion(.failure(.unknownError))
+                    completion(.failure(.parseError))
                 }
             }
             
             if error != nil {
-                completion(.failure(.requestError))
+                if error!.isConnectivityError {
+                    completion(.failure(.networkError))
+                } else {
+                    completion(.failure(.requestError))
+                }
             }
         }.resume()
     }

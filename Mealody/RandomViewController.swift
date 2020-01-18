@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 class RandomViewController: UIViewController {
     
-    private let restManager = RestManager()
+    private let restManager = RestManager.shared
     
     @IBOutlet weak var randomButton: UIButton!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
@@ -74,10 +74,10 @@ class RandomViewController: UIViewController {
                         recipeVC.image = image
                         recipeVC.calledWithHashableMeal = false
                         recipeVC.isHashableMealFromPersistence = false
-                        self.present(recipeVC, animated: true)
-                        
-                        self.setUpButton()
-                        self.randomButton.isEnabled = true
+                        self.present(recipeVC, animated: true) {                            
+                            self.setUpButton()
+                            self.randomButton.isEnabled = true
+                        }
                     }
                 case .failure(let error):
                     print(error)

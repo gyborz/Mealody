@@ -12,7 +12,7 @@ class ListViewController: UITableViewController {
     
     private var listItems = ListItems()
     var isCategoryList = true
-    private var restManager = RestManager()
+    private let restManager = RestManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()

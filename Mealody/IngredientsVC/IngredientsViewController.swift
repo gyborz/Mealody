@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 class IngredientsViewController: UIViewController {
     
-    private let restManager = RestManager()
+    private let restManager = RestManager.shared
     private var ingredients = [Ingredient]()
     var updateDelegate: UpdateChosenIngredientsDelegate!
     

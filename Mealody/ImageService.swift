@@ -6,15 +6,21 @@
 //  Copyright © 2019. Gyorgy Borz. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 class ImageService {
     
     static let cache = NSCache<NSString, UIImage>()
     
+    private static let session: URLSession = {
+        let sessionConfig = URLSessionConfiguration.default
+        sessionConfig.timeoutIntervalForRequest = 30.0
+        sessionConfig.timeoutIntervalForResource = 60.0
+        return URLSession(configuration: sessionConfig)
+    }()
+    
     static func downloadImage(withURL url: URL, completion: @escaping (_ image: UIImage?, _ url: URL)->()) {
-        let dataTask = URLSession.shared.dataTask(with: url) { data, responseURL, error in
+        let dataTask = session.dataTask(with: url) { data, responseURL, error in
             var downloadedImage:UIImage?
             
             if let data = data {

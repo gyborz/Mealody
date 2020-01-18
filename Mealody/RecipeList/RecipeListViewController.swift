@@ -19,7 +19,7 @@ class RecipeListViewController: UITableViewController {
     private var dataSource: HashableMealDataSource!
     private let persistenceManager = PersistenceManager.shared
     private var isDeleting = false
-    private let restManager = RestManager()
+    private let restManager = RestManager.shared
     var isSavedRecipesList: Bool = true
     var isCategoryList = true
     var isSearchedList = true
@@ -107,7 +107,7 @@ class RecipeListViewController: UITableViewController {
                         }
                         self.updateSnapshot()
                     case .failure(let error):
-                        // TODO: - error handling
+                        // TODO: - error handlingą
                         print(error)
                     }
                 }
@@ -140,6 +140,7 @@ class RecipeListViewController: UITableViewController {
                         try self.persistenceManager.saveContext()
                     } catch {
                         // TODO: - error handling
+                        self.persistenceManager.context.rollback()
                     }
                 }
             } else {
@@ -176,9 +177,6 @@ class RecipeListViewController: UITableViewController {
             recipeVC.hashableMeal = hashableMeal
             recipeVC.calledWithHashableMeal = true
             recipeVC.isHashableMealFromPersistence = false
-            if let image = ImageService.cache.object(forKey: NSString(string: hashableMeal.strMealThumb!)) {    // image would be ready while presenting the ViewController
-                recipeVC.image = image
-            }
             self.present(recipeVC, animated: true) { [weak self] in
                 self?.tableView.deselectRow(at: indexPath, animated: false)
             }

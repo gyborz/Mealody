@@ -10,13 +10,13 @@ import UIKit
 
 class RecipeViewController: UIViewController {
     
-    var meal: Meal!
+    var meal: Meal?
     var hashableMeal: HashableMeal!
-    var image: UIImage!
+    var image: UIImage?
     var calledWithHashableMeal: Bool!
     var isHashableMealFromPersistence: Bool!
     private let persistenceManager = PersistenceManager.shared
-    private let restManager = RestManager()
+    private let restManager = RestManager.shared
     
     @IBOutlet var recipeView: RecipeView!
     
@@ -26,7 +26,12 @@ class RecipeViewController: UIViewController {
         if calledWithHashableMeal && isHashableMealFromPersistence {
             recipeView.setUpView(withHashableMeal: hashableMeal)
         } else if calledWithHashableMeal && !isHashableMealFromPersistence {
-            recipeView.setUpView(withImage: image)
+            guard let url = URL(string: hashableMeal.strMealThumb!) else { return }
+            ImageService.getImage(withURL: url) { [weak self] (image, url) in
+                guard let self = self else { return }
+                self.image = image
+                self.recipeView.setUpView(withImage: image!)
+            }
             guard let id = hashableMeal.idMeal else { return }
             restManager.getMeal(byId: id) { [weak self] result in
                 guard let self = self else { return }
@@ -42,6 +47,7 @@ class RecipeViewController: UIViewController {
                 }
             }
         } else {    // when called from RandomVC
+            guard let image = image, let meal = meal else { return }
             recipeView.setUpView(withImage: image)
             recipeView.setUpView(withMeal: meal)
         }
@@ -50,8 +56,9 @@ class RecipeViewController: UIViewController {
     @IBAction func saveButtonPressed(_ sender: UIButton) {
         recipeView.changeSaveButton()
         
+        guard let image = image, let meal = meal else { return }
         if let imageData = image.jpegData(compressionQuality: 1.0) {
-            guard let idMeal = meal.idMeal else { return }
+            guard let idMeal = meal.idMeal else { return }  // later on turn idMeal to be non-optional
             do {
                 if let fetchedMeal = try persistenceManager.fetchMeal(MealData.self, idMeal: idMeal) {
                     // TODO: - disable save button, turn it green

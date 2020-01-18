@@ -53,7 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } catch {
             let error = error as NSError
             NSLog("Failed to save context:", error.localizedDescription, error.userInfo)
-            fatalError("Unresolved error \(error), \(error.userInfo)")
+            PersistenceManager.shared.context.rollback()
         }
     }
 

@@ -99,7 +99,7 @@ class RecipeViewController: UIViewController {
                 }
             } catch {
                 persistenceManager.context.rollback()
-                let popup = PopupService.savingError(withMessage: "Couldn't save the recipe.\nPlease try again!") {
+                let popup = PopupService.persistenceError(withMessage: "Couldn't save the recipe.\nPlease try again!") {
                     // TODO: - reset save button
                 }
                 present(popup, animated: true)

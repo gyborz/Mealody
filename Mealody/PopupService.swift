@@ -81,7 +81,7 @@ class PopupService {
         return popup
     }
     
-    static func savingError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
+    static func persistenceError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
         setupPopupAppearance()

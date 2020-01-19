@@ -47,7 +47,10 @@ class RecipeListViewController: UITableViewController {
                 }
                 configureDataSource()
             } catch {
-                // TODO: - error handling
+                let popup = PopupService.persistenceError(withMessage: "Couldn't get the saved recipes") {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                present(popup, animated: true)
             }
         } else {
             getData()
@@ -73,8 +76,7 @@ class RecipeListViewController: UITableViewController {
                         }
                         self.updateSnapshot()
                     case .failure(let error):
-                        // TODO: - error handling
-                        print(error)
+                        self.showPopupFor(error)
                     }
                 }
             }
@@ -90,8 +92,7 @@ class RecipeListViewController: UITableViewController {
                         }
                         self.updateSnapshot()
                     case .failure(let error):
-                        // TODO: - error handling
-                        print(error)
+                        self.showPopupFor(error)
                     }
                 }
             }
@@ -107,8 +108,7 @@ class RecipeListViewController: UITableViewController {
                         }
                         self.updateSnapshot()
                     case .failure(let error):
-                        // TODO: - error handlingą
-                        print(error)
+                        self.showPopupFor(error)
                     }
                 }
             }
@@ -135,12 +135,13 @@ class RecipeListViewController: UITableViewController {
                     do {
                         guard let fetchedMeal = try self.persistenceManager.fetchMeal(MealData.self, idMeal: hashableMeal.idMeal!) else { return }
                         self.persistenceManager.delete(fetchedMeal)
+                        try self.persistenceManager.saveContext()
                         self.hashableMeals.removeAll() { $0 == hashableMeal }
                         self.updateSnapshot()
-                        try self.persistenceManager.saveContext()
                     } catch {
-                        // TODO: - error handling
                         self.persistenceManager.context.rollback()
+                        let popup = PopupService.persistenceError(withMessage: "Something went wrong while deleting!", completion: nil)
+                        self.present(popup, animated: true)
                     }
                 }
             } else {
@@ -180,6 +181,31 @@ class RecipeListViewController: UITableViewController {
             self.present(recipeVC, animated: true) { [weak self] in
                 self?.tableView.deselectRow(at: indexPath, animated: false)
             }
+        }
+    }
+    
+    private func showPopupFor(_ error: RestManagerError) {
+        switch error {
+        case .emptyStateError:
+            let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
+        case .parseError:
+            let popup = PopupService.parseError(withMessage: "Couldn't get the data.\nPlease try again!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
+        case .networkError:
+            let popup = PopupService.networkError(withMessage: "Please check your connection!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
+        case .requestError:
+            let popup = PopupService.requestError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
         }
     }
     

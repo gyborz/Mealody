@@ -46,8 +46,28 @@ class RecipeViewController: UIViewController {
                         self.meal = meal
                         self.recipeView.setUpView(withMeal: meal)
                     case .failure(let error):
-                        // TODO: - error handling
-                        print(error)
+                        switch error {
+                        case .emptyStateError:
+                            let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            self.present(popup, animated: true)
+                        case .parseError:
+                            let popup = PopupService.parseError(withMessage: "Couldn't get the data.\nPlease try again!") {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            self.present(popup, animated: true)
+                        case .networkError:
+                            let popup = PopupService.networkError(withMessage: "Please check your connection!") {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            self.present(popup, animated: true)
+                        case .requestError:
+                            let popup = PopupService.requestError(withMessage: "Something went wrong.\nPlease try again!") {
+                                self.dismiss(animated: true, completion: nil)
+                            }
+                            self.present(popup, animated: true)
+                        }
                     }
                 }
             }

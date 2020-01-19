@@ -110,8 +110,7 @@ class IngredientsViewController: UIViewController {
                     self.ingredients = ingredients
                     self.updateSnapshot(from: ingredients)
                 case .failure(let error):
-                    // TODO: - error handling
-                    print(error)
+                    self.showPopupFor(error)
                 }
             }
         }
@@ -306,13 +305,38 @@ class IngredientsViewController: UIViewController {
         if selectedIngredients.count <= 4 {
             let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
             recipeListVC.isSavedRecipesList = false
-            recipeListVC.isCategoryList = false
-            recipeListVC.isSearchedList = true
+            recipeListVC.listType = .ingredients
             recipeListVC.ingredients = selectedIngredients
             recipeListVC.navigationItem.title = "Recipes"
             self.navigationController?.pushViewController(recipeListVC, animated: true)
         } else {
-            // TODO: - error message saying no more than 4 ingredients
+            let popup = PopupService.ingredientsError(withMessage: "You can only choose 4 ingredients!", completion: nil)
+            present(popup, animated: true)
+        }
+    }
+    
+    private func showPopupFor(_ error: RestManagerError) {
+        switch error {
+        case .emptyStateError:
+            let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
+        case .parseError:
+            let popup = PopupService.parseError(withMessage: "Couldn't get the data.\nPlease try again!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
+        case .networkError:
+            let popup = PopupService.networkError(withMessage: "Please check your connection!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
+        case .requestError:
+            let popup = PopupService.requestError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            self.present(popup, animated: true)
         }
     }
     

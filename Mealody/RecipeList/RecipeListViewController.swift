@@ -18,11 +18,16 @@ class RecipeListViewController: UITableViewController {
     private typealias HashableMealSnapshot = NSDiffableDataSourceSnapshot<Section, HashableMeal>
     private var dataSource: HashableMealDataSource!
     private let persistenceManager = PersistenceManager.shared
-    private var isDeleting = false
     private let restManager = RestManager.shared
-    var isSavedRecipesList: Bool = true
-    var isCategoryList = true
-    var isSearchedList = true
+    private var isDeleting = false
+    
+    enum ListType {
+        case category
+        case country
+        case ingredients
+    }
+    var listType: ListType!
+    var isSavedRecipesList = true
     var category = String()
     var country = String()
     var ingredients = [Ingredient]()
@@ -65,7 +70,8 @@ class RecipeListViewController: UITableViewController {
     }
     
     private func getData() {
-        if isCategoryList {
+        switch listType {
+        case .category:
             restManager.getMeals(fromCategory: category) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -80,8 +86,7 @@ class RecipeListViewController: UITableViewController {
                     }
                 }
             }
-        }
-        if !isCategoryList {
+        case .country:
             restManager.getMeals(fromCountry: country) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -96,8 +101,7 @@ class RecipeListViewController: UITableViewController {
                     }
                 }
             }
-        }
-        if isSearchedList {
+        case .ingredients:
             restManager.getMeals(withIngredients: ingredients) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -112,6 +116,11 @@ class RecipeListViewController: UITableViewController {
                     }
                 }
             }
+        default:
+            let popup = PopupService.presentationError(withMessage: "Something went wrong!") {
+                self.navigationController?.popViewController(animated: true)
+            }
+            present(popup, animated: true)
         }
     }
     
@@ -187,10 +196,18 @@ class RecipeListViewController: UITableViewController {
     private func showPopupFor(_ error: RestManagerError) {
         switch error {
         case .emptyStateError:
-            let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
-                self.navigationController?.popViewController(animated: true)
+            switch listType {
+            case .ingredients:
+                let popup = PopupService.ingredientsError(withMessage: "Looks like there are no recipes with the selected ingredients.\nPlease try again!") {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                self.present(popup, animated: true)
+            default:
+                let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
+                    self.navigationController?.popViewController(animated: true)
+                }
+                self.present(popup, animated: true)
             }
-            self.present(popup, animated: true)
         case .parseError:
             let popup = PopupService.parseError(withMessage: "Couldn't get the data.\nPlease try again!") {
                 self.navigationController?.popViewController(animated: true)

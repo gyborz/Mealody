@@ -94,11 +94,17 @@ class RecipeViewController: UIViewController {
                     recipeView.toggleSavedLabel()
                 }
             } catch {
-                //TODO: - error
                 persistenceManager.context.rollback()
+                let popup = PopupService.savingError(withMessage: "Couldn't save the recipe.\nPlease try again!") {
+                    // TODO: - reset save button
+                }
+                present(popup, animated: true)
             }
         } else {
-            // TODO: - error handling
+            let popup = PopupService.compressingError(withMessage: "Couldn't compress the image.\nPlease try again!") {
+                // TODO: - reset save button
+            }
+            present(popup, animated: true)
         }
     }
     

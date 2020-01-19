@@ -67,6 +67,34 @@ class PopupService {
         return popup
     }
     
+    static func compressingError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
+        let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
+        
+        setupPopupAppearance()
+        
+        let okButton = DefaultButton(title: "OK") {
+            completion?()
+        }
+        
+        popup.addButton(okButton)
+        
+        return popup
+    }
+    
+    static func savingError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
+        let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
+        
+        setupPopupAppearance()
+        
+        let okButton = DefaultButton(title: "OK") {
+            completion?()
+        }
+        
+        popup.addButton(okButton)
+        
+        return popup
+    }
+    
     private static func setupPopupAppearance() {
         let defaultView = PopupDialogDefaultView.appearance()
         defaultView.titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)

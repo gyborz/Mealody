@@ -91,30 +91,34 @@ class RandomViewController: UIViewController {
                     }
                 case .failure(let error):
                     self.activityIndicator.stopAnimating()
-                    switch error {
-                    case .emptyStateError:
-                        let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
-                            self.resetView()
-                        }
-                        self.present(popup, animated: true)
-                    case .parseError:
-                        let popup = PopupService.parseError(withMessage: "Couldn't get the data.\nPlease try again!") {
-                            self.resetView()
-                        }
-                        self.present(popup, animated: true)
-                    case .networkError:
-                        let popup = PopupService.networkError(withMessage: "Please check your connection!") {
-                            self.resetView()
-                        }
-                        self.present(popup, animated: true)
-                    case .requestError:
-                        let popup = PopupService.requestError(withMessage: "Something went wrong.\nPlease try again!") {
-                            self.resetView()
-                        }
-                        self.present(popup, animated: true)
-                    }
+                    self.showPopupFor(error)
                 }
             }
+        }
+    }
+    
+    private func showPopupFor(_ error: RestManagerError) {
+        switch error {
+        case .emptyStateError:
+            let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
+        case .parseError:
+            let popup = PopupService.parseError(withMessage: "Couldn't get the data.\nPlease try again!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
+        case .networkError:
+            let popup = PopupService.networkError(withMessage: "Please check your connection!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
+        case .requestError:
+            let popup = PopupService.requestError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
         }
     }
     

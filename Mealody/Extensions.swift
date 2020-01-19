@@ -14,3 +14,16 @@ extension String {
         return filtered.count > 0
     }
 }
+
+extension Error {
+    var isConnectivityError: Bool {
+        guard _domain == NSURLErrorDomain else { return false }
+
+        let connectivityErrors = [NSURLErrorTimedOut,
+                                  NSURLErrorNotConnectedToInternet,
+                                  NSURLErrorNetworkConnectionLost,
+                                  NSURLErrorCannotConnectToHost]
+
+        return connectivityErrors.contains(_code)
+    }
+}

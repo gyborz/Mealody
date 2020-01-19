@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 class RandomViewController: UIViewController {
     
-    private let restManager = RestManager()
+    private let restManager = RestManager.shared
     
     @IBOutlet weak var randomButton: UIButton!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
@@ -50,6 +50,11 @@ class RandomViewController: UIViewController {
         randomButton.titleLabel?.textAlignment = .center
     }
     
+    private func resetView() {
+        self.setUpButton()
+        self.randomButton.isEnabled = true
+    }
+    
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -65,24 +70,55 @@ class RandomViewController: UIViewController {
                 switch result {
                 case .success(let meal):
                     guard let url = URL(string: meal.strMealThumb!) else { return }
-                    ImageService.getImage(withURL: url) { image, _ in
+                    ImageService.getImage(withURL: url) { image, _, error in
                         self.activityIndicator.stopAnimating()
                         
                         let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
                         recipeVC.modalPresentationStyle = .automatic
                         recipeVC.meal = meal
-                        recipeVC.image = image
+                        
+                        if error != nil {
+                            recipeVC.image = UIImage(named: "error")
+                        } else {
+                            recipeVC.image = image
+                        }
+                        
                         recipeVC.calledWithHashableMeal = false
                         recipeVC.isHashableMealFromPersistence = false
-                        self.present(recipeVC, animated: true)
-                        
-                        self.setUpButton()
-                        self.randomButton.isEnabled = true
+                        self.present(recipeVC, animated: true) {
+                            self.resetView()
+                        }
                     }
                 case .failure(let error):
-                    print(error)
+                    self.activityIndicator.stopAnimating()
+                    self.showPopupFor(error)
                 }
             }
+        }
+    }
+    
+    private func showPopupFor(_ error: RestManagerError) {
+        switch error {
+        case .emptyStateError:
+            let popup = PopupService.emptyStateError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
+        case .parseError:
+            let popup = PopupService.parseError(withMessage: "Couldn't get the data.\nPlease try again!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
+        case .networkError:
+            let popup = PopupService.networkError(withMessage: "Please check your connection!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
+        case .requestError:
+            let popup = PopupService.requestError(withMessage: "Something went wrong.\nPlease try again!") {
+                self.resetView()
+            }
+            self.present(popup, animated: true)
         }
     }
     

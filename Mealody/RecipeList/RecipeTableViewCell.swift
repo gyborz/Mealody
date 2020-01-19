@@ -72,11 +72,13 @@ class RecipeTableViewCell: UITableViewCell {
         // this is needed so we avoid the possibility that an another image gets fetched faster (because of smaller size for example)
         // than the original one, which truly belongs to the recipe
         guard let url = URL(string: meal.strMealThumb!) else { return }
-        ImageService.getImage(withURL: url) { (image, urlCheck) in
-            if url.absoluteString == urlCheck.absoluteString {
+        ImageService.getImage(withURL: url) { (image, urlCheck, error) in
+            if error != nil || image == nil {
+                self.mealImageView.image = UIImage(named: "error")
+            } else if url.absoluteString == urlCheck.absoluteString {
                 self.mealImageView.image = image
             } else {
-                print("not the right image")
+                self.mealImageView.image = UIImage(named: "error")
             }
         }
         recipeTitleLabel.text = meal.strMeal!

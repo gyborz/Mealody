@@ -12,7 +12,7 @@ class ListViewController: UITableViewController {
     
     private var listItems = ListItems()
     var isCategoryList = true
-    private var restManager = RestManager()
+    private let restManager = RestManager.shared
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,8 +65,7 @@ class ListViewController: UITableViewController {
             let category = listItems.categories[indexPath.row]
             let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
             recipeListVC.isSavedRecipesList = false
-            recipeListVC.isCategoryList = true
-            recipeListVC.isSearchedList = false
+            recipeListVC.listType = .category
             recipeListVC.category = category
             recipeListVC.navigationItem.title = category
             self.navigationController?.pushViewController(recipeListVC, animated: true)
@@ -74,8 +73,7 @@ class ListViewController: UITableViewController {
             let country = listItems.countries[indexPath.row]
             let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
             recipeListVC.isSavedRecipesList = false
-            recipeListVC.isCategoryList = false
-            recipeListVC.isSearchedList = false
+            recipeListVC.listType = .country
             recipeListVC.country = country
             recipeListVC.navigationItem.title = country
             self.navigationController?.pushViewController(recipeListVC, animated: true)

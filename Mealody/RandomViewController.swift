@@ -35,6 +35,15 @@ class RandomViewController: UIViewController {
         randomButton.layer.shadowOpacity = 0.5
     }
     
+    // we cancel every ongoing tasks when the view is about to disappear
+    // this prevents the RecipeVC to appear while the user dismisses the view (e.g. swiping the navController)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        restManager.cancelTasks()
+        ImageService.cancelTasks()
+    }
+    
     func setUpButton() {
         randomButton.titleLabel?.lineBreakMode = .byWordWrapping
         randomButton.titleLabel?.textColor = .label

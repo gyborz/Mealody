@@ -37,8 +37,6 @@ class RecipeListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isTranslucent = false
-        
         tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         tableView.rowHeight = 390
         tableView.separatorStyle = .none
@@ -64,6 +62,18 @@ class RecipeListViewController: UITableViewController {
         }
     }
     
+    // we set the navigationBar's translucency in here, so when
+    // the user stops with the view's dismiss (mid-swipe), then we have to make it visible again
+    // after the view appeared
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isTranslucent = false
+    }
+    
+    // we update the snapshot here after we configure the data source in viewDidLoad
+    // this is necessary when we access the saved recipes, because if we do this in viewDidLoad
+    // the tableView (it's superview) will may not yet be in the view hierarchy - this could cause bugs
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateSnapshot()

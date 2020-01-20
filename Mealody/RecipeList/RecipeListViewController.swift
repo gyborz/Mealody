@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class RecipeListViewController: UITableViewController {
+class RecipeListViewController: UIViewController {
     
     private enum Section {
         case main
@@ -33,13 +34,19 @@ class RecipeListViewController: UITableViewController {
     var ingredients = [Ingredient]()
     
     @IBOutlet weak var trashButton: UIBarButtonItem!
+    @IBOutlet weak var recipeListTableView: UITableView!
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
-        tableView.rowHeight = 390
-        tableView.separatorStyle = .none
+        recipeListTableView.delegate = self
+        recipeListTableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
+        recipeListTableView.rowHeight = 390
+        recipeListTableView.separatorStyle = .none
+        
+        activityIndicator.type = .lineScale
+        activityIndicator.color = .systemOrange
         
         if isSavedRecipesList {
             do {
@@ -80,6 +87,7 @@ class RecipeListViewController: UITableViewController {
     }
     
     private func getData() {
+        self.activityIndicator.startAnimating()
         switch listType {
         case .category:
             restManager.getMeals(fromCategory: category) { [weak self] result in
@@ -90,6 +98,7 @@ class RecipeListViewController: UITableViewController {
                         for meal in meals {
                             self.hashableMeals.append(HashableMeal(meal: meal))
                         }
+                        self.activityIndicator.stopAnimating()
                         self.updateSnapshot()
                     case .failure(let error):
                         self.showPopupFor(error)
@@ -105,6 +114,7 @@ class RecipeListViewController: UITableViewController {
                         for meal in meals {
                             self.hashableMeals.append(HashableMeal(meal: meal))
                         }
+                        self.activityIndicator.stopAnimating()
                         self.updateSnapshot()
                     case .failure(let error):
                         self.showPopupFor(error)
@@ -120,6 +130,7 @@ class RecipeListViewController: UITableViewController {
                         for meal in meals {
                             self.hashableMeals.append(HashableMeal(meal: meal))
                         }
+                        self.activityIndicator.stopAnimating()
                         self.updateSnapshot()
                     case .failure(let error):
                         self.showPopupFor(error)
@@ -142,7 +153,7 @@ class RecipeListViewController: UITableViewController {
     }
     
     private func configureDataSource() {
-        dataSource = HashableMealDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
+        dataSource = HashableMealDataSource(tableView: recipeListTableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
             
             if self.isSavedRecipesList {
@@ -177,30 +188,6 @@ class RecipeListViewController: UITableViewController {
             
             return cell
         })
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isSavedRecipesList {
-            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-            recipeVC.modalPresentationStyle = .automatic
-            recipeVC.hashableMeal = hashableMeal
-            recipeVC.calledWithHashableMeal = true
-            recipeVC.isHashableMealFromPersistence = true
-            self.present(recipeVC, animated: true) { [weak self] in
-                self?.tableView.deselectRow(at: indexPath, animated: false)
-            }
-        } else {
-            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-            recipeVC.modalPresentationStyle = .automatic
-            recipeVC.hashableMeal = hashableMeal
-            recipeVC.calledWithHashableMeal = true
-            recipeVC.isHashableMealFromPersistence = false
-            self.present(recipeVC, animated: true) { [weak self] in
-                self?.tableView.deselectRow(at: indexPath, animated: false)
-            }
-        }
     }
     
     private func showPopupFor(_ error: RestManagerError) {
@@ -241,12 +228,39 @@ class RecipeListViewController: UITableViewController {
     
     @IBAction func trashButtonTapped(_ sender: UIBarButtonItem) {
         isDeleting.toggle()
-        tableView.reloadData()
+        recipeListTableView.reloadData()
     }
     
-    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
 
 }
 
+extension RecipeListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isSavedRecipesList {
+            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+            recipeVC.modalPresentationStyle = .automatic
+            recipeVC.hashableMeal = hashableMeal
+            recipeVC.calledWithHashableMeal = true
+            recipeVC.isHashableMealFromPersistence = true
+            self.present(recipeVC, animated: true) { [weak self] in
+                self?.recipeListTableView.deselectRow(at: indexPath, animated: false)
+            }
+        } else {
+            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+            recipeVC.modalPresentationStyle = .automatic
+            recipeVC.hashableMeal = hashableMeal
+            recipeVC.calledWithHashableMeal = true
+            recipeVC.isHashableMealFromPersistence = false
+            self.present(recipeVC, animated: true) { [weak self] in
+                self?.recipeListTableView.deselectRow(at: indexPath, animated: false)
+            }
+        }
+    }
+    
+}

@@ -118,7 +118,7 @@
                                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="HVq-dY-eVk" kind="show" id="61c-DQ-eiz"/>
+                                                    <segue destination="Rnn-2y-P95" kind="show" id="BOH-g9-gkp"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -309,39 +309,60 @@
             <point key="canvasLocation" x="2449" y="174"/>
         </scene>
         <!--Saved recipes-->
-        <scene sceneID="dAi-sd-pxd">
+        <scene sceneID="6A0-ct-9ah">
             <objects>
-                <tableViewController storyboardIdentifier="RecipeListVC" modalPresentationStyle="fullScreen" id="HVq-dY-eVk" customClass="RecipeListViewController" customModule="Mealody" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="IUC-TM-lgD">
+                <viewController storyboardIdentifier="RecipeListVC" modalPresentationStyle="fullScreen" id="Rnn-2y-P95" customClass="RecipeListViewController" customModule="Mealody" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="36c-js-9hG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bgc-ZL-zhA" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="142.66666666666666" y="376" width="90" height="60"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bgc-ZL-zhA" secondAttribute="height" multiplier="3:2" id="poy-se-vg2"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KGd-8S-Xat">
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <connections>
-                            <outlet property="dataSource" destination="HVq-dY-eVk" id="qVh-xq-acC"/>
-                            <outlet property="delegate" destination="HVq-dY-eVk" id="bul-su-id3"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Saved recipes" id="s3W-Qa-4tn">
-                        <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="mJP-gI-Uih">
+                        <constraints>
+                            <constraint firstItem="bgc-ZL-zhA" firstAttribute="centerX" secondItem="36c-js-9hG" secondAttribute="centerX" id="5g9-rk-IXd"/>
+                            <constraint firstItem="KGd-8S-Xat" firstAttribute="trailing" secondItem="yhZ-ue-4GU" secondAttribute="trailing" id="CKC-OB-JgG"/>
+                            <constraint firstAttribute="bottom" secondItem="KGd-8S-Xat" secondAttribute="bottom" id="PFR-EG-TBo"/>
+                            <constraint firstItem="KGd-8S-Xat" firstAttribute="leading" secondItem="yhZ-ue-4GU" secondAttribute="leading" id="SkE-0b-ZhC"/>
+                            <constraint firstItem="bgc-ZL-zhA" firstAttribute="centerY" secondItem="36c-js-9hG" secondAttribute="centerY" id="hrm-8K-6NM"/>
+                            <constraint firstItem="bgc-ZL-zhA" firstAttribute="width" secondItem="36c-js-9hG" secondAttribute="width" multiplier="0.24" id="sAw-nr-2Pr"/>
+                            <constraint firstItem="KGd-8S-Xat" firstAttribute="top" secondItem="yhZ-ue-4GU" secondAttribute="top" id="tvh-t7-ZNo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yhZ-ue-4GU"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Saved recipes" id="g2a-O5-mAu">
+                        <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="RxK-dI-8W5">
                             <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
-                                <action selector="backButtonPressed:" destination="HVq-dY-eVk" id="aqs-H5-gsD"/>
+                                <action selector="backButtonTapped:" destination="Rnn-2y-P95" id="Q7d-kv-aqa"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="qlx-6z-Ffq">
+                        <barButtonItem key="rightBarButtonItem" image="trash" catalog="system" id="0DR-FM-dYD">
                             <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
-                                <action selector="trashButtonTapped:" destination="HVq-dY-eVk" id="c9H-ME-SrL"/>
+                                <action selector="trashButtonTapped:" destination="Rnn-2y-P95" id="ygn-wc-3cL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="trashButton" destination="qlx-6z-Ffq" id="gti-tF-IHd"/>
+                        <outlet property="activityIndicator" destination="bgc-ZL-zhA" id="JGX-W4-280"/>
+                        <outlet property="recipeListTableView" destination="KGd-8S-Xat" id="0Dg-V4-jRH"/>
+                        <outlet property="trashButton" destination="0DR-FM-dYD" id="kgn-tV-689"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GaP-Eu-iaN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pG2-Gm-k7N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1217" y="1086"/>
+            <point key="canvasLocation" x="1232.8" y="902.95566502463055"/>
         </scene>
         <!--Ingredients-->
         <scene sceneID="Wzd-4E-lnk">
@@ -640,6 +661,7 @@
         <image name="home" width="221.5" height="252.5"/>
         <image name="ingredients" width="640" height="426.5"/>
         <image name="meal" width="350" height="350"/>
+        <image name="trash" catalog="system" width="60" height="64"/>
         <image name="xmark" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>

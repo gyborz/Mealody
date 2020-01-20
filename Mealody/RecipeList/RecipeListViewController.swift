@@ -223,6 +223,9 @@ class RecipeListViewController: UITableViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             self.present(popup, animated: true)
+        case .cancelledError:
+            // this can not happen in this VC
+            return
         }
     }
     

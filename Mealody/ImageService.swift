@@ -19,15 +19,9 @@ class ImageService {
         return URLSession(configuration: sessionConfig)
     }()
     
-    static func downloadImage(withURL url: URL, completion: @escaping (_ image: UIImage?, _ url: URL, _ error: Error?)->()) {
+    private static func downloadImage(withURL url: URL, completion: @escaping (_ image: UIImage?, _ url: URL, _ error: Error?)->()) {
         let dataTask = session.dataTask(with: url) { data, responseURL, error in
             var downloadedImage: UIImage?
-            
-            if error != nil {
-                DispatchQueue.main.async {
-                    completion(nil, url, error!)
-                }
-            }
             
             if let data = data {
                 downloadedImage = UIImage(data: data)
@@ -35,12 +29,16 @@ class ImageService {
             
             if downloadedImage != nil {
                 cache.setObject(downloadedImage!, forKey: url.absoluteString as NSString)
+                DispatchQueue.main.async {
+                    completion(downloadedImage, url, nil)
+                }
             }
             
-            DispatchQueue.main.async {
-                completion(downloadedImage, url, nil)
+            if error != nil {
+                DispatchQueue.main.async {
+                    completion(nil, url, error!)
+                }
             }
-            
         }
         
         dataTask.resume()
@@ -51,6 +49,12 @@ class ImageService {
             completion(image, url, nil)
         } else {
             downloadImage(withURL: url, completion: completion)
+        }
+    }
+    
+    static func cancelTasks() {
+        session.getAllTasks { tasks in
+            tasks.forEach() { $0.cancel() }
         }
     }
 }

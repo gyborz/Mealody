@@ -56,6 +56,8 @@ class RandomViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        restManager.cancelTasks()
+        ImageService.cancelTasks()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -78,15 +80,23 @@ class RandomViewController: UIViewController {
                         recipeVC.meal = meal
                         
                         if error != nil {
-                            recipeVC.image = UIImage(named: "error")
+                            if error!._code == NSURLErrorCancelled {
+                                return
+                            } else {
+                                recipeVC.image = UIImage(named: "error")
+                                recipeVC.calledWithHashableMeal = false
+                                recipeVC.isHashableMealFromPersistence = false
+                                self.present(recipeVC, animated: true) {
+                                    self.resetView()
+                                }
+                            }
                         } else {
                             recipeVC.image = image
-                        }
-                        
-                        recipeVC.calledWithHashableMeal = false
-                        recipeVC.isHashableMealFromPersistence = false
-                        self.present(recipeVC, animated: true) {
-                            self.resetView()
+                            recipeVC.calledWithHashableMeal = false
+                            recipeVC.isHashableMealFromPersistence = false
+                            self.present(recipeVC, animated: true) {
+                                self.resetView()
+                            }
                         }
                     }
                 case .failure(let error):
@@ -119,6 +129,8 @@ class RandomViewController: UIViewController {
                 self.resetView()
             }
             self.present(popup, animated: true)
+        case .cancelledError:
+            return
         }
     }
     

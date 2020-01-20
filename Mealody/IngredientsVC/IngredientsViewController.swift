@@ -337,6 +337,9 @@ class IngredientsViewController: UIViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             self.present(popup, animated: true)
+        case .cancelledError:
+            // this can not happen in this VC
+            return
         }
     }
     

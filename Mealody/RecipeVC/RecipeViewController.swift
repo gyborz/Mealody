@@ -79,6 +79,9 @@ class RecipeViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
             self.present(popup, animated: true)
+        case .cancelledError:
+            // this can not happen in this VC
+            return
         }
     }
     

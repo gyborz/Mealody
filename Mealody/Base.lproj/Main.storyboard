@@ -43,8 +43,9 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="semibold"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fGG-gR-kFV">
-                                                <rect key="frame" x="10" y="0.0" width="185" height="53.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="245" height="53.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="55" maxY="0.0"/>
                                                 <state key="normal" title="RANDOM">
                                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
@@ -56,11 +57,11 @@
                                         <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="fGG-gR-kFV" secondAttribute="bottom" id="EdW-Qm-EJU"/>
-                                            <constraint firstItem="Yyx-v3-D5D" firstAttribute="leading" secondItem="fGG-gR-kFV" secondAttribute="trailing" id="Nca-q5-Hiv"/>
+                                            <constraint firstAttribute="trailing" secondItem="fGG-gR-kFV" secondAttribute="trailing" id="I5z-3c-3YM"/>
                                             <constraint firstItem="fGG-gR-kFV" firstAttribute="top" secondItem="B8r-BS-eNX" secondAttribute="top" id="aD8-xy-EXD"/>
                                             <constraint firstItem="Yyx-v3-D5D" firstAttribute="centerY" secondItem="B8r-BS-eNX" secondAttribute="centerY" id="tvZ-Dp-Gid"/>
                                             <constraint firstAttribute="trailing" secondItem="Yyx-v3-D5D" secondAttribute="trailing" constant="20" id="vm7-gc-uSw"/>
-                                            <constraint firstItem="fGG-gR-kFV" firstAttribute="leading" secondItem="B8r-BS-eNX" secondAttribute="leading" constant="10" id="zhx-vn-xSg"/>
+                                            <constraint firstItem="fGG-gR-kFV" firstAttribute="leading" secondItem="B8r-BS-eNX" secondAttribute="leading" id="zhx-vn-xSg"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y9z-oL-F7L">
@@ -76,8 +77,9 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="semibold"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtP-p3-q1f">
-                                                <rect key="frame" x="10" y="0.0" width="185" height="53.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="245" height="53.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="58" maxY="0.0"/>
                                                 <state key="normal" title="BROWSE">
                                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
@@ -88,11 +90,11 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="dtP-p3-q1f" firstAttribute="leading" secondItem="Y9z-oL-F7L" secondAttribute="leading" constant="10" id="HjI-dn-619"/>
+                                            <constraint firstItem="dtP-p3-q1f" firstAttribute="leading" secondItem="Y9z-oL-F7L" secondAttribute="leading" id="HjI-dn-619"/>
                                             <constraint firstItem="KkG-IX-8mO" firstAttribute="centerY" secondItem="Y9z-oL-F7L" secondAttribute="centerY" id="Nwj-L7-yiT"/>
+                                            <constraint firstAttribute="trailing" secondItem="dtP-p3-q1f" secondAttribute="trailing" id="Pqn-uf-uNU"/>
                                             <constraint firstAttribute="bottom" secondItem="dtP-p3-q1f" secondAttribute="bottom" id="ckJ-oB-VQI"/>
                                             <constraint firstItem="dtP-p3-q1f" firstAttribute="top" secondItem="Y9z-oL-F7L" secondAttribute="top" id="nAF-Pl-ASc"/>
-                                            <constraint firstItem="KkG-IX-8mO" firstAttribute="leading" secondItem="dtP-p3-q1f" secondAttribute="trailing" id="vke-e7-ITb"/>
                                             <constraint firstAttribute="trailing" secondItem="KkG-IX-8mO" secondAttribute="trailing" constant="20" id="xCb-rr-gDj"/>
                                         </constraints>
                                     </view>
@@ -109,8 +111,9 @@
                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default" weight="semibold"/>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15W-R2-ZZ4">
-                                                <rect key="frame" x="10" y="0.0" width="185" height="53.666666666666664"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="245" height="53.666666666666664"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="78" maxY="0.0"/>
                                                 <state key="normal" title="SAVED">
                                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 </state>
@@ -122,11 +125,11 @@
                                         <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="kuz-RJ-7fK" secondAttribute="trailing" constant="20" id="4Jw-Nt-dUo"/>
-                                            <constraint firstItem="kuz-RJ-7fK" firstAttribute="leading" secondItem="15W-R2-ZZ4" secondAttribute="trailing" id="AtU-Sd-xmL"/>
                                             <constraint firstItem="kuz-RJ-7fK" firstAttribute="centerY" secondItem="oO4-W8-XVs" secondAttribute="centerY" id="QhM-cS-bWZ"/>
-                                            <constraint firstItem="15W-R2-ZZ4" firstAttribute="leading" secondItem="oO4-W8-XVs" secondAttribute="leading" constant="10" id="c0k-f3-Spo"/>
+                                            <constraint firstItem="15W-R2-ZZ4" firstAttribute="leading" secondItem="oO4-W8-XVs" secondAttribute="leading" id="c0k-f3-Spo"/>
                                             <constraint firstItem="15W-R2-ZZ4" firstAttribute="top" secondItem="oO4-W8-XVs" secondAttribute="top" id="qgT-5z-Q3p"/>
                                             <constraint firstAttribute="bottom" secondItem="15W-R2-ZZ4" secondAttribute="bottom" id="vSb-Hp-CT3"/>
+                                            <constraint firstAttribute="trailing" secondItem="15W-R2-ZZ4" secondAttribute="trailing" id="zNs-kB-U2P"/>
                                         </constraints>
                                     </view>
                                 </subviews>

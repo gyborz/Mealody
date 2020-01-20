@@ -208,7 +208,7 @@ class RecipeListViewController: UITableViewController {
         case .emptyStateError:
             switch listType {
             case .ingredients:
-                let popup = PopupService.ingredientsError(withMessage: "Looks like there are no recipes with the selected ingredients.\nPlease try again!") {
+                let popup = PopupService.ingredientsError(withMessage: "Looks like there are no recipes with the selected ingredients.") {
                     self.navigationController?.popViewController(animated: true)
                 }
                 self.present(popup, animated: true)

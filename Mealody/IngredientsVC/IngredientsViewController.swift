@@ -66,7 +66,7 @@ class IngredientsViewController: UIViewController {
         
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Ingredients"
+        searchController.searchBar.placeholder = "Search ingredients"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         

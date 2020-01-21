@@ -20,7 +20,9 @@ class RecipeView: UIView {
     @IBOutlet weak var instructionsTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var blurView: UIView!
+    @IBOutlet weak var mealContentView: UIView!
     @IBOutlet weak var imageActivityIndicator: NVActivityIndicatorView!
+    @IBOutlet weak var contentActivityIndicator: NVActivityIndicatorView!
     
     // setting up the view with meal and image are in two separate functions because we can set the image before
     // we go and request the full meal with all the informations - this way when we present the RecipeVC we can already set the imageview
@@ -35,6 +37,10 @@ class RecipeView: UIView {
         ingredientsTextView.text = returnIngredientsString(from: ingredients, from: measures)
         
         instructionsTextView.text = meal.strInstructions
+        
+        UIView.animate(withDuration: 0.5) {
+            self.mealContentView.alpha = 1
+        }
     }
     
     func setupView(withImage image: UIImage) {
@@ -42,6 +48,7 @@ class RecipeView: UIView {
     }
     
     func setupView(withHashableMeal hashableMeal: HashableMeal) {
+        mealContentView.alpha = 1
         saveButton.isHidden = true
         
         mealImageView.image = UIImage(data: hashableMeal.mealImage!)
@@ -55,6 +62,8 @@ class RecipeView: UIView {
         
         imageActivityIndicator.type = .lineScale
         imageActivityIndicator.color = .systemOrange
+        contentActivityIndicator.type = .lineScale
+        contentActivityIndicator.color = .systemOrange
         
         self.clipsToBounds = true
         self.layer.cornerRadius = 18
@@ -83,6 +92,9 @@ class RecipeView: UIView {
         savedLabelTopAnchor.isActive = true
         savedLabel.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
         savedLabel.widthAnchor.constraint(equalToConstant: savedLabel.label.bounds.width + 30).isActive = true
+        
+        mealContentView.alpha = 0
+        saveButton.alpha = 0
     }
     
     func setupSaveButton(isMealSaved: Bool) {
@@ -104,6 +116,9 @@ class RecipeView: UIView {
             saveButton.layer.shadowColor = UIColor.black.cgColor
             saveButton.layer.shadowOpacity = 0.2
             saveButton.isEnabled = true
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.saveButton.alpha = 1
         }
     }
     

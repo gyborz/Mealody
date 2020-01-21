@@ -520,6 +520,13 @@
                                             <constraint firstAttribute="height" constant="350" id="8E7-n1-fNC"/>
                                         </constraints>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uZ3-CG-VRd" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="154" y="480" width="67" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="uZ3-CG-VRd" secondAttribute="height" multiplier="67:45" id="nOx-t2-iEV"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QM9-D2-9Wf">
                                         <rect key="frame" x="0.0" y="349.99999999999994" width="375" height="670.66666666666652"/>
                                         <subviews>
@@ -570,7 +577,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLG-ty-7Kt">
-                                                <rect key="frame" x="10" y="370.33333333333337" width="140.33333333333334" height="26"/>
+                                                <rect key="frame" x="10" y="370.33333333333337" width="140.66666666666666" height="26"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="134" id="pi9-b6-a2N"/>
                                                 </constraints>
@@ -604,11 +611,14 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="dbz-88-HDr" firstAttribute="centerX" secondItem="bsV-m3-KzT" secondAttribute="centerX" id="55J-vF-1Zd"/>
+                                    <constraint firstItem="uZ3-CG-VRd" firstAttribute="width" secondItem="bsV-m3-KzT" secondAttribute="width" multiplier="0.178667" id="5tc-DH-tuh"/>
                                     <constraint firstItem="Xq3-Xq-NZH" firstAttribute="top" secondItem="bsV-m3-KzT" secondAttribute="top" constant="175" id="85R-vJ-6i1"/>
                                     <constraint firstItem="dbz-88-HDr" firstAttribute="top" secondItem="bsV-m3-KzT" secondAttribute="top" id="9fS-aa-AU7"/>
                                     <constraint firstItem="QM9-D2-9Wf" firstAttribute="top" secondItem="dbz-88-HDr" secondAttribute="bottom" id="PpJ-5e-TI2"/>
                                     <constraint firstItem="QM9-D2-9Wf" firstAttribute="leading" secondItem="bsV-m3-KzT" secondAttribute="leading" id="RRB-Cp-PTq"/>
+                                    <constraint firstItem="uZ3-CG-VRd" firstAttribute="top" secondItem="dbz-88-HDr" secondAttribute="bottom" constant="130" id="auM-v9-iT5"/>
                                     <constraint firstAttribute="trailing" secondItem="QM9-D2-9Wf" secondAttribute="trailing" id="glJ-fq-JKP"/>
+                                    <constraint firstItem="uZ3-CG-VRd" firstAttribute="centerX" secondItem="bsV-m3-KzT" secondAttribute="centerX" id="h5H-kl-LnM"/>
                                     <constraint firstItem="Xq3-Xq-NZH" firstAttribute="width" secondItem="bsV-m3-KzT" secondAttribute="width" multiplier="0.178667" id="ie6-hS-9DJ"/>
                                     <constraint firstItem="Xq3-Xq-NZH" firstAttribute="centerX" secondItem="bsV-m3-KzT" secondAttribute="centerX" id="ofO-DZ-cTL"/>
                                     <constraint firstAttribute="bottom" secondItem="QM9-D2-9Wf" secondAttribute="bottom" id="yYx-Hn-TcB"/>
@@ -629,9 +639,11 @@
                         <viewLayoutGuide key="safeArea" id="euV-RY-DYJ"/>
                         <connections>
                             <outlet property="blurView" destination="aKm-d9-iV2" id="z3M-iP-tSc"/>
+                            <outlet property="contentActivityIndicator" destination="uZ3-CG-VRd" id="zuP-Xq-Bud"/>
                             <outlet property="imageActivityIndicator" destination="Xq3-Xq-NZH" id="O26-xV-nzu"/>
                             <outlet property="ingredientsTextView" destination="iLb-Lp-rJj" id="qp4-wE-mJ3"/>
                             <outlet property="instructionsTextView" destination="OaS-TC-h6v" id="caA-sv-UtH"/>
+                            <outlet property="mealContentView" destination="QM9-D2-9Wf" id="xpq-9t-qwk"/>
                             <outlet property="mealImageView" destination="dbz-88-HDr" id="Eyg-cy-vBc"/>
                             <outlet property="mealLabel" destination="CyL-dk-BV8" id="FFq-1S-5Vl"/>
                             <outlet property="saveButton" destination="Thh-jh-EFb" id="LvX-9i-cYX"/>

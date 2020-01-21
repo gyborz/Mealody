@@ -28,6 +28,7 @@ class RecipeViewController: UIViewController {
             recipeView.setupView(withHashableMeal: hashableMeal)
         } else if calledWithHashableMeal && !isHashableMealFromPersistence {
             recipeView.imageActivityIndicator.startAnimating()
+            recipeView.contentActivityIndicator.startAnimating()
             guard let url = URL(string: hashableMeal.strMealThumb!) else { return }
             ImageService.getImage(withURL: url) { [weak self] (image, _, error) in
                 guard let self = self else { return }
@@ -49,6 +50,7 @@ class RecipeViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let meal):
+                        self.recipeView.contentActivityIndicator.stopAnimating()
                         self.meal = meal
                         self.recipeView.setupView(withMeal: meal)
                         if self.image != nil {

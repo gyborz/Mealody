@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class RecipeView: UIView {
     
@@ -19,6 +20,7 @@ class RecipeView: UIView {
     @IBOutlet weak var instructionsTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var blurView: UIView!
+    @IBOutlet weak var imageActivityIndicator: NVActivityIndicatorView!
     
     // setting up the view with meal and image are in two separate functions because we can set the image before
     // we go and request the full meal with all the informations - this way when we present the RecipeVC we can already set the imageview
@@ -50,6 +52,9 @@ class RecipeView: UIView {
     
     func setupUI() {
         self.bringSubviewToFront(blurView)
+        
+        imageActivityIndicator.type = .lineScale
+        imageActivityIndicator.color = .systemOrange
         
         self.clipsToBounds = true
         self.layer.cornerRadius = 18

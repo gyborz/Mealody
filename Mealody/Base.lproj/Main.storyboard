@@ -507,6 +507,13 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bsV-m3-KzT">
                                 <rect key="frame" x="0.0" y="44" width="375" height="768"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xq3-Xq-NZH" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                        <rect key="frame" x="154" y="175" width="67" height="45"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Xq3-Xq-NZH" secondAttribute="height" multiplier="67:45" id="bKC-qC-nP2"/>
+                                        </constraints>
+                                    </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dbz-88-HDr">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                                         <constraints>
@@ -597,10 +604,13 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="dbz-88-HDr" firstAttribute="centerX" secondItem="bsV-m3-KzT" secondAttribute="centerX" id="55J-vF-1Zd"/>
+                                    <constraint firstItem="Xq3-Xq-NZH" firstAttribute="top" secondItem="bsV-m3-KzT" secondAttribute="top" constant="175" id="85R-vJ-6i1"/>
                                     <constraint firstItem="dbz-88-HDr" firstAttribute="top" secondItem="bsV-m3-KzT" secondAttribute="top" id="9fS-aa-AU7"/>
                                     <constraint firstItem="QM9-D2-9Wf" firstAttribute="top" secondItem="dbz-88-HDr" secondAttribute="bottom" id="PpJ-5e-TI2"/>
                                     <constraint firstItem="QM9-D2-9Wf" firstAttribute="leading" secondItem="bsV-m3-KzT" secondAttribute="leading" id="RRB-Cp-PTq"/>
                                     <constraint firstAttribute="trailing" secondItem="QM9-D2-9Wf" secondAttribute="trailing" id="glJ-fq-JKP"/>
+                                    <constraint firstItem="Xq3-Xq-NZH" firstAttribute="width" secondItem="bsV-m3-KzT" secondAttribute="width" multiplier="0.178667" id="ie6-hS-9DJ"/>
+                                    <constraint firstItem="Xq3-Xq-NZH" firstAttribute="centerX" secondItem="bsV-m3-KzT" secondAttribute="centerX" id="ofO-DZ-cTL"/>
                                     <constraint firstAttribute="bottom" secondItem="QM9-D2-9Wf" secondAttribute="bottom" id="yYx-Hn-TcB"/>
                                     <constraint firstItem="dbz-88-HDr" firstAttribute="leading" secondItem="bsV-m3-KzT" secondAttribute="leading" id="yzj-78-XpS"/>
                                     <constraint firstAttribute="trailing" secondItem="dbz-88-HDr" secondAttribute="trailing" id="zAz-ZU-Nf7"/>
@@ -619,6 +629,7 @@
                         <viewLayoutGuide key="safeArea" id="euV-RY-DYJ"/>
                         <connections>
                             <outlet property="blurView" destination="aKm-d9-iV2" id="z3M-iP-tSc"/>
+                            <outlet property="imageActivityIndicator" destination="Xq3-Xq-NZH" id="O26-xV-nzu"/>
                             <outlet property="ingredientsTextView" destination="iLb-Lp-rJj" id="qp4-wE-mJ3"/>
                             <outlet property="instructionsTextView" destination="OaS-TC-h6v" id="caA-sv-UtH"/>
                             <outlet property="mealImageView" destination="dbz-88-HDr" id="Eyg-cy-vBc"/>

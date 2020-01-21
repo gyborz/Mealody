@@ -82,7 +82,7 @@ class RecipeView: UIView {
     
     func setupSaveButton(isMealSaved: Bool) {
         if isMealSaved {
-            saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
+            saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
             saveButton.layer.cornerRadius = saveButton.frame.height / 2
             saveButton.backgroundColor = .systemGreen
             saveButton.layer.shadowOffset = CGSize(width: 1.5, height: 3)
@@ -91,7 +91,7 @@ class RecipeView: UIView {
             saveButton.layer.shadowOpacity = 0.2
             saveButton.isUserInteractionEnabled = false
         } else {
-            saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
+            saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
             saveButton.layer.cornerRadius = saveButton.frame.height / 2
             saveButton.backgroundColor = .systemOrange
             saveButton.layer.shadowOffset = CGSize(width: 1.5, height: 3)
@@ -103,7 +103,7 @@ class RecipeView: UIView {
     }
     
     func changeSaveButton() {
-        saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
+        saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
         saveButton.backgroundColor = .systemGreen
         saveButton.isUserInteractionEnabled = false
     }

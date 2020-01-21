@@ -49,6 +49,8 @@ class RecipeView: UIView {
     }
     
     func setupUI() {
+        self.bringSubviewToFront(blurView)
+        
         self.clipsToBounds = true
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]

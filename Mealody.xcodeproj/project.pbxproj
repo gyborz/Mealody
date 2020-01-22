@@ -172,6 +172,7 @@
 			children = (
 				E71C032823D85B580019D52F /* HomeScreen */,
 				E71C032923D863570019D52F /* RandomScreen */,
+				E776F72423D8863500A343D3 /* BrowseScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -255,6 +256,14 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E776F72423D8863500A343D3 /* BrowseScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
+			);
+			path = BrowseScreen;
+			sourceTree = "<group>";
+		};
 		E7A0023023C21A7000D7D055 /* RecipeVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,7 +297,6 @@
 				E718F22F23B64087008FB262 /* Model */,
 				E71C032723D85B480019D52F /* Screens */,
 				E7A0023023C21A7000D7D055 /* RecipeVC */,
-				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
 				E71B71A323BD1A2900A7799B /* RecipeList */,
 				E729554B23C5012100263B53 /* ListVC */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,

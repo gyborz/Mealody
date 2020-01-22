@@ -10,9 +10,13 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
+    // Outlets
+    
     @IBOutlet weak var homeImageView: UIImageView!
     @IBOutlet weak var menuStackView: UIStackView!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    // View Handling
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,12 +24,25 @@ class HomeViewController: UIViewController {
         setupView()
     }
     
+    // we give the "Mealody" title label a shadow, and make the navigationBar totally transparent
+    private func setupView() {
+        titleLabel.layer.shadowColor = UIColor.gray.cgColor
+        titleLabel.layer.shadowOpacity = 0.5
+        titleLabel.layer.shadowOffset = .init(width: 0, height: 2)
+        titleLabel.layer.shadowRadius = 2.5
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
+    
+    // we set the navigationBar translucent every time the view appears
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isTranslucent = true
     }
     
+    // whenever the view will lay out subviews we give the stackView's subviews shadows and corner radius on the left side
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         for case let view in menuStackView.subviews {
@@ -38,16 +55,6 @@ class HomeViewController: UIViewController {
             view.layer.shadowColor = UIColor.black.cgColor
             view.layer.shadowOpacity = 0.3
         }
-    }
-    
-    private func setupView() {
-        titleLabel.layer.shadowColor = UIColor.gray.cgColor
-        titleLabel.layer.shadowOpacity = 0.5
-        titleLabel.layer.shadowOffset = .init(width: 0, height: 2)
-        titleLabel.layer.shadowRadius = 2.5
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
     }
 
 }

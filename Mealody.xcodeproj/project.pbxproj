@@ -167,6 +167,22 @@
 			path = RecipeList;
 			sourceTree = "<group>";
 		};
+		E71C032723D85B480019D52F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				E71C032823D85B580019D52F /* HomeScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		E71C032823D85B580019D52F /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
 		E729554B23C5012100263B53 /* ListVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,7 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				E718F22F23B64087008FB262 /* Model */,
-				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
+				E71C032723D85B480019D52F /* Screens */,
 				E7B9E38B23AE3463006557EF /* RandomViewController.swift */,
 				E7A0023023C21A7000D7D055 /* RecipeVC */,
 				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class RecipeView: UIView {
     
@@ -19,15 +20,16 @@ class RecipeView: UIView {
     @IBOutlet weak var instructionsTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var blurView: UIView!
+    @IBOutlet weak var mealContentView: UIView!
+    @IBOutlet weak var imageActivityIndicator: NVActivityIndicatorView!
+    @IBOutlet weak var contentActivityIndicator: NVActivityIndicatorView!
     
     // setting up the view with meal and image are in two separate functions because we can set the image before
     // we go and request the full meal with all the informations - this way when we present the RecipeVC we can already set the imageview
     // if we would set it in the restManager's getMeal(byId:completion:) function in RecipeVC's viewDidLoad, then the imageView would
     // get the image in the middle of presentation, which looks a bit ugly
     // since we already got the image in the RecipeListVC, we can cache it before presenting the RecipeVC
-    func setUpView(withMeal meal: Meal) {
-        setUpUI()
-        
+    func setupView(withMeal meal: Meal) {
         mealLabel.text = meal.strMeal
         
         let ingredients = getIngredients(from: meal)
@@ -35,15 +37,18 @@ class RecipeView: UIView {
         ingredientsTextView.text = returnIngredientsString(from: ingredients, from: measures)
         
         instructionsTextView.text = meal.strInstructions
+        
+        UIView.animate(withDuration: 0.5) {
+            self.mealContentView.alpha = 1
+        }
     }
     
-    func setUpView(withImage image: UIImage) {
+    func setupView(withImage image: UIImage) {
         mealImageView.image = image
     }
     
-    func setUpView(withHashableMeal hashableMeal: HashableMeal) {
-        setUpUI()
-        
+    func setupView(withHashableMeal hashableMeal: HashableMeal) {
+        mealContentView.alpha = 1
         saveButton.isHidden = true
         
         mealImageView.image = UIImage(data: hashableMeal.mealImage!)
@@ -52,7 +57,14 @@ class RecipeView: UIView {
         instructionsTextView.text = hashableMeal.strInstructions!
     }
     
-    private func setUpUI() {
+    func setupUI() {
+        self.bringSubviewToFront(blurView)
+        
+        imageActivityIndicator.type = .lineScale
+        imageActivityIndicator.color = .systemOrange
+        contentActivityIndicator.type = .lineScale
+        contentActivityIndicator.color = .systemOrange
+        
         self.clipsToBounds = true
         self.layer.cornerRadius = 18
         self.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -65,15 +77,6 @@ class RecipeView: UIView {
         blurView.sendSubviewToBack(blurEffectView)
         blurView.layer.masksToBounds = true
         blurView.layer.cornerRadius = blurView.frame.height / 2
-        
-        saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
-        saveButton.layer.cornerRadius = saveButton.frame.height / 2
-        saveButton.backgroundColor = .systemOrange
-        saveButton.layer.shadowOffset = CGSize(width: 1.5, height: 3)
-        saveButton.layer.shadowRadius = 0.7
-        saveButton.layer.shadowColor = UIColor.black.cgColor
-        saveButton.layer.shadowOpacity = 0.2
-        
         
         ingredientsTextView.isScrollEnabled = false
         ingredientsTextView.isUserInteractionEnabled = false
@@ -89,11 +92,40 @@ class RecipeView: UIView {
         savedLabelTopAnchor.isActive = true
         savedLabel.heightAnchor.constraint(equalToConstant: 32.0).isActive = true
         savedLabel.widthAnchor.constraint(equalToConstant: savedLabel.label.bounds.width + 30).isActive = true
+        
+        mealContentView.alpha = 0
+        saveButton.alpha = 0
+    }
+    
+    func setupSaveButton(isMealSaved: Bool) {
+        if isMealSaved {
+            saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
+            saveButton.layer.cornerRadius = saveButton.frame.height / 2
+            saveButton.backgroundColor = .systemGreen
+            saveButton.layer.shadowOffset = CGSize(width: 1.5, height: 3)
+            saveButton.layer.shadowRadius = 0.7
+            saveButton.layer.shadowColor = UIColor.black.cgColor
+            saveButton.layer.shadowOpacity = 0.2
+            saveButton.isUserInteractionEnabled = false
+        } else {
+            saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
+            saveButton.layer.cornerRadius = saveButton.frame.height / 2
+            saveButton.backgroundColor = .systemOrange
+            saveButton.layer.shadowOffset = CGSize(width: 1.5, height: 3)
+            saveButton.layer.shadowRadius = 0.7
+            saveButton.layer.shadowColor = UIColor.black.cgColor
+            saveButton.layer.shadowOpacity = 0.2
+            saveButton.isEnabled = true
+        }
+        UIView.animate(withDuration: 0.3) {
+            self.saveButton.alpha = 1
+        }
     }
     
     func changeSaveButton() {
-        saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)), for: .normal)
+        saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
         saveButton.backgroundColor = .systemGreen
+        saveButton.isUserInteractionEnabled = false
     }
     
     private func returnIngredientsString(from ingredientArray: [String], from measureArray: [String]) -> String {

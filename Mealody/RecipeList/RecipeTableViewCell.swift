@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
 class RecipeTableViewCell: UITableViewCell {
     
@@ -17,7 +18,7 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var blurView: UIView!
     @IBOutlet weak var recipeTitleLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
-    
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +48,9 @@ class RecipeTableViewCell: UITableViewCell {
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         blurView.addSubview(blurEffectView)
         blurView.sendSubviewToBack(blurEffectView)
+        
+        activityIndicator.type = .lineScale
+        activityIndicator.color = .systemOrange
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -66,7 +70,8 @@ class RecipeTableViewCell: UITableViewCell {
     }
     
     func setUpRecipeCell(withMeal meal: HashableMeal) {
-        self.mealImageView.image = nil  // we set the image nil first so it won't 'blink' when it tries to download the correct image (while scrolling in the app)
+        mealImageView.image = nil  // we set the image nil first so it won't 'blink' when it tries to download the correct image (while scrolling in the app)
+        activityIndicator.startAnimating()
         
         // we check if the url of the image we fetched and the url of the meal we have is equal
         // this is needed so we avoid the possibility that an another image gets fetched faster (because of smaller size for example)
@@ -80,6 +85,7 @@ class RecipeTableViewCell: UITableViewCell {
             } else {
                 self.mealImageView.image = UIImage(named: "error")
             }
+            self.activityIndicator.stopAnimating()
         }
         recipeTitleLabel.text = meal.strMeal!
     }

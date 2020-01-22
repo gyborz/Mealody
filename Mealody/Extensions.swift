@@ -26,4 +26,9 @@ extension Error {
 
         return connectivityErrors.contains(_code)
     }
+    
+    var isCancelledError: Bool {
+        guard _domain == NSURLErrorDomain else { return false }
+        return _code == NSURLErrorCancelled
+    }
 }

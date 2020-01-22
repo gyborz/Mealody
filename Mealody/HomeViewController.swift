@@ -12,14 +12,12 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var homeImageView: UIImageView!
     @IBOutlet weak var menuStackView: UIStackView!
-    
+    @IBOutlet weak var titleLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = UIImage()
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +39,16 @@ class HomeViewController: UIViewController {
             view.layer.shadowOpacity = 0.3
         }
     }
-
+    
+    private func setupView() {
+        titleLabel.layer.shadowColor = UIColor.gray.cgColor
+        titleLabel.layer.shadowOpacity = 0.5
+        titleLabel.layer.shadowOffset = .init(width: 0, height: 2)
+        titleLabel.layer.shadowRadius = 2.5
+        
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+    }
 
 }
 

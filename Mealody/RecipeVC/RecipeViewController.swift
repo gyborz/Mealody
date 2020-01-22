@@ -23,19 +23,26 @@ class RecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        recipeView.setupUI()
         if calledWithHashableMeal && isHashableMealFromPersistence {
-            recipeView.setUpView(withHashableMeal: hashableMeal)
+            recipeView.setupView(withHashableMeal: hashableMeal)
         } else if calledWithHashableMeal && !isHashableMealFromPersistence {
+            recipeView.imageActivityIndicator.startAnimating()
+            recipeView.contentActivityIndicator.startAnimating()
             guard let url = URL(string: hashableMeal.strMealThumb!) else { return }
             ImageService.getImage(withURL: url) { [weak self] (image, _, error) in
                 guard let self = self else { return }
                 if error != nil || image == nil {
                     self.image = UIImage(named: "error")
-                    self.recipeView.setUpView(withImage: self.image!)
+                    self.recipeView.setupView(withImage: self.image!)
                 } else if image != nil {
                     self.image = image
-                    self.recipeView.setUpView(withImage: self.image!)
+                    self.recipeView.setupView(withImage: self.image!)
+                    if let meal = self.meal {
+                        self.setupSaveButton(withMeal: meal)
+                    }
                 }
+                self.recipeView.imageActivityIndicator.stopAnimating()
             }
             guard let id = hashableMeal.idMeal else { return }
             restManager.getMeal(byId: id) { [weak self] result in
@@ -43,8 +50,12 @@ class RecipeViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let meal):
+                        self.recipeView.contentActivityIndicator.stopAnimating()
                         self.meal = meal
-                        self.recipeView.setUpView(withMeal: meal)
+                        self.recipeView.setupView(withMeal: meal)
+                        if self.image != nil {
+                            self.setupSaveButton(withMeal: meal)
+                        }
                     case .failure(let error):
                         self.showPopupFor(error)
                     }
@@ -52,8 +63,24 @@ class RecipeViewController: UIViewController {
             }
         } else {    // when called from RandomVC
             guard let image = image, let meal = meal else { return }
-            recipeView.setUpView(withImage: image)
-            recipeView.setUpView(withMeal: meal)
+            recipeView.setupView(withImage: image)
+            recipeView.setupView(withMeal: meal)
+            setupSaveButton(withMeal: meal)
+        }
+    }
+    
+    private func setupSaveButton(withMeal meal: Meal) {
+        do {
+            if (try persistenceManager.fetchMeal(MealData.self, idMeal: meal.idMeal!)) != nil {
+                recipeView.setupSaveButton(isMealSaved: true)
+            } else {
+                recipeView.setupSaveButton(isMealSaved: false)
+            }
+        } catch {
+            let popup = PopupService.persistenceError(withMessage: "Something went wrong!") {
+                self.dismiss(animated: true, completion: nil)
+            }
+            self.present(popup, animated: true)
         }
     }
     
@@ -79,6 +106,9 @@ class RecipeViewController: UIViewController {
                 self.dismiss(animated: true, completion: nil)
             }
             self.present(popup, animated: true)
+        case .cancelledError:
+            // this can not happen in this VC
+            return
         }
     }
     
@@ -87,26 +117,19 @@ class RecipeViewController: UIViewController {
         
         guard let image = image, let meal = meal else { return }
         if let imageData = image.jpegData(compressionQuality: 1.0) {
-            guard let idMeal = meal.idMeal else { return }  // later on turn idMeal to be non-optional
             do {
-                if let fetchedMeal = try persistenceManager.fetchMeal(MealData.self, idMeal: idMeal) {
-                    // TODO: - disable save button, turn it green
-                    print(fetchedMeal.idMeal!)
-                    print("Meal already exists")
-                } else {
-                    try persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
-                    recipeView.toggleSavedLabel()
-                }
+                try persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
+                recipeView.toggleSavedLabel()
             } catch {
                 persistenceManager.context.rollback()
                 let popup = PopupService.persistenceError(withMessage: "Couldn't save the recipe.\nPlease try again!") {
-                    // TODO: - reset save button
+                    self.recipeView.setupSaveButton(isMealSaved: false)
                 }
                 present(popup, animated: true)
             }
         } else {
             let popup = PopupService.compressingError(withMessage: "Couldn't compress the image.\nPlease try again!") {
-                // TODO: - reset save button
+                self.recipeView.setupSaveButton(isMealSaved: false)
             }
             present(popup, animated: true)
         }

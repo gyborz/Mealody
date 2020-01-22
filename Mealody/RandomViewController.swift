@@ -35,6 +35,15 @@ class RandomViewController: UIViewController {
         randomButton.layer.shadowOpacity = 0.5
     }
     
+    // we cancel every ongoing tasks when the view is about to disappear
+    // this prevents the RecipeVC to appear while the user dismisses the view (e.g. swiping the navController)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        restManager.cancelTasks()
+        ImageService.cancelTasks()
+    }
+    
     func setUpButton() {
         randomButton.titleLabel?.lineBreakMode = .byWordWrapping
         randomButton.titleLabel?.textColor = .label
@@ -56,6 +65,8 @@ class RandomViewController: UIViewController {
     }
     
     @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+        restManager.cancelTasks()
+        ImageService.cancelTasks()
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -78,15 +89,23 @@ class RandomViewController: UIViewController {
                         recipeVC.meal = meal
                         
                         if error != nil {
-                            recipeVC.image = UIImage(named: "error")
+                            if error!._code == NSURLErrorCancelled {
+                                return
+                            } else {
+                                recipeVC.image = UIImage(named: "error")
+                                recipeVC.calledWithHashableMeal = false
+                                recipeVC.isHashableMealFromPersistence = false
+                                self.present(recipeVC, animated: true) {
+                                    self.resetView()
+                                }
+                            }
                         } else {
                             recipeVC.image = image
-                        }
-                        
-                        recipeVC.calledWithHashableMeal = false
-                        recipeVC.isHashableMealFromPersistence = false
-                        self.present(recipeVC, animated: true) {
-                            self.resetView()
+                            recipeVC.calledWithHashableMeal = false
+                            recipeVC.isHashableMealFromPersistence = false
+                            self.present(recipeVC, animated: true) {
+                                self.resetView()
+                            }
                         }
                     }
                 case .failure(let error):
@@ -119,6 +138,8 @@ class RandomViewController: UIViewController {
                 self.resetView()
             }
             self.present(popup, animated: true)
+        case .cancelledError:
+            return
         }
     }
     

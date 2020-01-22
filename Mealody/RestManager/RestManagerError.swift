@@ -13,4 +13,5 @@ enum RestManagerError: Error {
     case emptyStateError
     case parseError
     case networkError
+    case cancelledError
 }

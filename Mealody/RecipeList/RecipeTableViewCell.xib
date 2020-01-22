@@ -19,6 +19,13 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hFs-8P-p5y">
                         <rect key="frame" x="25" y="20" width="280" height="280"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkc-CX-TTu" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
+                                <rect key="frame" x="117.5" y="125" width="45" height="30"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="dkc-CX-TTu" secondAttribute="height" multiplier="3:2" id="xRs-Ge-2tJ"/>
+                                </constraints>
+                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UeJ-Y6-Xod">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="280"/>
                             </imageView>
@@ -45,10 +52,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="UeJ-Y6-Xod" firstAttribute="top" secondItem="hFs-8P-p5y" secondAttribute="top" id="0JD-0l-Eco"/>
+                            <constraint firstItem="dkc-CX-TTu" firstAttribute="centerY" secondItem="hFs-8P-p5y" secondAttribute="centerY" id="461-q4-2CN"/>
                             <constraint firstItem="UeJ-Y6-Xod" firstAttribute="leading" secondItem="hFs-8P-p5y" secondAttribute="leading" id="80v-aq-ZKR"/>
+                            <constraint firstItem="dkc-CX-TTu" firstAttribute="width" secondItem="hFs-8P-p5y" secondAttribute="width" multiplier="0.160714" id="IfF-HN-F7m"/>
                             <constraint firstAttribute="trailing" secondItem="2gA-F9-R7S" secondAttribute="trailing" id="Rbt-ee-lKR"/>
                             <constraint firstAttribute="bottom" secondItem="UeJ-Y6-Xod" secondAttribute="bottom" id="ZVL-Ou-vJl"/>
                             <constraint firstAttribute="trailing" secondItem="UeJ-Y6-Xod" secondAttribute="trailing" id="i3T-4p-7HU"/>
+                            <constraint firstItem="dkc-CX-TTu" firstAttribute="centerX" secondItem="hFs-8P-p5y" secondAttribute="centerX" id="tKR-D9-utB"/>
                             <constraint firstItem="2gA-F9-R7S" firstAttribute="bottom" secondItem="UeJ-Y6-Xod" secondAttribute="bottom" id="wcv-Ry-rpV"/>
                             <constraint firstItem="2gA-F9-R7S" firstAttribute="leading" secondItem="hFs-8P-p5y" secondAttribute="leading" id="xi1-t6-BHa"/>
                         </constraints>
@@ -78,6 +88,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="activityIndicator" destination="dkc-CX-TTu" id="jRa-JT-9kX"/>
                 <outlet property="blurView" destination="2gA-F9-R7S" id="E6C-UI-cag"/>
                 <outlet property="deleteButton" destination="liF-T2-ged" id="oi1-bf-JkK"/>
                 <outlet property="mealImageView" destination="UeJ-Y6-Xod" id="0yK-HL-gs3"/>

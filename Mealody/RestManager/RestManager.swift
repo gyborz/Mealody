@@ -44,6 +44,8 @@ final class RestManager {
             if error != nil {
                 if error!.isConnectivityError {
                     completion(.failure(.networkError))
+                } else if error!.isCancelledError {
+                    completion(.failure(.cancelledError))
                 } else {
                     completion(.failure(.requestError))
                 }
@@ -193,6 +195,12 @@ final class RestManager {
                 }
             }
         }.resume()
+    }
+    
+    func cancelTasks() {
+        session.getAllTasks { tasks in
+            tasks.forEach() { $0.cancel() }
+        }
     }
     
     private func prepareIngredientValues(from ingredients: [Ingredient]) -> String {

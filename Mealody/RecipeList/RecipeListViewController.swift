@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 
-class RecipeListViewController: UITableViewController {
+class RecipeListViewController: UIViewController {
     
     private enum Section {
         case main
@@ -33,15 +34,19 @@ class RecipeListViewController: UITableViewController {
     var ingredients = [Ingredient]()
     
     @IBOutlet weak var trashButton: UIBarButtonItem!
+    @IBOutlet weak var recipeListTableView: UITableView!
+    @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.isTranslucent = false
+        recipeListTableView.delegate = self
+        recipeListTableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
+        recipeListTableView.rowHeight = 390
+        recipeListTableView.separatorStyle = .none
         
-        tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
-        tableView.rowHeight = 390
-        tableView.separatorStyle = .none
+        activityIndicator.type = .lineScale
+        activityIndicator.color = .systemOrange
         
         if isSavedRecipesList {
             do {
@@ -64,12 +69,25 @@ class RecipeListViewController: UITableViewController {
         }
     }
     
+    // we set the navigationBar's translucency in here, so when
+    // the user stops with the view's dismiss (mid-swipe), then we have to make it visible again
+    // after the view appeared
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isTranslucent = false
+    }
+    
+    // we update the snapshot here after we configure the data source in viewDidLoad
+    // this is necessary when we access the saved recipes, because if we do this in viewDidLoad
+    // the tableView (it's superview) will may not yet be in the view hierarchy - this could cause bugs
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         updateSnapshot()
     }
     
     private func getData() {
+        self.activityIndicator.startAnimating()
         switch listType {
         case .category:
             restManager.getMeals(fromCategory: category) { [weak self] result in
@@ -80,6 +98,7 @@ class RecipeListViewController: UITableViewController {
                         for meal in meals {
                             self.hashableMeals.append(HashableMeal(meal: meal))
                         }
+                        self.activityIndicator.stopAnimating()
                         self.updateSnapshot()
                     case .failure(let error):
                         self.showPopupFor(error)
@@ -95,6 +114,7 @@ class RecipeListViewController: UITableViewController {
                         for meal in meals {
                             self.hashableMeals.append(HashableMeal(meal: meal))
                         }
+                        self.activityIndicator.stopAnimating()
                         self.updateSnapshot()
                     case .failure(let error):
                         self.showPopupFor(error)
@@ -110,6 +130,7 @@ class RecipeListViewController: UITableViewController {
                         for meal in meals {
                             self.hashableMeals.append(HashableMeal(meal: meal))
                         }
+                        self.activityIndicator.stopAnimating()
                         self.updateSnapshot()
                     case .failure(let error):
                         self.showPopupFor(error)
@@ -132,7 +153,7 @@ class RecipeListViewController: UITableViewController {
     }
     
     private func configureDataSource() {
-        dataSource = HashableMealDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
+        dataSource = HashableMealDataSource(tableView: recipeListTableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
             
             if self.isSavedRecipesList {
@@ -169,36 +190,12 @@ class RecipeListViewController: UITableViewController {
         })
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isSavedRecipesList {
-            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-            recipeVC.modalPresentationStyle = .automatic
-            recipeVC.hashableMeal = hashableMeal
-            recipeVC.calledWithHashableMeal = true
-            recipeVC.isHashableMealFromPersistence = true
-            self.present(recipeVC, animated: true) { [weak self] in
-                self?.tableView.deselectRow(at: indexPath, animated: false)
-            }
-        } else {
-            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-            recipeVC.modalPresentationStyle = .automatic
-            recipeVC.hashableMeal = hashableMeal
-            recipeVC.calledWithHashableMeal = true
-            recipeVC.isHashableMealFromPersistence = false
-            self.present(recipeVC, animated: true) { [weak self] in
-                self?.tableView.deselectRow(at: indexPath, animated: false)
-            }
-        }
-    }
-    
     private func showPopupFor(_ error: RestManagerError) {
         switch error {
         case .emptyStateError:
             switch listType {
             case .ingredients:
-                let popup = PopupService.ingredientsError(withMessage: "Looks like there are no recipes with the selected ingredients.\nPlease try again!") {
+                let popup = PopupService.ingredientsError(withMessage: "Looks like there are no recipes with the selected ingredients.") {
                     self.navigationController?.popViewController(animated: true)
                 }
                 self.present(popup, animated: true)
@@ -223,17 +220,47 @@ class RecipeListViewController: UITableViewController {
                 self.navigationController?.popViewController(animated: true)
             }
             self.present(popup, animated: true)
+        case .cancelledError:
+            // this can not happen in this VC
+            return
         }
     }
     
     @IBAction func trashButtonTapped(_ sender: UIBarButtonItem) {
         isDeleting.toggle()
-        tableView.reloadData()
+        recipeListTableView.reloadData()
     }
     
-    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         self.navigationController?.popViewController(animated: true)
     }
 
 }
 
+extension RecipeListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if isSavedRecipesList {
+            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+            recipeVC.modalPresentationStyle = .automatic
+            recipeVC.hashableMeal = hashableMeal
+            recipeVC.calledWithHashableMeal = true
+            recipeVC.isHashableMealFromPersistence = true
+            self.present(recipeVC, animated: true) { [weak self] in
+                self?.recipeListTableView.deselectRow(at: indexPath, animated: false)
+            }
+        } else {
+            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+            recipeVC.modalPresentationStyle = .automatic
+            recipeVC.hashableMeal = hashableMeal
+            recipeVC.calledWithHashableMeal = true
+            recipeVC.isHashableMealFromPersistence = false
+            self.present(recipeVC, animated: true) { [weak self] in
+                self?.recipeListTableView.deselectRow(at: indexPath, animated: false)
+            }
+        }
+    }
+    
+}

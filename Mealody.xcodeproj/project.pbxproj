@@ -171,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				E71C032823D85B580019D52F /* HomeScreen */,
+				E71C032923D863570019D52F /* RandomScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -181,6 +182,14 @@
 				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
 			);
 			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		E71C032923D863570019D52F /* RandomScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7B9E38B23AE3463006557EF /* RandomViewController.swift */,
+			);
+			path = RandomScreen;
 			sourceTree = "<group>";
 		};
 		E729554B23C5012100263B53 /* ListVC */ = {
@@ -278,7 +287,6 @@
 			children = (
 				E718F22F23B64087008FB262 /* Model */,
 				E71C032723D85B480019D52F /* Screens */,
-				E7B9E38B23AE3463006557EF /* RandomViewController.swift */,
 				E7A0023023C21A7000D7D055 /* RecipeVC */,
 				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
 				E71B71A323BD1A2900A7799B /* RecipeList */,

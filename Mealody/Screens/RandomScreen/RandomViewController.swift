@@ -11,40 +11,30 @@ import NVActivityIndicatorView
 
 class RandomViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private let restManager = RestManager.shared
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var randomButton: UIButton!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
     
+    // MARK: - View Handling
+    
+    // we set up the activity indicator's type and color, and add a target func to the navController's pop gesture
     override func viewDidLoad() {
         super.viewDidLoad()
         
         activityIndicator.type = .lineScale
         activityIndicator.color = .white
+        self.navigationController?.interactivePopGestureRecognizer?.addTarget(self, action: #selector(handlePopGesture))
         
-        setUpButton()
+        setupButtonTitle()
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        randomButton.layer.cornerRadius = randomButton.frame.height / 2
-        randomButton.layer.masksToBounds = false
-        randomButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-        randomButton.layer.shadowRadius = 10
-        randomButton.layer.shadowColor = UIColor.black.cgColor
-        randomButton.layer.shadowOpacity = 0.5
-    }
-    
-    // we cancel every ongoing tasks when the view is about to disappear
-    // this prevents the RecipeVC to appear while the user dismisses the view (e.g. swiping the navController)
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        restManager.cancelTasks()
-        ImageService.cancelTasks()
-    }
-    
-    func setUpButton() {
+    // we set up the button's title, we want the 'random' word to be the opposit color, than the color of the rest of the text
+    private func setupButtonTitle() {
         randomButton.titleLabel?.lineBreakMode = .byWordWrapping
         randomButton.titleLabel?.textColor = .label
         let buttonText = "Give me a\nrandom\nrecipe"
@@ -59,18 +49,58 @@ class RandomViewController: UIViewController {
         randomButton.titleLabel?.textAlignment = .center
     }
     
+    // we set the random button's corner radius, and give it a shadow
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        randomButton.layer.cornerRadius = randomButton.frame.height / 2
+        randomButton.layer.masksToBounds = false
+        randomButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+        randomButton.layer.shadowRadius = 10
+        randomButton.layer.shadowColor = UIColor.black.cgColor
+        randomButton.layer.shadowOpacity = 0.5
+    }
+    
+    // we cancel every ongoing task when the view is about to disappear
+    // this prevents the RecipeVC to appear while the user dismisses the view (e.g. swiping the navController)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        restManager.cancelTasks()
+        ImageService.cancelTasks()
+    }
+    
+    // we reset the random button to it's original appearance
     private func resetView() {
-        self.setUpButton()
+        self.setupButtonTitle()
         self.randomButton.isEnabled = true
     }
     
-    @IBAction func backButtonPressed(_ sender: UIBarButtonItem) {
+    // we detect if the user started to dismiss the view via the swiping mechanism
+    // if the pop gesture begins we cancel every ongoing task and reset the view
+    @objc private func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
+        if gesture.state == UIGestureRecognizer.State.began {
+            restManager.cancelTasks()
+            ImageService.cancelTasks()
+            resetView()
+        }
+    }
+    
+    // MARK: - UI Actions
+    
+    // we cancel every ongoing task when the user goes back to the Home screen
+    // this prevents the RecipeVC to appear later on
+    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
         restManager.cancelTasks()
         ImageService.cancelTasks()
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func randomButtonPressed(_ sender: UIButton) {
+    // we disable the random button, remove the text from it's title and start the activity inidicator
+    // we initiate a random meal request, if the request is successful, we immediately initiate an image request too
+    // so we get the meal's image; if we got the image, we can present the RecipeVC
+    // if there's any error while getting the meal or image, we show the proper error popup and reset the view
+    // except if the user cancelled the request (by dismissing) we just return
+    @IBAction func randomButtonTapped(_ sender: UIButton) {
         randomButton.isEnabled = false
         randomButton.setAttributedTitle(NSMutableAttributedString(string: ""), for: .normal)
         activityIndicator.startAnimating()
@@ -116,6 +146,9 @@ class RandomViewController: UIViewController {
         }
     }
     
+    // MARK: - Error Handling
+    
+    // we present a popup according to the error, with the help of the PopupDialog framework
     private func showPopupFor(_ error: RestManagerError) {
         switch error {
         case .emptyStateError:

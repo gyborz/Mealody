@@ -10,13 +10,13 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    // Outlets
+    // MARK: - Outlets
     
     @IBOutlet weak var homeImageView: UIImageView!
     @IBOutlet weak var menuStackView: UIStackView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    // View Handling
+    // MARK: - View Handling
     
     override func viewDidLoad() {
         super.viewDidLoad()

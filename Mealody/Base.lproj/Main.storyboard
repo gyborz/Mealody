@@ -435,7 +435,7 @@
                                     <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="randomButtonPressed:" destination="nK6-ue-TJx" eventType="touchUpInside" id="TC3-ds-e5a"/>
+                                    <action selector="randomButtonTapped:" destination="nK6-ue-TJx" eventType="touchUpInside" id="TaE-jg-DHr"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WJ8-nH-FC2" customClass="NVActivityIndicatorView" customModule="NVActivityIndicatorView">
@@ -461,7 +461,7 @@
                         <barButtonItem key="leftBarButtonItem" image="arrow.left" catalog="system" id="dkj-na-A3G">
                             <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
-                                <action selector="backButtonPressed:" destination="nK6-ue-TJx" id="sU9-2w-kq9"/>
+                                <action selector="backButtonTapped:" destination="nK6-ue-TJx" id="nLG-67-FXs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

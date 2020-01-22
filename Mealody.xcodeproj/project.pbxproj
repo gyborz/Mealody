@@ -173,6 +173,7 @@
 				E71C032823D85B580019D52F /* HomeScreen */,
 				E71C032923D863570019D52F /* RandomScreen */,
 				E776F72423D8863500A343D3 /* BrowseScreen */,
+				E7A0023023C21A7000D7D055 /* RecipeScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -264,13 +265,13 @@
 			path = BrowseScreen;
 			sourceTree = "<group>";
 		};
-		E7A0023023C21A7000D7D055 /* RecipeVC */ = {
+		E7A0023023C21A7000D7D055 /* RecipeScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E740BA5923AFC37500787918 /* RecipeViewController.swift */,
 				E740BA5B23AFC48E00787918 /* RecipeView.swift */,
 			);
-			path = RecipeVC;
+			path = RecipeScreen;
 			sourceTree = "<group>";
 		};
 		E7BF899923AA8BB900F6D152 = {
@@ -296,7 +297,6 @@
 			children = (
 				E718F22F23B64087008FB262 /* Model */,
 				E71C032723D85B480019D52F /* Screens */,
-				E7A0023023C21A7000D7D055 /* RecipeVC */,
 				E71B71A323BD1A2900A7799B /* RecipeList */,
 				E729554B23C5012100263B53 /* ListVC */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,

@@ -11,8 +11,12 @@ import NVActivityIndicatorView
 
 class RecipeView: UIView {
     
+    // MARK: - Properties
+    
     var savedLabel: SavedLabel!
     var savedLabelTopAnchor: NSLayoutConstraint! // we have to keep track of this anchor so we can animate the label up and down
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var mealImageView: UIImageView!
     @IBOutlet weak var mealLabel: UILabel!
@@ -24,11 +28,10 @@ class RecipeView: UIView {
     @IBOutlet weak var imageActivityIndicator: NVActivityIndicatorView!
     @IBOutlet weak var contentActivityIndicator: NVActivityIndicatorView!
     
-    // setting up the view with meal and image are in two separate functions because we can set the image before
-    // we go and request the full meal with all the informations - this way when we present the RecipeVC we can already set the imageview
-    // if we would set it in the restManager's getMeal(byId:completion:) function in RecipeVC's viewDidLoad, then the imageView would
-    // get the image in the middle of presentation, which looks a bit ugly
-    // since we already got the image in the RecipeListVC, we can cache it before presenting the RecipeVC
+    // MARK: - View setup methods
+    
+    // we set up each UI element with the given meal data
+    // we animate the appearance of the view which contains every label/view except for the imageView
     func setupView(withMeal meal: Meal) {
         mealLabel.text = meal.strMeal
         
@@ -43,10 +46,13 @@ class RecipeView: UIView {
         }
     }
     
+    // we set the imageView's image
     func setupView(withImage image: UIImage) {
         mealImageView.image = image
     }
     
+    // we set up each UI element with the given hashableMeal data
+    // this is called when we present the saved meal's/recipe's data so we hide the save button and don't animate the contentView's appearance
     func setupView(withHashableMeal hashableMeal: HashableMeal) {
         mealContentView.alpha = 1
         saveButton.isHidden = true
@@ -57,6 +63,7 @@ class RecipeView: UIView {
         instructionsTextView.text = hashableMeal.strInstructions!
     }
     
+    // we set up each UI element's appearance
     func setupUI() {
         self.bringSubviewToFront(blurView)
         
@@ -97,6 +104,7 @@ class RecipeView: UIView {
         saveButton.alpha = 0
     }
     
+    // we set up the save button's appearance and enable/disable it according to if the meal/recipe we present is saved already or not
     func setupSaveButton(isMealSaved: Bool) {
         if isMealSaved {
             saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
@@ -122,12 +130,47 @@ class RecipeView: UIView {
         }
     }
     
+    // we change the save button's appearance and disable it when we save the meal/recipe
     func changeSaveButton() {
         saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
         saveButton.backgroundColor = .systemGreen
         saveButton.isUserInteractionEnabled = false
     }
     
+    // MARK: - Supporting methods
+    
+    // the API response we get has each ingredient and it's corresponding measure separated
+    // we get the given meal response and go through each 'label' that has "strIngredient" in it
+    // we get it's value and append it to a string array which is returned at the end
+    private func getIngredients(from meal: Meal) -> [String] {
+        var ingredients = [String]()
+        let mealMirror = Mirror(reflecting: meal)
+        for (_, attribute) in mealMirror.children.enumerated() {
+            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "", value.containsLetters() {
+                ingredients.append(value)
+            }
+        }
+        return ingredients
+    }
+    
+    // the API response we get has each ingredient and it's corresponding measure separated
+    // we get the given meal response and go through each 'label' that has "strMeasure" in it
+    // we get it's value and append it to a string array which is returned at the end
+    private func getMeasures(from meal: Meal) -> [String] {
+        var measures = [String]()
+        let mealMirror = Mirror(reflecting: meal)
+        for (_, attribute) in mealMirror.children.enumerated() {
+            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "", value.containsLetters() {
+                measures.append(value)
+            }
+        }
+        return measures
+    }
+    
+    // the API response we get has each ingredient and it's corresponding measure separated
+    // we get those ingredients and measures with the methods above, and turn them into a string array
+    // here we take those arrays and going through them we pair the ingredients with their measures
+    // and append them to a string, so it makes one whole long text we can then display in the Ingredients textView
     private func returnIngredientsString(from ingredientArray: [String], from measureArray: [String]) -> String {
         var ingredientsString = String()
         var i = 0
@@ -146,28 +189,7 @@ class RecipeView: UIView {
         return ingredientsString
     }
     
-    private func getIngredients(from meal: Meal) -> [String] {
-        var ingredients = [String]()
-        let mealMirror = Mirror(reflecting: meal)
-        for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strIngredient")), let value = attribute.value as? String, value != "", value.containsLetters() {
-                ingredients.append(value)
-            }
-        }
-        return ingredients
-    }
-    
-    private func getMeasures(from meal: Meal) -> [String] {
-        var measures = [String]()
-        let mealMirror = Mirror(reflecting: meal)
-        for (_, attribute) in mealMirror.children.enumerated() {
-            if ((attribute.label!).contains("strMeasure")), let value = attribute.value as? String, value != "", value.containsLetters() {
-                measures.append(value)
-            }
-        }
-        return measures
-    }
-    
+    // we animate the SavedLabel to appear for a short time, then animate it's disappearance
     func toggleSavedLabel() {
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
             self.savedLabelTopAnchor.constant = -65.0

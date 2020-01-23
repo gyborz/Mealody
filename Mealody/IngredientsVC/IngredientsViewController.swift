@@ -305,7 +305,7 @@ class IngredientsViewController: UIViewController {
         if selectedIngredients.count <= 4 {
             let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
             recipeListVC.isSavedRecipesList = false
-            recipeListVC.listType = .ingredients
+            recipeListVC.listType = .mealsByIngredients
             recipeListVC.ingredients = selectedIngredients
             recipeListVC.navigationItem.title = "Recipes"
             self.navigationController?.pushViewController(recipeListVC, animated: true)

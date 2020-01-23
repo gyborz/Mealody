@@ -156,7 +156,7 @@
 			path = RestManager;
 			sourceTree = "<group>";
 		};
-		E71B71A323BD1A2900A7799B /* RecipeList */ = {
+		E71B71A323BD1A2900A7799B /* RecipeListScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E7FAA24823BBAFC600E88205 /* RecipeListViewController.swift */,
@@ -164,7 +164,7 @@
 				E71B719E23BD040200A7799B /* RecipeTableViewCell.swift */,
 				E71B719F23BD040200A7799B /* RecipeTableViewCell.xib */,
 			);
-			path = RecipeList;
+			path = RecipeListScreen;
 			sourceTree = "<group>";
 		};
 		E71C032723D85B480019D52F /* Screens */ = {
@@ -174,6 +174,7 @@
 				E71C032923D863570019D52F /* RandomScreen */,
 				E776F72423D8863500A343D3 /* BrowseScreen */,
 				E7A0023023C21A7000D7D055 /* RecipeScreen */,
+				E71B71A323BD1A2900A7799B /* RecipeListScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -297,7 +298,6 @@
 			children = (
 				E718F22F23B64087008FB262 /* Model */,
 				E71C032723D85B480019D52F /* Screens */,
-				E71B71A323BD1A2900A7799B /* RecipeList */,
 				E729554B23C5012100263B53 /* ListVC */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,

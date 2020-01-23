@@ -13,6 +13,7 @@ class RecipeListViewController: UIViewController {
     
     // MARK: -  Properties
     
+    // properties for the tableView setup
     private enum Section {
         case main
     }
@@ -20,20 +21,23 @@ class RecipeListViewController: UIViewController {
     private typealias HashableMealSnapshot = NSDiffableDataSourceSnapshot<Section, HashableMeal>
     private var hashableMeals = [HashableMeal]()
     private var dataSource: HashableMealDataSource!
+    
+    // singletons
     private let persistenceManager = PersistenceManager.shared
     private let restManager = RestManager.shared
-    private var isDeleting = false
     
+    // properties for:
+    private var isDeleting = false      // cell deletion (when the VC is showing saved recipes)
     enum ListType {
-        case category
-        case country
-        case ingredients
+        case mealsByCategory
+        case mealsByCountry
+        case mealsByIngredients
     }
     var listType: ListType!
-    var isSavedRecipesList = true
-    var category = String()
-    var country = String()
-    var ingredients = [Ingredient]()
+    var isSavedRecipesList = true       // is the VC showing saved recipes or not
+    var category = String()             // needed for REST
+    var country = String()              // needed for REST
+    var ingredients = [Ingredient]()    // needed for REST
     
     // MARK: - Outlets
     
@@ -46,6 +50,31 @@ class RecipeListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupView()
+    }
+    
+    // we set the navigationBar's translucency in here, so when
+    // the user stops with the view's dismiss (mid-swipe), then we have to make it visible again
+    // after the view appeared
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.navigationBar.isTranslucent = false
+    }
+    
+    // we update the snapshot here after we configure the data source in viewDidLoad (setupView())
+    // this is necessary when we access the saved recipes, because if we do this in viewDidLoad
+    // the tableView (it's superview) will may not yet be in the view hierarchy - this could cause bugs
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        updateSnapshot()
+    }
+    
+    // we set up the tableView and the activityIndicator
+    // if the VC is meant to be presented with the saved recipes, then we first load them from Core Data
+    // otherwise we start requests depending on what type the list is gonna be (getData(), listType)
+    // we configure the dataSource and if there's any error while fetching from Core Data we show a popup error
+    private func setupView() {
         recipeListTableView.delegate = self
         recipeListTableView.register(UINib(nibName: "RecipeTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeCell")
         recipeListTableView.rowHeight = 390
@@ -75,27 +104,14 @@ class RecipeListViewController: UIViewController {
         }
     }
     
-    // we set the navigationBar's translucency in here, so when
-    // the user stops with the view's dismiss (mid-swipe), then we have to make it visible again
-    // after the view appeared
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.navigationController?.navigationBar.isTranslucent = false
-    }
-    
-    // we update the snapshot here after we configure the data source in viewDidLoad
-    // this is necessary when we access the saved recipes, because if we do this in viewDidLoad
-    // the tableView (it's superview) will may not yet be in the view hierarchy - this could cause bugs
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        updateSnapshot()
-    }
-    
+    // we start the activity indicator, then request meals/recipes depending on what type of list the VC's gonna be
+    // each time after we've got the meals we initialize a hashableMeal from each of them, then append those to the hashableMeals array
+    // after that we stop the indicator and update the snapshot for the tableView
+    // if there's any error we show a popup error
     private func getData() {
         self.activityIndicator.startAnimating()
         switch listType {
-        case .category:
+        case .mealsByCategory:
             restManager.getMeals(fromCategory: category) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -111,7 +127,7 @@ class RecipeListViewController: UIViewController {
                     }
                 }
             }
-        case .country:
+        case .mealsByCountry:
             restManager.getMeals(fromCountry: country) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -127,7 +143,7 @@ class RecipeListViewController: UIViewController {
                     }
                 }
             }
-        case .ingredients:
+        case .mealsByIngredients:
             restManager.getMeals(withIngredients: ingredients) { [weak self] result in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -151,6 +167,9 @@ class RecipeListViewController: UIViewController {
         }
     }
     
+    // MARK: - Table View Handling
+    
+    // we update the snapshot and apply them to the dataSource
     private func updateSnapshot() {
         var snapshot = HashableMealSnapshot()
         snapshot.appendSections([.main])
@@ -158,6 +177,13 @@ class RecipeListViewController: UIViewController {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
+    // we configure the dataSource of the tableView and set up the custom table view cell
+    // if the VC shows the saved recipes, then we set up the cell according to that
+    // whenever the user deletes a cell we get the corresponding hashableMeal and thus fetch the MealData from Core Data
+    // we delete the hashableMeal from the array and delete the MealData from persistence, we save the changes and update the snapshot
+    // if there's any error we show a popup error message
+    // if the VC is not about saved recipes, then we set up the cell accordingly
+    // we make the cell's delete button appear if the user wants to delete some recipes (trashButtonTapped(_:)
     private func configureDataSource() {
         dataSource = HashableMealDataSource(tableView: recipeListTableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
@@ -196,11 +222,14 @@ class RecipeListViewController: UIViewController {
         })
     }
     
+    // MARK: - Error Handling
+    
+    // we present a popup according to the error, with the help of the PopupDialog framework
     private func showPopupFor(_ error: RestManagerError) {
         switch error {
         case .emptyStateError:
             switch listType {
-            case .ingredients:
+            case .mealsByIngredients:
                 let popup = PopupService.ingredientsError(withMessage: "Looks like there are no recipes with the selected ingredients.") {
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -232,6 +261,9 @@ class RecipeListViewController: UIViewController {
         }
     }
     
+    // MARK: - UI Actions
+    
+    // we make the cell's delete button to disappear
     @IBAction func trashButtonTapped(_ sender: UIBarButtonItem) {
         isDeleting.toggle()
         recipeListTableView.reloadData()
@@ -243,29 +275,20 @@ class RecipeListViewController: UIViewController {
 
 }
 
+// MARK: - TableViewDelegate methods
+
 extension RecipeListViewController: UITableViewDelegate {
     
+    // when the user selects a row we set up some of it's values then present the RecipeVC modally
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isSavedRecipesList {
-            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-            recipeVC.modalPresentationStyle = .automatic
-            recipeVC.hashableMeal = hashableMeal
-            recipeVC.calledWithHashableMeal = true
-            recipeVC.isHashableMealFromPersistence = true
-            self.present(recipeVC, animated: true) { [weak self] in
-                self?.recipeListTableView.deselectRow(at: indexPath, animated: false)
-            }
-        } else {
-            guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
-            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-            recipeVC.modalPresentationStyle = .automatic
-            recipeVC.hashableMeal = hashableMeal
-            recipeVC.calledWithHashableMeal = true
-            recipeVC.isHashableMealFromPersistence = false
-            self.present(recipeVC, animated: true) { [weak self] in
-                self?.recipeListTableView.deselectRow(at: indexPath, animated: false)
-            }
+        guard let hashableMeal = dataSource.itemIdentifier(for: indexPath) else { return }
+        let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+        recipeVC.modalPresentationStyle = .automatic
+        recipeVC.hashableMeal = hashableMeal
+        recipeVC.calledWithHashableMeal = true
+        recipeVC.isHashableMealFromPersistence = isSavedRecipesList ? true : false
+        self.present(recipeVC, animated: true) { [weak self] in
+            self?.recipeListTableView.deselectRow(at: indexPath, animated: false)
         }
     }
     

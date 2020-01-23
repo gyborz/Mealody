@@ -65,7 +65,7 @@ class ListViewController: UITableViewController {
             let category = listItems.categories[indexPath.row]
             let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
             recipeListVC.isSavedRecipesList = false
-            recipeListVC.listType = .category
+            recipeListVC.listType = .mealsByCategory
             recipeListVC.category = category
             recipeListVC.navigationItem.title = category
             self.navigationController?.pushViewController(recipeListVC, animated: true)
@@ -73,7 +73,7 @@ class ListViewController: UITableViewController {
             let country = listItems.countries[indexPath.row]
             let recipeListVC = self.storyboard?.instantiateViewController(identifier: "RecipeListVC") as! RecipeListViewController
             recipeListVC.isSavedRecipesList = false
-            recipeListVC.listType = .country
+            recipeListVC.listType = .mealsByCountry
             recipeListVC.country = country
             recipeListVC.navigationItem.title = country
             self.navigationController?.pushViewController(recipeListVC, animated: true)

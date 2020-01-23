@@ -11,8 +11,12 @@ import NVActivityIndicatorView
 
 class RecipeTableViewCell: UITableViewCell {
     
-    var onDelete: ((UITableViewCell) -> Void)?
-    private var imageTask: URLSessionDataTask?
+    // MARK: - Properties
+    
+    var onDelete: ((UITableViewCell) -> Void)?          // deletion closure (RecipeListVC's configureDataSource())
+    private var imageTask: URLSessionDataTask?          // ongoing image data task for the cell
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var recipeView: UIView!
     @IBOutlet weak var mealImageView: UIImageView!
@@ -21,6 +25,10 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
 
+    // MARK: - Cell UI setup
+    
+    // we get rid of the regular cell selection; add corner radius to the view and the delete button
+    // add shadows and blur effect; set up the activity indicator
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -54,6 +62,7 @@ class RecipeTableViewCell: UITableViewCell {
         activityIndicator.color = .systemOrange
     }
     
+    // on selection we change the imageView's alpha value
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
@@ -64,6 +73,7 @@ class RecipeTableViewCell: UITableViewCell {
         }
     }
     
+    // we set the title label and the image view with the given hashableMeal's data
     func setupSavedRecipeCell(withMeal meal: HashableMeal) {
         recipeTitleLabel.text = meal.strMeal!
         let image = UIImage(data: meal.mealImage!)
@@ -95,6 +105,7 @@ class RecipeTableViewCell: UITableViewCell {
         recipeTitleLabel.text = meal.strMeal!
     }
     
+    // every time the cell gets reused we cancel it's image data task (if there's one)
     override func prepareForReuse() {
         super.prepareForReuse()
         
@@ -102,6 +113,8 @@ class RecipeTableViewCell: UITableViewCell {
         imageTask = nil
         mealImageView.image = nil
     }
+    
+    // MARK: - UI Actions
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         onDelete?(self)

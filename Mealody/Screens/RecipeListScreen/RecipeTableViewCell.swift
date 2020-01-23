@@ -27,7 +27,7 @@ class RecipeTableViewCell: UITableViewCell {
 
     // MARK: - Cell UI setup
     
-    // we get rid of the regular cell selection; add corner radius to the view and the delete button
+    // we modify the regular cell selection; add corner radius to the view and the delete button
     // add shadows and blur effect; set up the activity indicator
     override func awakeFromNib() {
         super.awakeFromNib()

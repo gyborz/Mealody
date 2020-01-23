@@ -10,16 +10,18 @@ import UIKit
 
 class ListViewController: UITableViewController {
     
-    private var listItems = ListItems()
-    var isCategoryList = true
+    // MARK: - Properties
+    
     private let restManager = RestManager.shared
+    private var listItems = ListItems()             // ListItems struct holds the two hard coded arrays we need
+    var isCategoryList = true
+    
+    // MARK: - View Handling
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListItemCell")
-        tableView.rowHeight = 100
-        tableView.separatorStyle = .none
+        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,14 +30,16 @@ class ListViewController: UITableViewController {
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
-    
-    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
-        self.navigationController?.popViewController(animated: true)
+    // we register the custom cell, set the rowheight and the separator style
+    private func setupTableView() {
+        tableView.register(UINib(nibName: "ListTableViewCell", bundle: nil), forCellReuseIdentifier: "ListItemCell")
+        tableView.rowHeight = 100
+        tableView.separatorStyle = .none
     }
     
-
-    // MARK: - Table view data source
-
+    // MARK: - Table View Data Source
+    
+    // we return the listItems' categories or countries arraycount depending on the value of isCategoryList
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isCategoryList {
             return listItems.categories.count
@@ -43,7 +47,9 @@ class ListViewController: UITableViewController {
             return listItems.countries.count
         }
     }
-
+    
+    // we set up the custom cell according to if the VC is presented with categories or countries
+    // we have an image already stored for each category/country, so we set up the cells with those
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListItemCell", for: indexPath) as! ListTableViewCell
 
@@ -60,6 +66,8 @@ class ListViewController: UITableViewController {
         return cell
     }
     
+    // when the user selects a row we set up RecipeListVC before we present it
+    // the setup depends on wether the ListVC shows categories or countries
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isCategoryList {
             let category = listItems.categories[indexPath.row]
@@ -78,6 +86,12 @@ class ListViewController: UITableViewController {
             recipeListVC.navigationItem.title = country
             self.navigationController?.pushViewController(recipeListVC, animated: true)
         }
+    }
+    
+    // MARK: - UI Actions
+    
+    @IBAction func backButtonTapped(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
     }
 
 }

@@ -10,10 +10,15 @@ import UIKit
 
 class ListTableViewCell: UITableViewCell {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var listItemView: UIView!
     @IBOutlet weak var listItemImageView: UIImageView!
     @IBOutlet weak var listItemLabel: UILabel!
     
+    // MARK: - Cell UI setup
+    
+    // we modify the regular cell selection; add corner radius on the left side and add shadows
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -35,6 +40,7 @@ class ListTableViewCell: UITableViewCell {
         listItemImageView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
     }
 
+    // on selection we change the view's alpha value
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

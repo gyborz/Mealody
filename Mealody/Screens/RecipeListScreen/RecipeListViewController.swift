@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 class RecipeListViewController: UIViewController {
     
-    // MARK: -  Properties
+    // MARK: - Properties
     
     // properties for the tableView setup
     private enum Section {

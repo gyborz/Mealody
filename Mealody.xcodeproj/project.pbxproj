@@ -175,6 +175,7 @@
 				E776F72423D8863500A343D3 /* BrowseScreen */,
 				E7A0023023C21A7000D7D055 /* RecipeScreen */,
 				E71B71A323BD1A2900A7799B /* RecipeListScreen */,
+				E729554B23C5012100263B53 /* ListScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -195,7 +196,7 @@
 			path = RandomScreen;
 			sourceTree = "<group>";
 		};
-		E729554B23C5012100263B53 /* ListVC */ = {
+		E729554B23C5012100263B53 /* ListScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E735789523C3926B00CCA2E5 /* ListViewController.swift */,
@@ -203,7 +204,7 @@
 				E729554723C4E7A200263B53 /* ListTableViewCell.swift */,
 				E729554823C4E7A200263B53 /* ListTableViewCell.xib */,
 			);
-			path = ListVC;
+			path = ListScreen;
 			sourceTree = "<group>";
 		};
 		E735789723C3935900CCA2E5 /* MealResponse */ = {
@@ -298,7 +299,6 @@
 			children = (
 				E718F22F23B64087008FB262 /* Model */,
 				E71C032723D85B480019D52F /* Screens */,
-				E729554B23C5012100263B53 /* ListVC */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,

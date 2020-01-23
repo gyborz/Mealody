@@ -11,12 +11,14 @@ import NVActivityIndicatorView
 
 class RecipeListViewController: UIViewController {
     
+    // MARK: -  Properties
+    
     private enum Section {
         case main
     }
-    private var hashableMeals = [HashableMeal]()
     private typealias HashableMealDataSource = UITableViewDiffableDataSource<Section, HashableMeal>
     private typealias HashableMealSnapshot = NSDiffableDataSourceSnapshot<Section, HashableMeal>
+    private var hashableMeals = [HashableMeal]()
     private var dataSource: HashableMealDataSource!
     private let persistenceManager = PersistenceManager.shared
     private let restManager = RestManager.shared
@@ -33,9 +35,13 @@ class RecipeListViewController: UIViewController {
     var country = String()
     var ingredients = [Ingredient]()
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var trashButton: UIBarButtonItem!
     @IBOutlet weak var recipeListTableView: UITableView!
     @IBOutlet weak var activityIndicator: NVActivityIndicatorView!
+    
+    // MARK: - View Handling
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -155,9 +161,8 @@ class RecipeListViewController: UIViewController {
     private func configureDataSource() {
         dataSource = HashableMealDataSource(tableView: recipeListTableView, cellProvider: { (tableView, indexPath, hashableMeal) -> UITableViewCell? in
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeCell", for: indexPath) as! RecipeTableViewCell
-            
             if self.isSavedRecipesList {
-                cell.setUpSavedRecipeCell(withMeal: hashableMeal)
+                cell.setupSavedRecipeCell(withMeal: hashableMeal)
                 cell.onDelete = { [weak self] cell in
                     guard let self = self else { return }
                     guard let hashableMeal = self.dataSource.itemIdentifier(for: tableView.indexPath(for: cell)!) else { return }
@@ -175,7 +180,8 @@ class RecipeListViewController: UIViewController {
                     }
                 }
             } else {
-                cell.setUpRecipeCell(withMeal: hashableMeal)
+                cell.tag = indexPath.row
+                cell.setupRecipeCell(withMeal: hashableMeal, forIndexPath: indexPath)
             }
             
             if self.isDeleting {

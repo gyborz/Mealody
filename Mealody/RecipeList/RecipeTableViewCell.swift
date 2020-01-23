@@ -12,6 +12,7 @@ import NVActivityIndicatorView
 class RecipeTableViewCell: UITableViewCell {
     
     var onDelete: ((UITableViewCell) -> Void)?
+    private var imageTask: URLSessionDataTask?
     
     @IBOutlet weak var recipeView: UIView!
     @IBOutlet weak var mealImageView: UIImageView!
@@ -63,31 +64,43 @@ class RecipeTableViewCell: UITableViewCell {
         }
     }
     
-    func setUpSavedRecipeCell(withMeal meal: HashableMeal) {
+    func setupSavedRecipeCell(withMeal meal: HashableMeal) {
         recipeTitleLabel.text = meal.strMeal!
         let image = UIImage(data: meal.mealImage!)
         mealImageView.image = image
     }
     
-    func setUpRecipeCell(withMeal meal: HashableMeal) {
-        mealImageView.image = nil  // we set the image nil first so it won't 'blink' when it tries to download the correct image (while scrolling in the app)
+    // we set the imageView's image nil first, so it won't 'blink' while the user scrolls through the tableView,
+    // then we start the cell's activity indicator
+    // if there's no imageTask (it's nil), then we initiate the download process with the given meal's url
+    // we check if there was any error that was not a cancel error (prepareForReuse()) and safety check
+    // if the cell's tag is the same as the indexPath.row (set in RecipeListVC's configureDataSource())
+    // so the image we've got belongs to this specific cell
+    // at the end we set the title label with the meal's/recipe's name
+    func setupRecipeCell(withMeal meal: HashableMeal, forIndexPath indexPath: IndexPath) {
+        mealImageView.image = nil
         activityIndicator.startAnimating()
-        
-        // we check if the url of the image we fetched and the url of the meal we have is equal
-        // this is needed so we avoid the possibility that an another image gets fetched faster (because of smaller size for example)
-        // than the original one, which truly belongs to the recipe
         guard let url = URL(string: meal.strMealThumb!) else { return }
-        ImageService.getImage(withURL: url) { (image, urlCheck, error) in
-            if error != nil || image == nil {
-                self.mealImageView.image = UIImage(named: "error")
-            } else if url.absoluteString == urlCheck.absoluteString {
-                self.mealImageView.image = image
-            } else {
-                self.mealImageView.image = UIImage(named: "error")
+        if imageTask == nil {
+            imageTask = ImageService.getImage(withURL: url) { (image, error) in
+                if error != nil && error!._code != NSURLErrorCancelled {
+                    self.activityIndicator.stopAnimating()
+                    self.mealImageView.image = UIImage(named: "error")
+                } else if self.tag == indexPath.row {
+                    self.activityIndicator.stopAnimating()
+                    self.mealImageView.image = image
+                }
             }
-            self.activityIndicator.stopAnimating()
         }
         recipeTitleLabel.text = meal.strMeal!
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        imageTask?.cancel()
+        imageTask = nil
+        mealImageView.image = nil
     }
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {

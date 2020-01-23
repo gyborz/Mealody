@@ -54,7 +54,7 @@ class RecipeViewController: UIViewController {
             recipeView.imageActivityIndicator.startAnimating()
             recipeView.contentActivityIndicator.startAnimating()
             guard let url = URL(string: hashableMeal.strMealThumb!) else { return }
-            ImageService.getImage(withURL: url) { [weak self] (image, _, error) in
+            let _ = ImageService.getImage(withURL: url) { [weak self] (image, error) in
                 guard let self = self else { return }
                 if error != nil || image == nil {
                     self.image = UIImage(named: "error")

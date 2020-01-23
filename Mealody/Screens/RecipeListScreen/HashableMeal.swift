@@ -10,13 +10,13 @@ import Foundation
 
 struct HashableMeal: Hashable {
     
-    let idMeal: String?
-    let mealImage: Data?
-    let strIngredients: [String]?
-    let strInstructions: String?
-    let strMeal: String?
-    let strMeasures: [String]?
-    let strMealThumb: String?
+    let idMeal: String?                 // id of the meal/recipe
+    let mealImage: Data?                // data of the meal's image
+    let strIngredients: [String]?       // ingredients of the recipe
+    let strInstructions: String?        // instructions of the recipe
+    let strMeal: String?                // name of the meal/recipe
+    let strMeasures: [String]?          // measure of the ingredients
+    let strMealThumb: String?           // url of the meal's/recipe's image
     
     init(mealData: MealData) {
         self.idMeal = mealData.idMeal

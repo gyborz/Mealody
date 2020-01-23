@@ -9,15 +9,10 @@
 import Foundation
 
 struct Meal: Decodable {
-    let idMeal: String?
-    let strMeal: String?
-    let strDrinkAlternate: String?
-    let strCategory: String?
-    let strArea: String?
-    let strInstructions: String?
-    let strMealThumb: String?
-    let strTags: String?
-    let strYoutube: String?
+    let idMeal: String                  // id of the meal/recipe
+    let strMeal: String                 // name of the meal/recipe
+    let strInstructions: String?        // instructions of the meal/recipe
+    let strMealThumb: String            // url of the meal's/recipe's image
     let strIngredient1: String?
     let strIngredient2: String?
     let strIngredient3: String?
@@ -58,19 +53,12 @@ struct Meal: Decodable {
     let strMeasure18: String?
     let strMeasure19: String?
     let strMeasure20: String?
-    let strSource: String?
-    let dateModified: String?
     
-    init(idMeal: String?, strMeal: String?, strDrinkAlternate: String?, strCategory: String?, strArea: String?, strInstructions: String?, strMealThumb: String?, strTags: String?, strYoutube: String?, strIngredient1: String?, strIngredient2: String?, strIngredient3: String?, strIngredient4: String?, strIngredient5: String?, strIngredient6: String?, strIngredient7: String?, strIngredient8: String?, strIngredient9: String?, strIngredient10: String?, strIngredient11: String?, strIngredient12: String?, strIngredient13: String?, strIngredient14: String?, strIngredient15: String?, strIngredient16: String?, strIngredient17: String?, strIngredient18: String?, strIngredient19: String?, strIngredient20: String?, strMeasure1: String?, strMeasure2: String?, strMeasure3: String?, strMeasure4: String?, strMeasure5: String?, strMeasure6: String?, strMeasure7: String?, strMeasure8: String?, strMeasure9: String?, strMeasure10: String?, strMeasure11: String?, strMeasure12: String?, strMeasure13: String?, strMeasure14: String?, strMeasure15: String?, strMeasure16: String?, strMeasure17: String?, strMeasure18: String?, strMeasure19: String?, strMeasure20: String?, strSource: String?, dateModified: String?) {
+    init(idMeal: String, strMeal: String, strInstructions: String?, strMealThumb: String, strIngredient1: String?, strIngredient2: String?, strIngredient3: String?, strIngredient4: String?, strIngredient5: String?, strIngredient6: String?, strIngredient7: String?, strIngredient8: String?, strIngredient9: String?, strIngredient10: String?, strIngredient11: String?, strIngredient12: String?, strIngredient13: String?, strIngredient14: String?, strIngredient15: String?, strIngredient16: String?, strIngredient17: String?, strIngredient18: String?, strIngredient19: String?, strIngredient20: String?, strMeasure1: String?, strMeasure2: String?, strMeasure3: String?, strMeasure4: String?, strMeasure5: String?, strMeasure6: String?, strMeasure7: String?, strMeasure8: String?, strMeasure9: String?, strMeasure10: String?, strMeasure11: String?, strMeasure12: String?, strMeasure13: String?, strMeasure14: String?, strMeasure15: String?, strMeasure16: String?, strMeasure17: String?, strMeasure18: String?, strMeasure19: String?, strMeasure20: String?) {
         self.idMeal = idMeal
         self.strMeal = strMeal
-        self.strDrinkAlternate = strDrinkAlternate
-        self.strCategory = strCategory
-        self.strArea = strArea
         self.strInstructions = strInstructions
         self.strMealThumb = strMealThumb
-        self.strTags = strTags
-        self.strYoutube = strYoutube
         self.strIngredient1 = strIngredient1
         self.strIngredient2 = strIngredient2
         self.strIngredient3 = strIngredient3
@@ -111,7 +99,5 @@ struct Meal: Decodable {
         self.strMeasure18 = strMeasure18
         self.strMeasure19 = strMeasure19
         self.strMeasure20 = strMeasure20
-        self.strSource = strSource
-        self.dateModified = dateModified
     }
 }

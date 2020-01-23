@@ -110,7 +110,7 @@ class RandomViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let meal):
-                    guard let url = URL(string: meal.strMealThumb!) else { return }
+                    guard let url = URL(string: meal.strMealThumb) else { return }
                     let _ = ImageService.getImage(withURL: url) { image, error in
                         self.activityIndicator.stopAnimating()
                         

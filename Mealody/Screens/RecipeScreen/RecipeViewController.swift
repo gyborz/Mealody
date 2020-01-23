@@ -98,7 +98,7 @@ class RecipeViewController: UIViewController {
     // NOTE: the save button only appears when both the image and the meal properties are set
     private func setupSaveButton(withMeal meal: Meal) {
         do {
-            if (try persistenceManager.fetchMeal(MealData.self, idMeal: meal.idMeal!)) != nil {
+            if (try persistenceManager.fetchMeal(MealData.self, idMeal: meal.idMeal)) != nil {
                 recipeView.setupSaveButton(isMealSaved: true)
             } else {
                 recipeView.setupSaveButton(isMealSaved: false)

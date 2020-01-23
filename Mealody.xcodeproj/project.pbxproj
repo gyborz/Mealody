@@ -299,6 +299,7 @@
 			children = (
 				E718F22F23B64087008FB262 /* Model */,
 				E71C032723D85B480019D52F /* Screens */,
+				E7C390CF23D9E6310049B551 /* Managers */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
@@ -313,6 +314,13 @@
 				E74A8D6B23CDF52600717D4A /* IngredientsVC */,
 			);
 			path = Mealody;
+			sourceTree = "<group>";
+		};
+		E7C390CF23D9E6310049B551 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		E7D728EC23CE24AA003A756B /* Protocols */ = {

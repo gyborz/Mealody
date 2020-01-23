@@ -10,6 +10,8 @@ import Foundation
 
 final class RestManager {
     
+    // MARK: - Properties
+    
     static let shared = RestManager()
     private init() {}
     
@@ -22,6 +24,11 @@ final class RestManager {
         return URLSession(configuration: sessionConfig)
     }()
     
+    // MARK: - Request Methods
+    
+    // we get a random meal/recipe through our public api
+    // we check if we've got the data itself, then we decode it and give it back through the completion
+    // if there's any error we give back a RestManagerError as a Result in the completion
     func getRandomMeal(completion: @escaping (Result<Meal,RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/random.php") else { return }
         
@@ -53,6 +60,9 @@ final class RestManager {
         }.resume()
     }
     
+    // we get meals/recipes from a certain category, through our public api
+    // we check if we've got the data itself, then we decode it and give it back through the completion
+    // if there's any error we give back a RestManagerError as a Result in the completion
     func getMeals(fromCategory category: String, completion: @escaping (Result<[Meal],RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/filter.php?c=\(category)") else { return }
         
@@ -82,6 +92,9 @@ final class RestManager {
         }.resume()
     }
     
+    // we get meals/recipes from a certain country, through our public api
+    // we check if we've got the data itself, then we decode it and give it back through the completion
+    // if there's any error we give back a RestManagerError as a Result in the completion
     func getMeals(fromCountry country: String, completion: @escaping (Result<[Meal],RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/filter.php?a=\(country)") else { return }
         
@@ -111,6 +124,9 @@ final class RestManager {
         }.resume()
     }
     
+    // we get a meal/recipe with a certain ID, through our public api
+    // we check if we've got the data itself, then we decode it and give it back through the completion
+    // if there's any error we give back a RestManagerError as a Result in the completion
     func getMeal(byId id: String, completion: @escaping (Result<Meal,RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/lookup.php?i=\(id)") else { return }
         
@@ -140,6 +156,9 @@ final class RestManager {
         }.resume()
     }
     
+    // we get all the ingredients, through our public api
+    // we check if we've got the data itself, then we decode it and give it back through the completion
+    // if there's any error we give back a RestManagerError as a Result in the completion
     func getIngredients(completion: @escaping (Result<[Ingredient],RestManagerError>) -> Void) {
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/list.php?i=list") else { return }
         
@@ -167,6 +186,9 @@ final class RestManager {
         }.resume()
     }
     
+    // we get meals/recipes which contain the ingredients the user chose, through our public api
+    // we check if we've got the data itself, then we decode it and give it back through the completion
+    // if there's any error we give back a RestManagerError as a Result in the completion
     func getMeals(withIngredients ingredients: [Ingredient], completion: @escaping (Result<[Meal],RestManagerError>) -> Void) {
         let ingredientValues = prepareIngredientValues(from: ingredients)
         guard let url = URL(string: "https://www.themealdb.com/api/json/v2/\(apiKey)/filter.php?i=\(ingredientValues)") else { return }
@@ -197,12 +219,17 @@ final class RestManager {
         }.resume()
     }
     
+    // we cancel all the running tasks
     func cancelTasks() {
         session.getAllTasks { tasks in
             tasks.forEach() { $0.cancel() }
         }
     }
     
+    // MARK: - Supporting Methods
+    
+    // we prepare the given ingredients to be url ready
+    // we trim each element of the array and append it to a string which we return at the end
     private func prepareIngredientValues(from ingredients: [Ingredient]) -> String {
         var values = String()
         for (idx, item) in ingredients.enumerated() {

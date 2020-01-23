@@ -10,8 +10,8 @@ import Foundation
 
 struct Ingredient: Decodable, Hashable {
     
-    let idIngredient: String
-    let strIngredient: String
+    let idIngredient: String                // id of the ingredient
+    let strIngredient: String               // name of the ingredient
     
     init(idIngredient: String, strIngredient: String) {
         self.idIngredient = idIngredient

@@ -176,6 +176,7 @@
 				E7A0023023C21A7000D7D055 /* RecipeScreen */,
 				E71B71A323BD1A2900A7799B /* RecipeListScreen */,
 				E729554B23C5012100263B53 /* ListScreen */,
+				E74A8D6B23CDF52600717D4A /* IngredientsScreen */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -225,16 +226,16 @@
 			path = IngredientResponse;
 			sourceTree = "<group>";
 		};
-		E74A8D6B23CDF52600717D4A /* IngredientsVC */ = {
+		E74A8D6B23CDF52600717D4A /* IngredientsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E7D728EC23CE24AA003A756B /* Protocols */,
-				E74A8D6C23CE0A6400717D4A /* CardVC */,
 				E74A8D6023CDE5F800717D4A /* IngredientsViewController.swift */,
 				E74A8D6723CDF51300717D4A /* IngredientTableViewCell.swift */,
 				E74A8D6823CDF51300717D4A /* IngredientTableViewCell.xib */,
+				E7D728EC23CE24AA003A756B /* Protocols */,
+				E74A8D6C23CE0A6400717D4A /* CardVC */,
 			);
-			path = IngredientsVC;
+			path = IngredientsScreen;
 			sourceTree = "<group>";
 		};
 		E74A8D6C23CE0A6400717D4A /* CardVC */ = {
@@ -311,7 +312,6 @@
 				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
 				E7A71F2023C9D3F00047B598 /* SavedLabel.swift */,
 				E7BC4BAC23CF1FEA00073D23 /* RecipesButton.swift */,
-				E74A8D6B23CDF52600717D4A /* IngredientsVC */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";

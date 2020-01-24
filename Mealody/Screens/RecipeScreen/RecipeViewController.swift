@@ -96,6 +96,7 @@ class RecipeViewController: UIViewController {
     // we check if the recipe we presented is already a saved one or not
     // we set up the button's appearance according to that; if there's an error, we show a popup error message
     // NOTE: the save button only appears when both the image and the meal properties are set
+    /// - Parameter meal: the meal we get from the rest manager
     private func setupSaveButton(withMeal meal: Meal) {
         do {
             if (try persistenceManager.fetchMeal(MealData.self, idMeal: meal.idMeal)) != nil {
@@ -114,6 +115,7 @@ class RecipeViewController: UIViewController {
     // MARK: - Error Handling
     
     // we present a popup according to the error, with the help of the PopupDialog framework
+    /// - Parameter error: the error we get from the rest manager
     private func showPopupFor(_ error: RestManagerError) {
         switch error {
         case .emptyStateError:
@@ -149,7 +151,7 @@ class RecipeViewController: UIViewController {
     // (if the image request failed and it was set with an 'error' image instead, the save button still won't be set up)
     // we compress the image with the best quality and save the meal/recipe, we show a 'Recipe saved' label too
     // any error during the compression or saving results in an error popup
-    @IBAction func saveButtonPressed(_ sender: UIButton) {
+    @IBAction func saveButtonTapped(_ sender: UIButton) {
         recipeView.changeSaveButton()
         
         guard let image = image, let meal = meal else { return }

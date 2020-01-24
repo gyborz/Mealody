@@ -9,9 +9,9 @@
 import Foundation
 
 enum RestManagerError: Error {
-    case requestError
-    case emptyStateError
-    case parseError
-    case networkError
-    case cancelledError
+    case requestError                   // something went wrong during the request process
+    case emptyStateError                // response we've got back is nil
+    case parseError                     // couldn't decode the json
+    case networkError                   // network related problem occured
+    case cancelledError                 // when the request got cancelled
 }

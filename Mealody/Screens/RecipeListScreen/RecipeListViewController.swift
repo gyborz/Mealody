@@ -29,11 +29,11 @@ class RecipeListViewController: UIViewController {
     // properties for:
     private var isDeleting = false      // cell deletion (when the VC is showing saved recipes)
     enum ListType {
-        case mealsByCategory
-        case mealsByCountry
-        case mealsByIngredients
+        case mealsByCategory            // recipe list which are from a given category
+        case mealsByCountry             // recipe list which are from a given country
+        case mealsByIngredients         // recipe list which recipes contain the given ingredients
     }
-    var listType: ListType!
+    var listType: ListType!             // what type of list the VC needs to present
     var isSavedRecipesList = true       // is the VC showing saved recipes or not
     var category = String()             // needed for REST
     var country = String()              // needed for REST
@@ -225,6 +225,7 @@ class RecipeListViewController: UIViewController {
     // MARK: - Error Handling
     
     // we present a popup according to the error, with the help of the PopupDialog framework
+    /// - Parameter error: the error we get from the rest manager
     private func showPopupFor(_ error: RestManagerError) {
         switch error {
         case .emptyStateError:

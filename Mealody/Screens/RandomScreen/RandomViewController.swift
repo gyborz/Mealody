@@ -77,6 +77,7 @@ class RandomViewController: UIViewController {
     
     // we detect if the user started to dismiss the view via the swiping mechanism
     // if the pop gesture begins we cancel every ongoing task and reset the view
+    /// - Parameter gesture: the gesture we're handling
     @objc private func handlePopGesture(gesture: UIGestureRecognizer) -> Void {
         if gesture.state == UIGestureRecognizer.State.began {
             restManager.cancelTasks()
@@ -149,6 +150,7 @@ class RandomViewController: UIViewController {
     // MARK: - Error Handling
     
     // we present a popup according to the error, with the help of the PopupDialog framework
+    /// - Parameter error: the error we get from the rest manager
     private func showPopupFor(_ error: RestManagerError) {
         switch error {
         case .emptyStateError:

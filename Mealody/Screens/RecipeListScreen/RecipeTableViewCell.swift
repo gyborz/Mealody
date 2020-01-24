@@ -74,6 +74,7 @@ class RecipeTableViewCell: UITableViewCell {
     }
     
     // we set the title label and the image view with the given hashableMeal's data
+    /// - Parameter meal: the hashable meal we get from the RecipeListViewController
     func setupSavedRecipeCell(withMeal meal: HashableMeal) {
         recipeTitleLabel.text = meal.strMeal!
         let image = UIImage(data: meal.mealImage!)
@@ -87,6 +88,9 @@ class RecipeTableViewCell: UITableViewCell {
     // if the cell's tag is the same as the indexPath.row (set in RecipeListVC's configureDataSource())
     // so the image we've got belongs to this specific cell
     // at the end we set the title label with the meal's/recipe's name
+    /// - Parameters:
+    ///   - meal: the hashable meal we get from the RecipeListViewController
+    ///   - indexPath: the cell's IndexPath
     func setupRecipeCell(withMeal meal: HashableMeal, forIndexPath indexPath: IndexPath) {
         mealImageView.image = nil
         activityIndicator.startAnimating()

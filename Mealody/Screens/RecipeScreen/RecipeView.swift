@@ -32,6 +32,7 @@ class RecipeView: UIView {
     
     // we set up each UI element with the given meal data
     // we animate the appearance of the view which contains every label/view except for the imageView
+    /// - Parameter meal: the meal we get from the RecipeViewController
     func setupView(withMeal meal: Meal) {
         mealLabel.text = meal.strMeal
         
@@ -47,12 +48,14 @@ class RecipeView: UIView {
     }
     
     // we set the imageView's image
+    /// - Parameter image: the image we get from the RecipeViewController
     func setupView(withImage image: UIImage) {
         mealImageView.image = image
     }
     
     // we set up each UI element with the given hashableMeal data
     // this is called when we present the saved meal's/recipe's data so we hide the save button and don't animate the contentView's appearance
+    /// - Parameter hashableMeal: the hashable meal we get from the RecipeViewController
     func setupView(withHashableMeal hashableMeal: HashableMeal) {
         mealContentView.alpha = 1
         saveButton.isHidden = true
@@ -105,6 +108,7 @@ class RecipeView: UIView {
     }
     
     // we set up the save button's appearance and enable/disable it according to if the meal/recipe we present is saved already or not
+    /// - Parameter isMealSaved: bool value which indicates if the meal/recipe is saved or not
     func setupSaveButton(isMealSaved: Bool) {
         if isMealSaved {
             saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
@@ -142,6 +146,7 @@ class RecipeView: UIView {
     // the API response we get has each ingredient and it's corresponding measure separated
     // we get the given meal response and go through each 'label' that has "strIngredient" in it
     // we get it's value and append it to a string array which is returned at the end
+    /// - Parameter meal: the meal we've got from the RecipeViewController
     private func getIngredients(from meal: Meal) -> [String] {
         var ingredients = [String]()
         let mealMirror = Mirror(reflecting: meal)
@@ -156,6 +161,7 @@ class RecipeView: UIView {
     // the API response we get has each ingredient and it's corresponding measure separated
     // we get the given meal response and go through each 'label' that has "strMeasure" in it
     // we get it's value and append it to a string array which is returned at the end
+    /// - Parameter meal: the meal we've got from the RecipeViewController
     private func getMeasures(from meal: Meal) -> [String] {
         var measures = [String]()
         let mealMirror = Mirror(reflecting: meal)
@@ -171,6 +177,9 @@ class RecipeView: UIView {
     // we get those ingredients and measures with the methods above, and turn them into a string array
     // here we take those arrays and going through them we pair the ingredients with their measures
     // and append them to a string, so it makes one whole long text we can then display in the Ingredients textView
+    /// - Parameters:
+    ///   - ingredientArray: ingredients array which contains each ingredient of the recipe
+    ///   - measureArray: measures array which contains each ingredient's measure
     private func returnIngredientsString(from ingredientArray: [String], from measureArray: [String]) -> String {
         var ingredientsString = String()
         var i = 0

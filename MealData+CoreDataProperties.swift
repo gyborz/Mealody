@@ -17,11 +17,11 @@ extension MealData {
         return NSFetchRequest<MealData>(entityName: "MealData")
     }
 
-    @NSManaged public var idMeal: String?
-    @NSManaged public var mealImage: Data?
-    @NSManaged public var strIngredients: [String]?
-    @NSManaged public var strInstructions: String?
-    @NSManaged public var strMeal: String?
-    @NSManaged public var strMeasures: [String]?
+    @NSManaged public var idMeal: String?                       // id of the meal/recipe
+    @NSManaged public var mealImage: Data?                      // image of the meal/recipe (it's compressed data)
+    @NSManaged public var strIngredients: [String]?             // ingredients of the meal/recipe
+    @NSManaged public var strInstructions: String?              // instructions of the meal/recipe
+    @NSManaged public var strMeal: String?                      // name of the meal/recipe
+    @NSManaged public var strMeasures: [String]?                // measures of the ingredients
 
 }

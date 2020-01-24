@@ -8,6 +8,7 @@
 
 import Foundation
 
+// protocol implemented by CardViewController
 protocol UpdateChosenIngredientsDelegate {
     func updateIngredients(chosenIngredients: [Ingredient])
 }

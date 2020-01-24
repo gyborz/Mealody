@@ -169,7 +169,7 @@ class RecipeListViewController: UIViewController {
     
     // MARK: - Table View Handling
     
-    // we update the snapshot and apply them to the dataSource
+    // we update the snapshot and apply it to the dataSource
     private func updateSnapshot() {
         var snapshot = HashableMealSnapshot()
         snapshot.appendSections([.main])

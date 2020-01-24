@@ -10,10 +10,16 @@ import UIKit
 
 class IngredientTableViewCell: UITableViewCell {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var ingredientView: UIView!
     @IBOutlet weak var ingredientLabel: UILabel!
     @IBOutlet weak var checkmarkView: UIImageView!
 
+    // MARK: - Cell UI setup
+    
+    // we set the cell's background color and background view
+    // we add corner radius and shadow for the ingredient view
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -30,6 +36,7 @@ class IngredientTableViewCell: UITableViewCell {
         checkmarkView.image = .none
     }
 
+    // when selected we add a checkmark image and set the background color of the ingredient view
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         

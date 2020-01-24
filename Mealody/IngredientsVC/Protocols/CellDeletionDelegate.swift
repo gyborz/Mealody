@@ -8,6 +8,7 @@
 
 import Foundation
 
+// protocol implemented by CardViewController
 protocol CellDeletionDelegate {
     func deleteCell(_ cell: IngredientCollectionViewCell)
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+// protocol implemented by IngredientsViewController
 protocol DeselectionDelegate {
     func deselectIngredient(ingredient: String)
 }

@@ -197,6 +197,14 @@
 			path = RandomScreen;
 			sourceTree = "<group>";
 		};
+		E71C6E2423DB2AA400F175EB /* PersistenceManager */ = {
+			isa = PBXGroup;
+			children = (
+				E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */,
+			);
+			path = PersistenceManager;
+			sourceTree = "<group>";
+		};
 		E729554B23C5012100263B53 /* ListScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,10 +312,8 @@
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
-				E718F23023B6411A008FB262 /* RestManager */,
 				E76A68C723B693F0008A9919 /* ImageService.swift */,
 				E796363023D3518800DE8CCE /* PopupService.swift */,
-				E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */,
 				E7968FFB23BA76C90033C111 /* Extensions.swift */,
 				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
 				E7A71F2023C9D3F00047B598 /* SavedLabel.swift */,
@@ -319,6 +325,8 @@
 		E7C390CF23D9E6310049B551 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				E718F23023B6411A008FB262 /* RestManager */,
+				E71C6E2423DB2AA400F175EB /* PersistenceManager */,
 			);
 			path = Managers;
 			sourceTree = "<group>";

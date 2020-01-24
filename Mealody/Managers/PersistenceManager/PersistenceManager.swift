@@ -11,6 +11,8 @@ import CoreData
 
 final class PersistenceManager {
     
+    // MARK: - Properties
+    
     static let shared = PersistenceManager()
     lazy var context = persistentContainer.viewContext
     
@@ -38,6 +40,13 @@ final class PersistenceManager {
         }
     }
     
+    // MARK: - Core Data Handling Methods
+    
+    // we save the given meal with the given image's data
+    /// - Parameters:
+    ///   - objectType: any nsmanagedobject
+    ///   - meal: given meal we intend to save
+    ///   - imageData: given meal's image's data
     func save<T: NSManagedObject>(_ objectType: T.Type, meal: Meal, imageData: Data) throws {
         let ingredients = getIngredients(from: meal)
         let measures = getMeasures(from: meal)
@@ -53,6 +62,8 @@ final class PersistenceManager {
         try context.save()
     }
     
+    // we fetch and return all the persisted objects
+    /// - Parameter objectType: any nsmanagedobject
     func load<T: NSManagedObject>(_ objectType: T.Type) throws -> [T] {
         let entityName = String(describing: objectType)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -61,10 +72,15 @@ final class PersistenceManager {
         return fetchedObjects ?? [T]()
     }
     
+    // we delete the given object from persistence
     func delete(_ object: NSManagedObject) {
         context.delete(object)
     }
     
+    // we fetch and return the object which has the given id
+    /// - Parameters:
+    ///   - objectType: any nsmanagedobject (in this case MealData)
+    ///   - idMeal: id of the meal
     func fetchMeal<T: NSManagedObject>(_ objectType: T.Type, idMeal: String) throws -> T? {
         let entityName = String(describing: objectType)
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
@@ -75,6 +91,12 @@ final class PersistenceManager {
         return fetchedMeal.first as? T
     }
     
+    // MARK: - Supporting Methods
+    
+    // the API response we get has each ingredient and it's corresponding measure separated
+    // we get the given meal response and go through each 'label' that has "strIngredient" in it
+    // we get it's value and append it to a string array which is returned at the end
+    /// - Parameter meal: meal we intend to save
     private func getIngredients(from meal: Meal) -> [String] {
         var ingredients = [String]()
         let mealMirror = Mirror(reflecting: meal)
@@ -86,6 +108,10 @@ final class PersistenceManager {
         return ingredients
     }
     
+    // the API response we get has each ingredient and it's corresponding measure separated
+    // we get the given meal response and go through each 'label' that has "strMeasure" in it
+    // we get it's value and append it to a string array which is returned at the end
+    /// - Parameter meal: meal we intend to save
     private func getMeasures(from meal: Meal) -> [String] {
         var measures = [String]()
         let mealMirror = Mirror(reflecting: meal)

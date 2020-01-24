@@ -135,6 +135,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E7138E1A23DB55B400CBB76F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E76A68C723B693F0008A9919 /* ImageService.swift */,
+				E796363023D3518800DE8CCE /* PopupService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E7138E1B23DB55D000CBB76F /* View Elements */ = {
+			isa = PBXGroup;
+			children = (
+				E7A71F2023C9D3F00047B598 /* SavedLabel.swift */,
+				E7BC4BAC23CF1FEA00073D23 /* RecipesButton.swift */,
+			);
+			path = "View Elements";
+			sourceTree = "<group>";
+		};
+		E7138E1C23DB576100CBB76F /* Additional Project Files */ = {
+			isa = PBXGroup;
+			children = (
+				E7138E1B23DB55D000CBB76F /* View Elements */,
+				E7138E1A23DB55B400CBB76F /* Services */,
+				E7968FFB23BA76C90033C111 /* Extensions.swift */,
+				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
+			);
+			path = "Additional Project Files";
+			sourceTree = "<group>";
+		};
 		E718F22F23B64087008FB262 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +185,7 @@
 			path = RestManager;
 			sourceTree = "<group>";
 		};
-		E71B71A323BD1A2900A7799B /* RecipeList */ = {
+		E71B71A323BD1A2900A7799B /* RecipeListScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E7FAA24823BBAFC600E88205 /* RecipeListViewController.swift */,
@@ -164,10 +193,48 @@
 				E71B719E23BD040200A7799B /* RecipeTableViewCell.swift */,
 				E71B719F23BD040200A7799B /* RecipeTableViewCell.xib */,
 			);
-			path = RecipeList;
+			path = RecipeListScreen;
 			sourceTree = "<group>";
 		};
-		E729554B23C5012100263B53 /* ListVC */ = {
+		E71C032723D85B480019D52F /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				E71C032823D85B580019D52F /* HomeScreen */,
+				E71C032923D863570019D52F /* RandomScreen */,
+				E776F72423D8863500A343D3 /* BrowseScreen */,
+				E7A0023023C21A7000D7D055 /* RecipeScreen */,
+				E71B71A323BD1A2900A7799B /* RecipeListScreen */,
+				E729554B23C5012100263B53 /* ListScreen */,
+				E74A8D6B23CDF52600717D4A /* IngredientsScreen */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		E71C032823D85B580019D52F /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		E71C032923D863570019D52F /* RandomScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7B9E38B23AE3463006557EF /* RandomViewController.swift */,
+			);
+			path = RandomScreen;
+			sourceTree = "<group>";
+		};
+		E71C6E2423DB2AA400F175EB /* PersistenceManager */ = {
+			isa = PBXGroup;
+			children = (
+				E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */,
+			);
+			path = PersistenceManager;
+			sourceTree = "<group>";
+		};
+		E729554B23C5012100263B53 /* ListScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E735789523C3926B00CCA2E5 /* ListViewController.swift */,
@@ -175,7 +242,7 @@
 				E729554723C4E7A200263B53 /* ListTableViewCell.swift */,
 				E729554823C4E7A200263B53 /* ListTableViewCell.xib */,
 			);
-			path = ListVC;
+			path = ListScreen;
 			sourceTree = "<group>";
 		};
 		E735789723C3935900CCA2E5 /* MealResponse */ = {
@@ -196,16 +263,16 @@
 			path = IngredientResponse;
 			sourceTree = "<group>";
 		};
-		E74A8D6B23CDF52600717D4A /* IngredientsVC */ = {
+		E74A8D6B23CDF52600717D4A /* IngredientsScreen */ = {
 			isa = PBXGroup;
 			children = (
-				E7D728EC23CE24AA003A756B /* Protocols */,
-				E74A8D6C23CE0A6400717D4A /* CardVC */,
 				E74A8D6023CDE5F800717D4A /* IngredientsViewController.swift */,
 				E74A8D6723CDF51300717D4A /* IngredientTableViewCell.swift */,
 				E74A8D6823CDF51300717D4A /* IngredientTableViewCell.xib */,
+				E7D728EC23CE24AA003A756B /* Protocols */,
+				E74A8D6C23CE0A6400717D4A /* CardVC */,
 			);
-			path = IngredientsVC;
+			path = IngredientsScreen;
 			sourceTree = "<group>";
 		};
 		E74A8D6C23CE0A6400717D4A /* CardVC */ = {
@@ -230,13 +297,21 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E7A0023023C21A7000D7D055 /* RecipeVC */ = {
+		E776F72423D8863500A343D3 /* BrowseScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
+			);
+			path = BrowseScreen;
+			sourceTree = "<group>";
+		};
+		E7A0023023C21A7000D7D055 /* RecipeScreen */ = {
 			isa = PBXGroup;
 			children = (
 				E740BA5923AFC37500787918 /* RecipeViewController.swift */,
 				E740BA5B23AFC48E00787918 /* RecipeView.swift */,
 			);
-			path = RecipeVC;
+			path = RecipeScreen;
 			sourceTree = "<group>";
 		};
 		E7BF899923AA8BB900F6D152 = {
@@ -261,26 +336,23 @@
 			isa = PBXGroup;
 			children = (
 				E718F22F23B64087008FB262 /* Model */,
-				E7BF89A923AA8BBA00F6D152 /* HomeViewController.swift */,
-				E7B9E38B23AE3463006557EF /* RandomViewController.swift */,
-				E7A0023023C21A7000D7D055 /* RecipeVC */,
-				E7A0023123C21AC800D7D055 /* BrowseViewController.swift */,
-				E71B71A323BD1A2900A7799B /* RecipeList */,
-				E729554B23C5012100263B53 /* ListVC */,
+				E71C032723D85B480019D52F /* Screens */,
+				E7C390CF23D9E6310049B551 /* Managers */,
+				E7138E1C23DB576100CBB76F /* Additional Project Files */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
-				E718F23023B6411A008FB262 /* RestManager */,
-				E76A68C723B693F0008A9919 /* ImageService.swift */,
-				E796363023D3518800DE8CCE /* PopupService.swift */,
-				E7B64D5B23B9F817007C8047 /* PersistenceManager.swift */,
-				E7968FFB23BA76C90033C111 /* Extensions.swift */,
-				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
-				E7A71F2023C9D3F00047B598 /* SavedLabel.swift */,
-				E7BC4BAC23CF1FEA00073D23 /* RecipesButton.swift */,
-				E74A8D6B23CDF52600717D4A /* IngredientsVC */,
 			);
 			path = Mealody;
+			sourceTree = "<group>";
+		};
+		E7C390CF23D9E6310049B551 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E718F23023B6411A008FB262 /* RestManager */,
+				E71C6E2423DB2AA400F175EB /* PersistenceManager */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		E7D728EC23CE24AA003A756B /* Protocols */ = {

@@ -9,7 +9,10 @@
 import UIKit
 
 class NavigationViewController: UINavigationController {
-
+    
+    // MARK: - View Handling
+    
+    // we set the navigation controller the pop gesture's delegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,14 +21,19 @@ class NavigationViewController: UINavigationController {
     }
 }
 
+// MARK: - Navigation Controller Delegate
+
 extension NavigationViewController: UINavigationControllerDelegate {
     
+    // we enable the navigation controller's pop gesture only if we are not on the first VC (HomeVC)
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         let enable = self.viewControllers.count > 1
         self.interactivePopGestureRecognizer?.isEnabled = enable
     }
     
 }
+
+// MARK: - Gesture Recognizer Delegate
 
 extension NavigationViewController: UIGestureRecognizerDelegate {
     

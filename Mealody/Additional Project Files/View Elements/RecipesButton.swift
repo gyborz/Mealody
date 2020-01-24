@@ -10,8 +10,12 @@ import UIKit
 
 class RecipesButton: UIView {
 
-    var button: UIButton!
-    var isVisible: Bool!
+    // MARK: - Properties
+    
+    var button: UIButton!           // button on the view
+    var isVisible: Bool!            // is the view visible or not
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,6 +27,9 @@ class RecipesButton: UIView {
         setup()
     }
     
+    // MARK: - Setup
+    
+    // we set up a button on the view with constraints then add a shadow to it
     func setup() {
         isVisible = false
         
@@ -53,6 +60,7 @@ class RecipesButton: UIView {
         addShadow()
     }
     
+    // we set up a shadow
     func addShadow() {
         self.clipsToBounds = false
         self.layer.shadowColor = UIColor.black.cgColor

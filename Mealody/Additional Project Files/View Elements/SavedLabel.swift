@@ -9,8 +9,12 @@
 import UIKit
 
 class SavedLabel: UIView {
+    
+    // MARK: - Properties
 
-    var label: UILabel!
+    var label: UILabel!             // label on the view
+    
+    // MARK: - Initializers
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,6 +26,9 @@ class SavedLabel: UIView {
         setup()
     }
     
+    // MARK: - Setup
+    
+    // we set up a label on the view with constraints then add a shadow to it
     func setup() {
         label = UILabel()
         addSubview(label)
@@ -45,6 +52,7 @@ class SavedLabel: UIView {
         addShadow()
     }
     
+    // we set up a shadow
     func addShadow() {
         self.clipsToBounds = false
         self.layer.shadowColor = UIColor.black.cgColor

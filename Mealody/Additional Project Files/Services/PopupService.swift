@@ -11,6 +11,12 @@ import PopupDialog
 
 class PopupService {
     
+    // MARK: - Error Setup Methods
+    
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func emptyStateError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -25,6 +31,10 @@ class PopupService {
         return popup
     }
     
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func parseError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -39,6 +49,10 @@ class PopupService {
         return popup
     }
     
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func networkError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Network Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -53,6 +67,10 @@ class PopupService {
         return popup
     }
     
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func requestError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Request Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -67,6 +85,10 @@ class PopupService {
         return popup
     }
     
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func compressingError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -81,6 +103,10 @@ class PopupService {
         return popup
     }
     
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func persistenceError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -95,6 +121,10 @@ class PopupService {
         return popup
     }
     
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func ingredientsError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: nil, message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -109,6 +139,10 @@ class PopupService {
         return popup
     }
     
+    // we create a popup, set up it's appearance, add it's button the given completion then return
+    /// - Parameters:
+    ///   - message: popup's message
+    ///   - completion: closure to run after hitting "OK"
     static func presentationError(withMessage message: String, completion: (() -> Void)?) -> PopupDialog {
         let popup = PopupDialog(title: "Error", message: message, tapGestureDismissal: false, panGestureDismissal: false)
         
@@ -123,6 +157,7 @@ class PopupService {
         return popup
     }
     
+    // we set up the popup's appearance
     private static func setupPopupAppearance() {
         let defaultView = PopupDialogDefaultView.appearance()
         defaultView.titleFont = UIFont.systemFont(ofSize: 20, weight: .semibold)

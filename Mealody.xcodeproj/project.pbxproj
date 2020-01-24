@@ -135,6 +135,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E7138E1A23DB55B400CBB76F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E76A68C723B693F0008A9919 /* ImageService.swift */,
+				E796363023D3518800DE8CCE /* PopupService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E7138E1B23DB55D000CBB76F /* View Elements */ = {
+			isa = PBXGroup;
+			children = (
+				E7A71F2023C9D3F00047B598 /* SavedLabel.swift */,
+				E7BC4BAC23CF1FEA00073D23 /* RecipesButton.swift */,
+			);
+			path = "View Elements";
+			sourceTree = "<group>";
+		};
+		E7138E1C23DB576100CBB76F /* Additional Project Files */ = {
+			isa = PBXGroup;
+			children = (
+				E7138E1B23DB55D000CBB76F /* View Elements */,
+				E7138E1A23DB55B400CBB76F /* Services */,
+				E7968FFB23BA76C90033C111 /* Extensions.swift */,
+				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
+			);
+			path = "Additional Project Files";
+			sourceTree = "<group>";
+		};
 		E718F22F23B64087008FB262 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -309,15 +338,10 @@
 				E718F22F23B64087008FB262 /* Model */,
 				E71C032723D85B480019D52F /* Screens */,
 				E7C390CF23D9E6310049B551 /* Managers */,
+				E7138E1C23DB576100CBB76F /* Additional Project Files */,
 				E7BF89AB23AA8BBA00F6D152 /* Main.storyboard */,
 				E7BF89B123AA8BC000F6D152 /* Assets.xcassets */,
 				E76E316923AD2AE700187E9B /* Supporting Files */,
-				E76A68C723B693F0008A9919 /* ImageService.swift */,
-				E796363023D3518800DE8CCE /* PopupService.swift */,
-				E7968FFB23BA76C90033C111 /* Extensions.swift */,
-				E7A3879C23C3C55400228349 /* NavigationViewController.swift */,
-				E7A71F2023C9D3F00047B598 /* SavedLabel.swift */,
-				E7BC4BAC23CF1FEA00073D23 /* RecipesButton.swift */,
 			);
 			path = Mealody;
 			sourceTree = "<group>";

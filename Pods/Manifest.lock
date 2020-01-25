@@ -1,0 +1,26 @@
+PODS:
+  - DynamicBlurView (4.0.0)
+  - NVActivityIndicatorView (4.8.0):
+    - NVActivityIndicatorView/Presenter (= 4.8.0)
+  - NVActivityIndicatorView/Presenter (4.8.0)
+  - PopupDialog (1.1.1):
+    - DynamicBlurView (~> 4.0)
+
+DEPENDENCIES:
+  - NVActivityIndicatorView
+  - PopupDialog (~> 1.1)
+
+SPEC REPOS:
+  trunk:
+    - DynamicBlurView
+    - NVActivityIndicatorView
+    - PopupDialog
+
+SPEC CHECKSUMS:
+  DynamicBlurView: ccf9acd2b20c883cc2c72e3524a04d8d3ee20533
+  NVActivityIndicatorView: d24b7ebcf80af5dcd994adb650e2b6c93379270f
+  PopupDialog: 720c92befd8bc23c13442254945213db5612f149
+
+PODFILE CHECKSUM: da15f9785c75103b562e42dc00a777a7ce74fdcd
+
+COCOAPODS: 1.8.4

@@ -53,21 +53,28 @@ class RecipeViewController: UIViewController {
         } else if calledWithHashableMeal && !isHashableMealFromPersistence {
             recipeView.imageActivityIndicator.startAnimating()
             recipeView.contentActivityIndicator.startAnimating()
-            guard let url = URL(string: hashableMeal.strMealThumb!) else { return }
-            let _ = ImageService.getImage(withURL: url) { [weak self] (image, error) in
-                guard let self = self else { return }
-                if error != nil || image == nil {
-                    self.image = UIImage(named: "error")
-                    self.recipeView.setupView(withImage: self.image!)
-                } else if image != nil {
-                    self.image = image
-                    self.recipeView.setupView(withImage: self.image!)
-                    if let meal = self.meal {
-                        self.setupSaveButton(withMeal: meal)
+            if let imageURL = hashableMeal.strMealThumb {
+                guard let url = URL(string: imageURL) else { return }
+                let _ = ImageService.getImage(withURL: url) { [weak self] (image, error) in
+                    guard let self = self else { return }
+                    if error != nil || image == nil {
+                        self.image = UIImage(named: "error")
+                        self.recipeView.setupView(withImage: self.image!)
+                    } else if image != nil {
+                        self.image = image
+                        self.recipeView.setupView(withImage: self.image!)
+                        if let meal = self.meal {
+                            self.setupSaveButton(withMeal: meal)
+                        }
                     }
+                    self.recipeView.imageActivityIndicator.stopAnimating()
                 }
+            } else {
+                self.image = UIImage(named: "error")
+                self.recipeView.setupView(withImage: self.image!)
                 self.recipeView.imageActivityIndicator.stopAnimating()
             }
+            
             guard let id = hashableMeal.idMeal else { return }
             restManager.getMeal(byId: id) { [weak self] result in
                 guard let self = self else { return }

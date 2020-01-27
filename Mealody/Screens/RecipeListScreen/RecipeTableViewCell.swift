@@ -94,18 +94,24 @@ class RecipeTableViewCell: UITableViewCell {
     func setupRecipeCell(withMeal meal: HashableMeal, forIndexPath indexPath: IndexPath) {
         mealImageView.image = nil
         activityIndicator.startAnimating()
-        guard let url = URL(string: meal.strMealThumb!) else { return }
-        if imageTask == nil {
-            imageTask = ImageService.getImage(withURL: url) { (image, error) in
-                if error != nil && error!._code != NSURLErrorCancelled {
-                    self.activityIndicator.stopAnimating()
-                    self.mealImageView.image = UIImage(named: "error")
-                } else if self.tag == indexPath.row {
-                    self.activityIndicator.stopAnimating()
-                    self.mealImageView.image = image
+        if let imageURL = meal.strMealThumb {
+            guard let url = URL(string: imageURL) else { return }
+            if imageTask == nil {
+                imageTask = ImageService.getImage(withURL: url) { (image, error) in
+                    if error != nil && error!._code != NSURLErrorCancelled {
+                        self.activityIndicator.stopAnimating()
+                        self.mealImageView.image = UIImage(named: "error")
+                    } else if self.tag == indexPath.row {
+                        self.activityIndicator.stopAnimating()
+                        self.mealImageView.image = image
+                    }
                 }
             }
+        } else {
+            self.activityIndicator.stopAnimating()
+            self.mealImageView.image = UIImage(named: "error")
         }
+        
         recipeTitleLabel.text = meal.strMeal!
     }
     

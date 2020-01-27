@@ -12,7 +12,7 @@ struct Meal: Decodable {
     let idMeal: String                  // id of the meal/recipe
     let strMeal: String                 // name of the meal/recipe
     let strInstructions: String?        // instructions of the meal/recipe
-    let strMealThumb: String            // url of the meal's/recipe's image
+    let strMealThumb: String?           // url of the meal's/recipe's image
     let strIngredient1: String?
     let strIngredient2: String?
     let strIngredient3: String?

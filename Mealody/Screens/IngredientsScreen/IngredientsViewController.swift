@@ -37,7 +37,7 @@ class IngredientsViewController: UIViewController {
     }
     private var cardViewController: CardViewController!
     private var cardHeight: CGFloat!                                // height of the card
-    private let cardHandleAreaHeight: CGFloat = 65                  // height of the 'handle area', which is visible in any CardState
+    private let cardHandleAreaHeight: CGFloat = 80                  // height of the 'handle area', which is visible in any CardState
     
     private var cardVisible = false                                 // card is expanded or collapsed
     private var nextState: CardState {
@@ -348,13 +348,13 @@ class IngredientsViewController: UIViewController {
     private func toggleRecipesButton(hidden: Bool) {
         if hidden {
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.recipesButtonTopAnchor.constant = -115.0
+                self.recipesButtonTopAnchor.constant = -130
                 self.view.layoutIfNeeded()
             }, completion: nil)
             recipesButton.isVisible.toggle()
         } else {
             UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.recipesButtonTopAnchor.constant = 115
+                self.recipesButtonTopAnchor.constant = 130
                 self.view.layoutIfNeeded()
             }, completion: nil)
             recipesButton.isVisible.toggle()

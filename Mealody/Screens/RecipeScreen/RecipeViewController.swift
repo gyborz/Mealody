@@ -19,6 +19,7 @@ class RecipeViewController: UIViewController {
     var image: UIImage?
     var calledWithHashableMeal: Bool!
     var isHashableMealFromPersistence: Bool!
+    private var isMealSaved: Bool!
     
     // MARK: - Outlets
     
@@ -53,21 +54,28 @@ class RecipeViewController: UIViewController {
         } else if calledWithHashableMeal && !isHashableMealFromPersistence {
             recipeView.imageActivityIndicator.startAnimating()
             recipeView.contentActivityIndicator.startAnimating()
-            guard let url = URL(string: hashableMeal.strMealThumb!) else { return }
-            let _ = ImageService.getImage(withURL: url) { [weak self] (image, error) in
-                guard let self = self else { return }
-                if error != nil || image == nil {
-                    self.image = UIImage(named: "error")
-                    self.recipeView.setupView(withImage: self.image!)
-                } else if image != nil {
-                    self.image = image
-                    self.recipeView.setupView(withImage: self.image!)
-                    if let meal = self.meal {
-                        self.setupSaveButton(withMeal: meal)
+            if let imageURL = hashableMeal.strMealThumb {
+                guard let url = URL(string: imageURL) else { return }
+                let _ = ImageService.getImage(withURL: url) { [weak self] (image, error) in
+                    guard let self = self else { return }
+                    if error != nil || image == nil {
+                        self.image = UIImage(named: "error")
+                        self.recipeView.setupView(withImage: self.image!)
+                    } else if image != nil {
+                        self.image = image
+                        self.recipeView.setupView(withImage: self.image!)
+                        if let meal = self.meal {
+                            self.setupSaveButton(withMeal: meal)
+                        }
                     }
+                    self.recipeView.imageActivityIndicator.stopAnimating()
                 }
+            } else {
+                self.image = UIImage(named: "error")
+                self.recipeView.setupView(withImage: self.image!)
                 self.recipeView.imageActivityIndicator.stopAnimating()
             }
+            
             guard let id = hashableMeal.idMeal else { return }
             restManager.getMeal(byId: id) { [weak self] result in
                 guard let self = self else { return }
@@ -101,8 +109,10 @@ class RecipeViewController: UIViewController {
         do {
             if (try persistenceManager.fetchMeal(MealData.self, idMeal: meal.idMeal)) != nil {
                 recipeView.setupSaveButton(isMealSaved: true)
+                isMealSaved = true
             } else {
                 recipeView.setupSaveButton(isMealSaved: false)
+                isMealSaved = false
             }
         } catch {
             let popup = PopupService.persistenceError(withMessage: "Something went wrong!") {
@@ -146,32 +156,46 @@ class RecipeViewController: UIViewController {
     
     // MARK: - UI Actions
     
-    // we change the save button's appearance, then check if both the meal and image properties are set
+    // when the save button is tapped we check if the meal is saved already or not
+    // if it is saved, then we fetch the meal from Core Data and delete it
+    // if it is not saved, then we check if both the meal and image properties are set
     // this is only a last safety check because the save button is visible only if both of those properties are correctly set
     // (if the image request failed and it was set with an 'error' image instead, the save button still won't be set up)
     // we compress the image with the best quality and save the meal/recipe, we show a 'Recipe saved' label too
     // any error during the compression or saving results in an error popup
     @IBAction func saveButtonTapped(_ sender: UIButton) {
-        recipeView.changeSaveButton()
         
-        guard let image = image, let meal = meal else { return }
-        if let imageData = image.jpegData(compressionQuality: 1.0) {
+        if isMealSaved {
             do {
-                try persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
-                recipeView.toggleSavedLabel()
+                guard let savedMeal = try persistenceManager.fetchMeal(MealData.self, idMeal: meal!.idMeal) else { return }
+                self.persistenceManager.delete(savedMeal)
+                try self.persistenceManager.saveContext()
+                recipeView.changeSaveButton(isMealSaved: false)
+                isMealSaved.toggle()
             } catch {
                 persistenceManager.context.rollback()
-                let popup = PopupService.persistenceError(withMessage: "Couldn't save the recipe.\nPlease try again!") {
-                    self.recipeView.setupSaveButton(isMealSaved: false)
-                }
-                present(popup, animated: true)
+                let popup = PopupService.persistenceError(withMessage: "Couldn't delete the recipe.\nPlease try again!", completion: nil)
+                self.present(popup, animated: true)
             }
         } else {
-            let popup = PopupService.compressingError(withMessage: "Couldn't compress the image.\nPlease try again!") {
-                self.recipeView.setupSaveButton(isMealSaved: false)
+            guard let image = image, let meal = meal else { return }
+            if let imageData = image.jpegData(compressionQuality: 1.0) {
+                do {
+                    try persistenceManager.save(MealData.self, meal: meal, imageData: imageData)
+                    recipeView.toggleSavedLabel()
+                    recipeView.changeSaveButton(isMealSaved: true)
+                    isMealSaved.toggle()
+                } catch {
+                    persistenceManager.context.rollback()
+                    let popup = PopupService.persistenceError(withMessage: "Couldn't save the recipe.\nPlease try again!", completion: nil)
+                    present(popup, animated: true)
+                }
+            } else {
+                let popup = PopupService.compressingError(withMessage: "Couldn't compress the image.\nPlease try again!", completion: nil)
+                present(popup, animated: true)
             }
-            present(popup, animated: true)
         }
+        
     }
     
     @IBAction func exitButtonPressed(_ sender: Any) {

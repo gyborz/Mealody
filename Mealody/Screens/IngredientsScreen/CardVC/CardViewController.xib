@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BAR-Df-eYD">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BqA-BK-oug">
                             <rect key="frame" x="157.5" y="8" width="60" height="7"/>
@@ -37,11 +37,11 @@
                     <constraints>
                         <constraint firstItem="BqA-BK-oug" firstAttribute="top" secondItem="BAR-Df-eYD" secondAttribute="top" constant="8" id="DXs-10-uyE"/>
                         <constraint firstItem="BqA-BK-oug" firstAttribute="centerX" secondItem="BAR-Df-eYD" secondAttribute="centerX" id="rcZ-yT-xFA"/>
-                        <constraint firstAttribute="height" constant="65" id="skd-Gj-EO8"/>
+                        <constraint firstAttribute="height" constant="80" id="skd-Gj-EO8"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3JV-u8-avj">
-                    <rect key="frame" x="0.0" y="65" width="375" height="425"/>
+                    <rect key="frame" x="0.0" y="80" width="375" height="410"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Selected ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hj4-TT-tDD">
                             <rect key="frame" x="67" y="5" width="241.5" height="30"/>
@@ -50,7 +50,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="HK7-uS-NB0">
-                            <rect key="frame" x="15" y="50" width="345" height="326"/>
+                            <rect key="frame" x="15" y="50" width="345" height="314.5"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1z8-nM-RJr">
                                 <size key="itemSize" width="50" height="50"/>

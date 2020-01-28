@@ -111,33 +111,38 @@ class RandomViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let meal):
-                    guard let url = URL(string: meal.strMealThumb) else { return }
-                    let _ = ImageService.getImage(withURL: url) { image, error in
-                        self.activityIndicator.stopAnimating()
-                        
-                        let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
-                        recipeVC.modalPresentationStyle = .automatic
-                        recipeVC.meal = meal
-                        
-                        if error != nil {
-                            if error!._code == NSURLErrorCancelled {
-                                return
+                    if let imageURL = meal.strMealThumb {
+                        guard let url = URL(string: imageURL) else { return }
+                        let _ = ImageService.getImage(withURL: url) { image, error in
+                            self.activityIndicator.stopAnimating()
+                            
+                            let recipeVC = self.storyboard?.instantiateViewController(identifier: "RecipeVC") as! RecipeViewController
+                            recipeVC.modalPresentationStyle = .automatic
+                            recipeVC.meal = meal
+                            
+                            if error != nil {
+                                if error!._code == NSURLErrorCancelled {
+                                    return
+                                } else {
+                                    recipeVC.image = UIImage(named: "error")
+                                    recipeVC.calledWithHashableMeal = false
+                                    recipeVC.isHashableMealFromPersistence = false
+                                    self.present(recipeVC, animated: true) {
+                                        self.resetView()
+                                    }
+                                }
                             } else {
-                                recipeVC.image = UIImage(named: "error")
+                                recipeVC.image = image
                                 recipeVC.calledWithHashableMeal = false
                                 recipeVC.isHashableMealFromPersistence = false
                                 self.present(recipeVC, animated: true) {
                                     self.resetView()
                                 }
                             }
-                        } else {
-                            recipeVC.image = image
-                            recipeVC.calledWithHashableMeal = false
-                            recipeVC.isHashableMealFromPersistence = false
-                            self.present(recipeVC, animated: true) {
-                                self.resetView()
-                            }
                         }
+                    } else {
+                        self.activityIndicator.stopAnimating()
+                        self.showPopupFor(RestManagerError.requestError)
                     }
                 case .failure(let error):
                     self.activityIndicator.stopAnimating()

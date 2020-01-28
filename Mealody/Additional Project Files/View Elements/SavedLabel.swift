@@ -13,6 +13,7 @@ class SavedLabel: UIView {
     // MARK: - Properties
 
     var label: UILabel!             // label on the view
+    var isVisible: Bool!            // is the label visible on the screen
     
     // MARK: - Initializers
     
@@ -30,6 +31,8 @@ class SavedLabel: UIView {
     
     // we set up a label on the view with constraints then add a shadow to it
     func setup() {
+        isVisible = false
+        
         label = UILabel()
         addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false

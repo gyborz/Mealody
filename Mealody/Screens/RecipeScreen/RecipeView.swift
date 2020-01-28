@@ -118,7 +118,6 @@ class RecipeView: UIView {
             saveButton.layer.shadowRadius = 0.7
             saveButton.layer.shadowColor = UIColor.black.cgColor
             saveButton.layer.shadowOpacity = 0.2
-            saveButton.isUserInteractionEnabled = false
         } else {
             saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
             saveButton.layer.cornerRadius = saveButton.frame.height / 2
@@ -127,18 +126,21 @@ class RecipeView: UIView {
             saveButton.layer.shadowRadius = 0.7
             saveButton.layer.shadowColor = UIColor.black.cgColor
             saveButton.layer.shadowOpacity = 0.2
-            saveButton.isEnabled = true
         }
         UIView.animate(withDuration: 0.3) {
             self.saveButton.alpha = 1
         }
     }
     
-    // we change the save button's appearance and disable it when we save the meal/recipe
-    func changeSaveButton() {
-        saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
-        saveButton.backgroundColor = .systemGreen
-        saveButton.isUserInteractionEnabled = false
+    // we change the save button's appearance whenever we save/delete the meal/recipe
+    func changeSaveButton(isMealSaved: Bool) {
+        if isMealSaved {
+            saveButton.setImage(UIImage(systemName: "book.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
+            saveButton.backgroundColor = .systemGreen
+        } else {
+            saveButton.setImage(UIImage(systemName: "book", withConfiguration: UIImage.SymbolConfiguration(pointSize: 25, weight: .semibold)), for: .normal)
+            saveButton.backgroundColor = .systemOrange
+        }
     }
     
     // MARK: - Supporting methods
@@ -199,15 +201,21 @@ class RecipeView: UIView {
     }
     
     // we animate the SavedLabel to appear for a short time, then animate it's disappearance
+    // during animation we toggle the label's isVisible flag so it won't re-animate when the user spams the save button
     func toggleSavedLabel() {
-        UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-            self.savedLabelTopAnchor.constant = -65.0
-            self.layoutIfNeeded()
-        }) { completed in
-            UIView.animate(withDuration: 0.5, delay: 1.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
-                self.savedLabelTopAnchor.constant = 65.0
+        if !savedLabel.isVisible {
+            self.savedLabel.isVisible.toggle()
+            UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                self.savedLabelTopAnchor.constant = -65.0
                 self.layoutIfNeeded()
-            }, completion: nil)
+            }) { completed in
+                UIView.animate(withDuration: 0.5, delay: 1.5, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseOut, animations: {
+                    self.savedLabelTopAnchor.constant = 65.0
+                    self.layoutIfNeeded()
+                }) { completed in
+                    self.savedLabel.isVisible.toggle()
+                }
+            }
         }
     }
     

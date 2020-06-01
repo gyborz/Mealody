@@ -1,4 +1,4 @@
-Mealody
+# Mealody
 
 A simple recipe app. The users can request a random recipe or browse the available ones by categories or countries. 
 The users can select ingredients and get recipes which contain those ingredients.
@@ -15,6 +15,8 @@ Third party libraries I used:
 The api for the recipes: https://www.themealdb.com
 
 <a href="https://apps.apple.com/app/id1492125687" rel="some text">![download](https://user-images.githubusercontent.com/44786735/70862038-112c4e00-1f37-11ea-9694-7b46c3404b3a.png)</a>
+
+------
 
 The users can request random recipes in 'Random'. Tapping on the button initiates a request which returns a recipe.
 
@@ -35,3 +37,9 @@ This warning shows up in a popup message before requesting the recipes.
 In 'Saved' the users can see and delete their saved recipes.
 
 ![picture_4](https://user-images.githubusercontent.com/44786735/73124532-d9381200-3f9c-11ea-9f3b-e1827fd1da24.png)
+
+------
+
+The app was number 1 in Food & Drink category (paid apps) on the hungarian app store on the 25th and 26th of January. 
+
+![pics](https://user-images.githubusercontent.com/44786735/83431927-68b46c80-a438-11ea-9235-7773ccea2ca0.png)

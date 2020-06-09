@@ -38,8 +38,4 @@ In 'Saved' the users can see and delete their saved recipes.
 
 ![picture_4](https://user-images.githubusercontent.com/44786735/73124532-d9381200-3f9c-11ea-9f3b-e1827fd1da24.png)
 
-------
 
-The app was number 1 in Food & Drink category (paid apps) on the hungarian app store on the 25th and 26th of January. 
-
-![pics](https://user-images.githubusercontent.com/44786735/83431927-68b46c80-a438-11ea-9235-7773ccea2ca0.png)
